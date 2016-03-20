@@ -64,8 +64,8 @@ switch ($opc){
     break;
     //BUSCA ARTICULOS
     case 'catalogoArtBusca':
-        $catalogo_articulo = explode(' ', $catalogo_articulo);
-        $cod_articulo = trim($catalogo_articulo[0]);
+        //$catalogo_articulo = explode(' ', $catalogo_articulo);
+        //$cod_articulo = trim($catalogo_articulo[0]);
         $mss = '';
         $salida = '';
         $limit_busqueda = 100;
@@ -75,36 +75,108 @@ switch ($opc){
         
         if (!$mysqli->connect_error) {
 
-            $where = " 1=1";
-            $where.= " AND (Discontinued = 0)";
-            if($catalogo_articulo != ''){ $where.= " AND ( ( PartNo like '%".$catalogo_articulo."%' ) OR ( SkuNo like '%".$catalogo_articulo."%' ) OR ( ProdDesc like '%".$catalogo_articulo."%' ) )"; }
-            if($catalogo_categoria != ''){ $where.= " AND ( CatCode = '".$catalogo_categoria."' ) "; }
+            $where = "";
+            $where.= " (Discontinued = 0)";
+           // if($catalogo_articulo != ''){
+            // $where.= " AND ( ( PartNo like '%".$catalogo_articulo."%' ) OR ( SkuNo like '%".$catalogo_articulo."%' ) OR ( ProdDesc like '%".$catalogo_articulo."%' ) )";
+             // }
+            if($catalogo_categoria != ''){
+
+                 $where.= " AND ( CatCode = '".$catalogo_categoria."' ) "; 
+             }
             //ACA DEBERIA FILTRAR POR EL NOMBRE DE LA SUB-CATEGORIA
-            if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode = '".$catalogo_subcategoria_desc."' ) "; }
-            if($catalogo_stock != ''){ $where.= " AND ( OnHand + qty_dts ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
+            if($catalogo_subcategoria != ''){ 
+
+                $where.= " AND ( PrdCode = '".$catalogo_subcategoria_desc."' ) ";
+            }
+            if($catalogo_stock != ''){ 
+                $where.= " AND ( OnHand + qty_dts ".$catalogo_stock_cond." '".$catalogo_stock."' ) ";
+            }
 //            if($catalogo_stock != ''){ $where.= " AND ( OnHand ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
             if($catalogo_flags != ''){ 
                 $arr_flag = explode('/*',str_replace('_/*', '', '_'.$catalogo_flags));
                 $where_flag = " AND (";
-                foreach ($arr_flag as $r_flag){ $where_flag.= " ( ".$r_flag." = '1' ) OR"; }
+                foreach ($arr_flag as $r_flag)
+                { 
+                    $where_flag.= " ( ".$r_flag." = '1' ) OR"; 
+                }
                 $where.= str_replace("ORX","",$where_flag."X")." )";
             }
-            $n_elem_pag = 50;
-            if($n_pag == ''){ $ini_pag = 0; }else{ $ini_pag = $n_pag*$n_elem_pag; }
-            $n_pag = $n_pag + 1;
+           // $n_elem_pag = 50;
+          //  if($n_pag == ''){ $ini_pag = 0; }else{ $ini_pag = $n_pag*$n_elem_pag; }
+            $n_pag++;
             $limit = '';          
-            $campos = '*';
-            //$resul_n = $obj_bdmysql->num_row("vw_g_inventory4", $where ,$mysqli);
-            $resul = $obj_bdmysql->select("vw_g_inventory4", $campos, $where, "SkuNo", $limit,$mysqli,true);
-            $mss = $resul;
-            /*
-            if($resul_n == 0){ $mss = 'NO SE ENCONTRARON ARTICULOS. ';
+            //$campos = '*';
+            $campos = '
+            `g_inventory`.* ,
+        (select 
+                `codes cat`.`CatDesc`
+            from
+                `codes cat`
+            where
+                (`codes cat`.`CatCode` = `g_inventory`.`CatCode`)) AS `CatDesc`,
+        `g_inventory`.`PrdCode` AS `PrdDesc`,
+        (case
+            when
+                isnull((select distinct
+                                `inventory dts`.`Qty`
+                            from
+                                `inventory dts`
+                            where
+                                ((`inventory dts`.`SkuNo` = `g_inventory`.`SkuNo`)
+                                    and (`inventory dts`.`SkuNo` <> 0))
+                            limit 1))
+            then
+                0
+            else (select distinct
+                    `inventory dts`.`Qty`
+                from
+                    `inventory dts`
+                where
+                    ((`inventory dts`.`SkuNo` = `g_inventory`.`SkuNo`)
+                        and (`inventory dts`.`SkuNo` <> 0))
+                limit 1)
+        end) AS `qty_dts`,
+            z.Precio,
+            z.Date_To_dma,
+            z.Date_From_dma
+
+
+            ';
+
+
+
+            $myTable = "
+                    g_inventory 
+                    left join (
+                    select det.Precio, det.SkuNo,
+                    DATE_FORMAT(max(ofer.Date_To),'%d/%m/%Y') AS Date_To_dma,
+                    DATE_FORMAT(max(ofer.Date_From),'%d/%m/%Y') AS Date_From_dma
+                     from `ofertas` ofer
+                    right join `ofertas detail` det
+                    on (ofer.ofertaid = det.id )
+                    group by
+                    det.SkuNo, det.Precio
+                    ) z
+                    on (z.SkuNo = g_inventory.SkuNo)
+            ";
+
+           // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
+            $resul = $obj_bdmysql->select($myTable, $campos, $where, "SkuNo", $limit,$mysqli,true);
+            //$mss = $resul;
+
+            $resul_n = 1;
+            if($resul_n == 0){ 
+                $mss = 'NO SE ENCONTRARON ARTICULOS. ';
             }else{
-                if(!is_array($resul)){ $mss = 'NO SE ENCONTRARON ARTICULOS. '.$resul;
+                if(!is_array($resul)){ 
+                    $mss = 'NO SE ENCONTRARON ARTICULOS. '.$resul;
                 }else{
-                    $salida = '';
-                    if($n_pag == 1){
-                    $salida = $resul.'<tr>
+                    $mss = 1;
+                    $salida = $resul;
+                   /* if($n_pag == 1){
+
+                    $salida = '<tr>
                                     <th>N</th>
                                     <th>Sel</th>
                                     <th width="10%">SkuNo</th>
@@ -168,14 +240,14 @@ switch ($opc){
                                     <td data-title="FLAG">'.$flag.'</td>
                                     <input type="hidden" id="catalogo_articulo_arr_'.$r['SkuNo'].'" value="'.$catalogo_articulo_arr.'">
                                 </tr>';
-                        $n = $n +1;
-                    }
+                        $n = $n +1;*/
+                  //  }
                 }
             }
-             * 
-             */
+            
+             
         }else{ $mss = 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error;}
-        $resp = array('mss' => utf8_encode($mss), 'salida' => utf8_encode($salida));
+        $resp = array('mss' => utf8_encode($mss), 'salida' => ($salida));
         echo json_encode($resp);
     break;
     //CARGA ARTICULOS AL CATALOGO
