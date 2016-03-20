@@ -75,6 +75,8 @@ switch ($opc){
         
         if (!$mysqli->connect_error) {
 
+            $mysqli->set_charset("utf8");
+
             $where = "";
             $where.= " (Discontinued = 0)";
            // if($catalogo_articulo != ''){
@@ -137,9 +139,9 @@ switch ($opc){
                         and (`inventory dts`.`SkuNo` <> 0))
                 limit 1)
         end) AS `qty_dts`,
-            z.Precio,
-            z.Date_To_dma,
-            z.Date_From_dma
+            ifnull(z.Precio,0) as Precio,
+            ifnull(z.Date_To_dma,\'00/00/0000\') as Date_To_dma,
+            ifnull(z.Date_From_dma,\'00/00/0000\') as Date_From_dma
 
 
             ';
@@ -162,8 +164,9 @@ switch ($opc){
             ";
 
            // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
-            $resul = $obj_bdmysql->select($myTable, $campos, $where, "SkuNo", $limit,$mysqli,true);
+            $resul = $obj_bdmysql->select($myTable, $campos, $where, "SkuNo", $limit,$mysqli,false);
             //$mss = $resul;
+            //var_dump($resul);
 
             $resul_n = 1;
             if($resul_n == 0){ 
@@ -248,7 +251,8 @@ switch ($opc){
              
         }else{ $mss = 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error;}
         $resp = array('mss' => utf8_encode($mss), 'salida' => ($salida));
-        echo json_encode($resp);
+       // header('Content-type: application/json');
+        echo (json_encode($resp));
     break;
     //CARGA ARTICULOS AL CATALOGO
     case 'catalogoArtCarga':

@@ -8,43 +8,43 @@ var n_pag=1;
 var salida = '';
                     if(n_pag == 1){
                     salida = '<tr><th>'+
-								'<th>N</th>'+
-								'<th>Sel</th>'+
-								'<th width="10%">SkuNo</th>'+
-								'<th width="10%">PartNo</th>'+
-								'<th>Descripcion</th>'+
-								'<th>Sub Cat.</th>'+
-								'<th class="numeric">Precio</th>'+
-								'<th>Cat Tex.</th>'+
-								'<th>Cat DTS.</th>'+
-								'<th class="numeric">Oferta</th>'+
-								'<th>Ini. Oferta</th>'+
-								'<th>Fin. Oferta</th>'+
-								'<th>Flag</th>'+
-								'</tr>';
+                                '<th>N</th>'+
+                                '<th>Sel</th>'+
+                                '<th width="10%">SkuNo</th>'+
+                                '<th width="10%">PartNo</th>'+
+                                '<th>Descripcion</th>'+
+                                '<th>Sub Cat.</th>'+
+                                '<th class="numeric">Precio</th>'+
+                                '<th>Cat Tex.</th>'+
+                                '<th>Cat DTS.</th>'+
+                                '<th class="numeric">Oferta</th>'+
+                                '<th>Ini. Oferta</th>'+
+                                '<th>Fin. Oferta</th>'+
+                                '<th>Flag</th>'+
+                                '</tr>';
                     }
-                    salida += '<tr id="' + n_pag +'"><td colspan="12">PAGINA ' +$n_pag+'</td></tr>';
+                    salida += '<tr id="' + n_pag +'"><td colspan="12">PAGINA ' +n_pag+'</td></tr>';
                     n = ini_pag+1;
                     $.each(resul, function(k,r){
                         //DEFINE PRECIO
                         var precio = '0';
                         //DEFINE FLAG
                         var flag = '';
-                        if(r.Flag01 == '1'){ flag.= 'Flag01, '; };
-                        if(r.Flag02 == '1'){ flag.= 'Flag02, '; };
-						if(r.Flag03 == '1'){ flag.= 'Flag03, '; };
-						if(r.Flag04 == '1'){ flag.= 'Flag04, '; };
-						if(r.Flag05 == '1'){ flag.= 'Flag05, '; };
-						if(r.Flag06 == '1'){ flag.= 'Flag06, '; };
-						if(r.Flag07 == '1'){ flag.= 'Flag07, '; };
-						if(r.Flag08 == '1'){ flag.= 'Flag08, '; };
-						if(r.Flag09 == '1'){ flag.= 'Flag09, '; };
-						if(r.Flag10 == '1'){ flag.= 'Flag10, '; };
+                        if(r.Flag01 == '1'){ flag+= 'Flag01, '; };
+                        if(r.Flag02 == '1'){ flag+= 'Flag02, '; };
+                        if(r.Flag03 == '1'){ flag+= 'Flag03, '; };
+                        if(r.Flag04 == '1'){ flag+= 'Flag04, '; };
+                        if(r.Flag05 == '1'){ flag+= 'Flag05, '; };
+                        if(r.Flag06 == '1'){ flag+= 'Flag06, '; };
+                        if(r.Flag07 == '1'){ flag+= 'Flag07, '; };
+                        if(r.Flag08 == '1'){ flag+= 'Flag08, '; };
+                        if(r.Flag09 == '1'){ flag+= 'Flag09, '; };
+                        if(r.Flag10 == '1'){ flag+= 'Flag10, '; };
                         if(flag.trim() != ''){ 
-                        	flag = flag+'_'.replace(', _', '');
+                            flag = (flag+'_').replace(', _', '');
                         }
                         else { 
-                        	flag = 'No Aplica'; 
+                            flag = 'No Aplica'; 
                         }
 
                         //DEFINE OFERTAS
@@ -63,22 +63,22 @@ var salida = '';
                         
                         catalogo_articulo_arr = r.SkuNo + '/*'+ r.PartNo+'/*'+r.ProdDesc+'/*'+r.CatDesc+'/*'+r.PrdDesc+'/*'+precio+'/*'+r.OnHand+'/*'+oferta+'/*'+fecha_to_oferta+'/*'+fecha_to_oferta+'/*'+flag;
                         salida+= '<tr class="catalogo_articulo_fila" id="catalogo_articulo_fila_'+r.SkuNo+'" >'+
-			                       '<td data-title="N" style="text-align:center;">'+n+'</td>'+
-									'<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
-									'<td data-title="SKUNO" id="catalogo_articulo_list_cod">'r.SkuNo+'</td>'+
-									'<td data-title="PARTNO">'+r.PartNo+'</td>'+
-									'<td data-title="ArtICULO">'+r.ProdDesc+'</td>'+
-									'<td data-title="CATEGORIA">'+r.CatDesc+'</td>'+
-									'<td data-title="SUB CATEGORIA">'+r.PrdDesc+'</td>'+
-									'<td class="numeric" data-title="PRECIO">'+precio+'</td>'+
-									'<td class="numeric" data-title="STOCK">'+r.OnHand+'</td> '+
-									'<td class="numeric" data-title="STOCK">'+r.qty_dts+'</td> '+
-									'<td class="numeric" data-title="OFERTA">'+oferta+'</td> '+
-									'<td data-title="INI+ OFERTA">'+fecha_to_oferta+'</td>'+
-									'<td data-title="FIN OFERTA">'+fecha_from_oferta+'</td>'+
-									'<td data-title="FLAG">'+flag+'</td>'+
-									'<input type="hidden" id="catalogo_articulo_arr_'+r.SkuNo+'" value="'+catalogo_articulo_arr+'">'+
-	                              '</tr>';
+                                   '<td data-title="N" style="text-align:center;">'+(k+1)+'</td>'+
+                                    '<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
+                                    '<td data-title="SKUNO" id="catalogo_articulo_list_cod">'+r.SkuNo+'</td>'+
+                                    '<td data-title="PARTNO">'+r.PartNo+'</td>'+
+                                    '<td data-title="ArtICULO">'+r.ProdDesc+'</td>'+
+                                    '<td data-title="CATEGORIA">'+r.CatDesc+'</td>'+
+                                    '<td data-title="SUB CATEGORIA">'+r.PrdDesc+'</td>'+
+                                    '<td class="numeric" data-title="PRECIO">'+precio+'</td>'+
+                                    '<td class="numeric" data-title="STOCK">'+r.OnHand+'</td> '+
+                                    '<td class="numeric" data-title="STOCK">'+r.qty_dts+'</td> '+
+                                    '<td class="numeric" data-title="OFERTA">'+oferta+'</td> '+
+                                    '<td data-title="INI+ OFERTA">'+fecha_to_oferta+'</td>'+
+                                    '<td data-title="FIN OFERTA">'+fecha_from_oferta+'</td>'+
+                                    '<td data-title="FLAG">'+flag+'</td>'+
+                                    '<input type="hidden" id="catalogo_articulo_arr_'+r.SkuNo+'" value="'+catalogo_articulo_arr+'">'+
+                                  '</tr>';
                         n = n +1;
                     });
 
