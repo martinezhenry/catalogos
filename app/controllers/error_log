@@ -1,0 +1,57 @@
+[21-Jul-2015 07:53:26 America/Chicago] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 66
+[02-Aug-2015 21:59:19 America/Chicago] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 24463459 bytes) in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 139
+[03-Aug-2015 13:43:25 America/Chicago] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 69
+[01-Sep-2015 10:18:47 America/Chicago] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 69
+[01-Sep-2015 10:22:24 America/Chicago] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 69
+[01-Sep-2015 13:41:04 America/Chicago] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 69
+[02-Sep-2015 20:25:22 America/Chicago] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 69
+[02-Sep-2015 20:28:00 America/Chicago] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 69
+[02-Sep-2015 20:42:53 America/Chicago] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 69
+[02-Sep-2015 23:42:43 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/fondo/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[02-Sep-2015 23:42:43 America/Chicago] PHP Warning:  unlink(../../assets/bootstrap-fileinput-master/portadas/def.jpg): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 480
+[02-Sep-2015 23:42:43 America/Chicago] PHP Warning:  rename(../../assets/bootstrap-fileinput-master/portadas/def.jpg,): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 492
+[02-Sep-2015 23:48:53 America/Chicago] PHP Warning:  unlink(../../assets/bootstrap-fileinput-master/portadas/def.jpg): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 480
+[02-Sep-2015 23:48:53 America/Chicago] PHP Warning:  unlink(../../assets/bootstrap-fileinput-master/fondo/def.jpg): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 482
+[02-Sep-2015 23:51:03 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[02-Sep-2015 23:51:03 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/fondo/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[03-Sep-2015 13:44:34 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[03-Sep-2015 13:44:34 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/fondo/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[03-Sep-2015 13:45:54 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[03-Sep-2015 13:45:54 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/fondo/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[03-Sep-2015 13:46:51 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[03-Sep-2015 13:46:51 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/fondo/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[03-Sep-2015 13:53:54 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[03-Sep-2015 13:53:54 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/fondo/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::mysqli(): (HY000/2003): Can't connect to MySQL server on '50.196.74.121' (110) in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 361
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 13:57:23 America/Chicago] PHP Warning:  mysqli::query(): Couldn't fetch mysqli in /home2/v1131055/public_html/cat/common/bdMysql.php on line 46
+[03-Sep-2015 14:01:24 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[03-Sep-2015 14:01:24 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/fondo/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[03-Sep-2015 14:02:02 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[03-Sep-2015 14:02:02 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/fondo/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[03-Sep-2015 14:02:56 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[03-Sep-2015 14:02:56 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/fondo/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[03-Sep-2015 14:06:03 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[03-Sep-2015 14:10:59 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 472
+[03-Sep-2015 14:15:13 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 475
+[03-Sep-2015 14:16:05 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 475
+[03-Sep-2015 14:16:42 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 475
+[03-Sep-2015 14:19:21 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 475
+[03-Sep-2015 14:21:08 America/Chicago] PHP Warning:  rename(,../../assets/bootstrap-fileinput-master/portadas/): No such file or directory in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[03-Sep-2015 14:22:13 America/Chicago] PHP Warning:  rename(../../assets/bootstrap-fileinput-master/portadas_temp/,../../assets/bootstrap-fileinput-master/portadas/): Directory not empty in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 476
+[06-Sep-2015 21:30:30 America/Chicago] PHP Catchable fatal error:  Object of class mysqli_result could not be converted to string in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 71
+[19-Sep-2015 00:50:29 America/Chicago] PHP Fatal error:  Cannot use object of type mysqli_result as array in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 579
+[19-Sep-2015 00:58:36 America/Chicago] PHP Fatal error:  Cannot use object of type mysqli_result as array in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 579
+[19-Sep-2015 01:02:15 America/Chicago] PHP Fatal error:  Cannot use object of type mysqli_result as array in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 579
+[19-Sep-2015 01:16:32 America/Chicago] PHP Fatal error:  Cannot use object of type mysqli_result as array in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 581
+[19-Sep-2015 01:22:33 America/Chicago] PHP Fatal error:  Cannot use object of type mysqli_result as array in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 581
+[14-Nov-2015 15:57:54 America/Chicago] PHP Warning:  utf8_encode() expects parameter 1 to be string, array given in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 188
+[14-Nov-2015 16:01:32 America/Chicago] PHP Warning:  utf8_encode() expects parameter 1 to be string, array given in /home2/v1131055/public_html/cat/app/controllers/ctCatalogo.php on line 173

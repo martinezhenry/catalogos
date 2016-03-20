@@ -1,0 +1,230 @@
+<?php
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+include '../../common/general.php';
+$obj_function = new coFunction();
+$obj_bdmysql = new coBdmysql();
+$cod_usuario = $_SESSION["cod_usuario"];
+//VARIABLES DE LA VISTA.
+foreach ($_GET as $i_dato => $dato_){ $$i_dato = $obj_function->evalua_array($_GET,$i_dato); }
+
+switch ($opc){
+    //LISTA ARTICULOS
+    case 'catalogoArtList':
+        $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
+        $resul = $obj_bdmysql->select("art","*","","","",$mysqli);
+        if(!is_array($resul)){ $resul = array('mss' => 'NO SE ENCONTRO ARTICULOS'); }
+        echo json_encode($resul);
+    break;
+    //CARGA ARTICULOS AL CATALOGO
+    case 'catalogoArtCarga':
+        $catalogo_articulo = explode(' ', $catalogo_articulo);
+        $cod_articulo = trim($catalogo_articulo[0]);
+        $mss = '';
+        $salida = '';
+        $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
+        if (!$mysqli->connect_error) {
+            $resul = $obj_bdmysql->select("art", "*,DATE_FORMAT(fe_oferta,'%d/%m/%Y') as fe_oferta_dmy", "codigo = '".$cod_articulo."'", "", "",$mysqli);
+            if(!is_array($resul)){ $mss = 'NO SE ENCONTRO ARTICULO PARA EL CODIGO '.$cod_articulo; 
+            }else{
+                $mss = '1';
+                $salida = '
+                        <tr class="catalogo_articulo_fila" id="catalogo_articulo_fila_'.$resul[0]['id'].'">
+                            <td data-title="remove" id="catalogo_articulo_list_remove_'.$resul[0]['id'].'" style="text-align:center;" onclick="remover_articulo(this.id);"><i class="fa fa-trash-o" style="font-size:28px"></i></td>
+                            <td data-title="Code" id="catalogo_articulo_list_cod"><input type="hidden" id="catalogo_articulo_list_price" class="catalogo_articulo_list_cod" value="'.$resul[0]['codigo'].'">'.$resul[0]['codigo'].'</td>
+                            <td data-title="Article">'.$resul[0]['descripcion'].'</td>
+                            <td class="numeric" data-title="Price"><input type="text" id="catalogo_articulo_list_price" class="form-control" placeholder="Price" value="'.$resul[0]['precio'].'"></td>
+                            <td class="numeric" data-title="Stock"><input type="text" id="catalogo_articulo_list_stock" class="form-control" placeholder="Stock" value="'.$resul[0]['stock'].'"></td> 
+                            <td class="numeric" data-title="Sale"><input type="text" id="catalogo_articulo_list_sale" class="form-control" placeholder="Sale" value="'.$resul[0]['oferta'].'"></td> 
+                            <td data-title="Date Sale"><input id="catalogo_articulo_list_date_sale" class="form-control" type="text" placeholder="Date Sale" value="'.$resul[0]['fe_oferta_dmy'].'" onkeyup="mascara(this,\'/\',patron,true);"></td>
+                        </tr>';
+            }
+        }else{ $mss = 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error;}
+        $resp = array('mss' => utf8_encode($mss), 'salida' => utf8_encode($salida));
+        echo json_encode($resp);
+    break;
+    //GUARDA CATALOGO
+    case 'catalogoGuardar':
+        $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
+        if (!$mysqli->connect_error){
+            $mss = '';
+            $salida = '';
+            if($articulos != ''){          
+                $catalogo_articulo_array = explode('/*',str_replace('_/*','','_'.$articulos));
+                $i_val = 0;
+                foreach ($catalogo_articulo_array as $ca_array_val){
+                    $catalogo_reng_val = explode('|',str_replace('_|','','_'.$ca_array_val));
+                    $cod_articulo_val = trim($catalogo_reng_val[0]);
+                    $eval_ca_array[$i_val] = $cod_articulo_val;
+                    $eval_ca_array_c[$i_val] = $cod_articulo_val;
+                    $i_val = $i_val + 1;
+                }
+
+                $art_no_existe = '';
+                foreach ($eval_ca_array as $eval_ca_array_){
+                    $repetido = 0;
+                    foreach ($eval_ca_array_c as $eval_ca_array_c_){
+                        if($eval_ca_array_ == $eval_ca_array_c_){
+                            $repetido = $repetido + 1;
+                        }
+                    }
+                    //VALIDA SI EL ARTICULO EXISTE
+                    if($obj_bdmysql->num_row("art", "codigo = '".$eval_ca_array_."'", $mysqli) == 0){
+                        $art_no_existe = $art_no_existe.', '.$eval_ca_array_;
+                    }
+                }
+                
+                if($repetido < 2){
+                    if($art_no_existe == ''){
+                        $portada = $_SESSION['cod_img'];
+                        $nombre_archivo = '../../assets/bootstrap-fileinput-master/portadas_temp/'.$portada;
+                        if($catalogo_codigo != '' AND $catalogo_titulo != '' AND $catalogo_descripcion != ''){
+                            if(file_exists($nombre_archivo)){
+                                //GENERA CODIGO INTERNO DE CATALOGO
+                                $catalogo_id = $obj_function->master_id('id_catalogo','ext',$mysqli);
+                                if($catalogo_id != 0){                     
+                                    //INICIA TRANSACCION
+                                    $mysqli->autocommit(FALSE);
+                                    //INSERTA CATALOGO
+                                    $campo = "id_catalogo,codigo,titulo,descripcion,portada,co_us_in,fe_us_in, co_us_mo, fe_us_mo,co_us_de,fe_us_de";
+                                    $valor = "'".$catalogo_id."','".$catalogo_codigo."','".$catalogo_titulo."','".$catalogo_descripcion."','".$portada."','1',NOW(),'',NOW(),'',NOW()";
+                                    $catalogo_insert = $obj_bdmysql->insert("catalogo", $campo, $valor, $mysqli);
+                                    if($catalogo_insert  == '1'){
+                                        //INSERTA RENGLONES DEL CATALOGO
+                                        $num_reng = 1;
+                                        $error_reng = '';
+                                        $campo = "id_catalogo, reng_num, cod_art, precio, precio_sugerido, oferta, fe_oferta, stock_ini, stock_act, stock_comp, stock_ped, co_us_in, fe_us_in, co_us_mo, fe_us_mo, co_us_de, fe_us_de";
+                                        foreach ($catalogo_articulo_array as $ca_array){
+                                            $catalogo_reng = explode('|',str_replace('_|','','_'.$ca_array));
+                                            $valor = "'".$catalogo_id."','".$num_reng."','".trim($catalogo_reng[0])."','".trim($catalogo_reng[1])."','0','".trim($catalogo_reng[3])."','".trim($catalogo_reng[4])."','".trim($catalogo_reng[2])."','".trim($catalogo_reng[2])."','0','0','1',NOW(),'',NOW(),'',NOW()";
+                                            $catalogo_reng_insert = $obj_bdmysql->insert("catalogo_reng", $campo, $valor, $mysqli);
+                                            $num_reng = $num_reng + 1;
+                                            if($catalogo_reng_insert != '1'){ $error_reng = $error_reng.'. '.$catalogo_reng[0].': '.$catalogo_reng_insert; }
+                                        }
+
+                                        if($error_reng == ''){
+                                            //ACTUALIZA ID DEL
+                                            if($obj_function->master_id('id_catalogo','act',$mysqli) == '1'){
+                                                //GENERA CODIGO QR
+                                                $id_catalogo_code = $obj_function->code_url($id_catalogo,'code');
+                                                $url = "http://www.gibble.com.ve/textronic/web/index.php?id=".$id_catalogo_code;
+                                                $s = $obj_function->codeQR($url, $catalogo_id);
+                                                //CARGA IMAGEN
+                                                if (rename($nombre_archivo,'../../assets/bootstrap-fileinput-master/portadas/'.$portada)){
+                                                    $mss = '1'; $mysqli->commit();
+                                                    $salida = 'CATALOGO CREADO CORRECTAMENTE.';
+                                                }else{ $mss = 'ERROR AL CARGAR IMAGEN.'; }
+                                            }else{ $mss = 'ERROR AL GUARDAR CATALOGO, NO SE ACTUALIZO EL ID';}
+                                        }else{ $mss = 'ERROR AL GUARDAR ARTICULOS CON CODIGO: '.$error_reng;}
+                                    }else{ $mss = 'ERROR AL GUARDAR CATALOGO: '.$catalogo_insert;}
+                                }else{ $mss = 'ERROR AL GENERAR ID DE CATALOGO.';}
+                            }else{ $mss = 'NO SE ENCONTRO LA IMAGEN. POR FAVOR ELIMINELA Y CARGUELA NUEVAMENTE.'; }
+                        }else{ $mss = 'VERIFIQUE LOS CAMPOS OBLIGATORIOS.';}
+                    }else{ $mss = 'LOS SIGUIENTES ARTICULOS NO FUERON ENCONTRADOS EN LA TABLA ARTICULOS: '.$art_no_existe; }
+                }else{ $mss = 'NO SE PUEDEN CARGAR ARTICULOS REPETIDOS.';}
+            }else{ $mss = 'DEBE INDICAR AL MENOS UN ARTICULO.';}
+        }else{ $mss = 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error;}
+        $resp = array('mss' => utf8_encode($mss), 'salida' => utf8_encode($salida));
+        echo json_encode($resp);
+    break;
+    //EDITA CATALOGO
+    case 'catalogoEditar':
+        $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
+        if (!$mysqli->connect_error){
+            $mss = '';
+            $salida = '';
+            
+            if($articulos != ''){
+                //EXTRAE DATOS DEL ARTICULO
+                $catalogo_articulo_array = explode('/*',str_replace('_/*','','_'.$articulos));
+                $i_val = 0;
+                foreach ($catalogo_articulo_array as $ca_array_val){
+                    $catalogo_reng_val = explode('|',str_replace('_|','','_'.$ca_array_val));
+                    $cod_articulo_val = trim($catalogo_reng_val[0]);
+                    $eval_ca_array[$i_val] = $cod_articulo_val;
+                    $eval_ca_array_c[$i_val] = $cod_articulo_val;
+                    $i_val = $i_val + 1;
+                }
+                
+                
+                //VALIDA SI EL ARTICULO EXISTE EN LA TABLA ARTICULO Y SI ESTA REPETIDO
+                $art_no_existe = '';
+                foreach ($eval_ca_array as $eval_ca_array_){
+                    $repetido = 0;
+                    foreach ($eval_ca_array_c as $eval_ca_array_c_){
+                        if($eval_ca_array_ == $eval_ca_array_c_){
+                            $repetido = $repetido + 1;
+                        }
+                    }
+                    if($obj_bdmysql->num_row("art", "codigo = '".$eval_ca_array_."'", $mysqli) == 0){
+                        $art_no_existe = $art_no_existe.', '.$eval_ca_array_;
+                    }
+                }
+                
+                
+                if($repetido < 2){
+                    if($art_no_existe == ''){
+                        if($catalogo_codigo != '' AND $catalogo_titulo != '' AND $catalogo_descripcion != ''){
+                            $portada = $_SESSION['cod_img'];
+                            if($portada != 'np'){
+                                $nombre_archivo = '../../assets/bootstrap-fileinput-master/portadas_temp/'.$portada;
+                                $val_img = file_exists($nombre_archivo);
+                            }else{ $val_img = TRUE; }
+                            if($val_img){
+                                $val_cod = $obj_bdmysql->num_row("catalogo", "codigo = '".$catalogo_codigo."' AND id_catalogo != '".$catalogo_id."'", $mysqli);
+                                if($val_cod == 0){
+                                //CONEXION CON BD
+                                    if($catalogo_id != ''){                 
+                                        //INICIA TRANSACCION
+                                        $mysqli->autocommit(FALSE);
+                                        //EDITA CATALOGO
+                                        $campo = "codigo = '".$catalogo_codigo."',titulo = '".$catalogo_titulo."',descripcion = '".$catalogo_descripcion."',portada = '".$portada."',co_us_mo = '".$cod_usuario."',fe_us_mo = NOW()";
+                                        $where = "id_catalogo = '".$catalogo_id."'";
+    //                                    $catalogo_insert = $obj_bdmysql->insert("catalogo", $campo, $valor, $mysqli);
+                                        $catalogo_insert = $obj_bdmysql->update("catalogo", $campo, $where, $mysqli);
+                                        if($catalogo_insert  == '1'){
+                                            //ELIMINA RENGLONES DEL CATALOGO
+                                            $catalogo_reng_delete = $obj_bdmysql->delete("catalogo_reng", $where, $mysqli);
+                                            if($catalogo_reng_delete  == '1'){
+                                                //INSERTA LOS RENGLONES DEL CATALOGO
+                                                $num_reng = 1;
+                                                $error_reng = '';
+                                                $campo = "id_catalogo, reng_num, cod_art, precio, precio_sugerido, oferta, fe_oferta, stock_ini, stock_act, stock_comp, stock_ped, co_us_in, fe_us_in, co_us_mo, fe_us_mo, co_us_de, fe_us_de";
+                                                foreach ($catalogo_articulo_array as $ca_array){
+                                                    $catalogo_reng = explode('|',str_replace('_|','','_'.$ca_array));
+                                                    $valor = "'".$catalogo_id."','".$num_reng."','".trim($catalogo_reng[0])."','".trim($catalogo_reng[1])."','0','".trim($catalogo_reng[3])."','".trim($catalogo_reng[4])."','".trim($catalogo_reng[2])."','".trim($catalogo_reng[2])."','0','0','1',NOW(),'',NOW(),'',NOW()";
+                                                    $catalogo_reng_insert = $obj_bdmysql->insert("catalogo_reng", $campo, $valor, $mysqli);
+                                                    $num_reng = $num_reng + 1;
+                                                    if($catalogo_reng_insert != '1'){ $error_reng = $error_reng.'. '.$catalogo_reng[0].': '.$catalogo_reng_insert; }
+                                                }
+
+                                                if($error_reng == ''){
+                                                    //GENERA CODIGO QR O LO ACTUALIZA
+                                                    $id_catalogo_code = $obj_function->code_url($id_catalogo,'code');
+                                                    $url = "http://www.gibble.com.ve/textronic/web/index.php?id=".$id_catalogo_code;
+                                                    $s = $obj_function->codeQR($url, $catalogo_id);
+                                                    //CARGA IMAGEN
+                                                    if($portada != 'np'){ $mv_portada = rename($nombre_archivo,'../../assets/bootstrap-fileinput-master/portadas/'.$portada);
+                                                    }else{ $mv_portada = TRUE; }
+                                                    if ($mv_portada){
+                                                        $mss = 'CATALOGO EDITADO CORRECTAMENTE.'; $mysqli->commit();
+//                                                        $salida = $id_catalogo;
+                                                    }else{ $mss = 'ERROR AL CARGAR IMAGEN.'; }
+                                                }else{ $mss = 'ERROR AL GUARDAR ARTICULOS CON CODIGO: '.$error_reng;}
+                                            }else{ $mss = 'ERROR AL ACTUALIZAR ARTICULOS';}
+                                        }else{ $mss = 'ERROR AL GUARDAR CATALOGO: '.$catalogo_insert;}
+                                    }else{ $mss = 'ERROR AL IDENTIFICAR ID DE CATALOGO.';}
+                                }else{ $mss = 'EL CODIGO DEL CATALOGO YA EXISTE.'.$val_cod.$catalogo_codigo."'  '".$catalogo_id;}
+                            }else{ $mss = 'NO SE ENCONTRO LA IMAGEN. POR FAVOR ELIMINELA Y CARGUELA NUEVAMENTE.'; }
+                        }else{ $mss = 'VERIFIQUE LOS CAMPOS OBLIGATORIOS.';}
+                    }else{ $mss = 'LOS SIGUIENTES ARTICULOS NO FUERON ENCONTRADOS EN LA TABLA ARTICULOS: '.$art_no_existe; }
+                }else{ $mss = 'NO SE PUEDEN CARGAR ARTICULOS REPETIDOS.';}
+            }else{ $mss = 'DEBE INDICAR AL MENOS UN ARTICULO.';}
+        }else{ $mss = 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error;}
+        $resp = array('mss' => utf8_encode($mss), 'salida' => utf8_encode($salida));
+        echo json_encode($resp);
+    break;
+}

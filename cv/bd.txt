@@ -1,0 +1,237 @@
+-- phpMyAdmin SQL Dump
+-- version 2.10.2
+-- http://www.phpmyadmin.net
+-- 
+-- Servidor: localhost
+-- Tiempo de generación: 28-07-2015 a las 04:19:00
+-- Versión del servidor: 5.0.45
+-- Versión de PHP: 5.2.3
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+-- 
+-- Base de datos: `textronic_y`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `art`
+-- 
+
+CREATE TABLE `art` (
+  `id` int(11) NOT NULL auto_increment,
+  `codigo` varchar(10) collate utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(300) collate utf8_spanish_ci NOT NULL,
+  `stock` double NOT NULL,
+  `precio` double NOT NULL,
+  `oferta` double NOT NULL,
+  `fe_oferta` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `codigo` (`codigo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=5 ;
+
+-- 
+-- Volcar la base de datos para la tabla `art`
+-- 
+
+INSERT INTO `art` VALUES (1, 'COD1', 'ARTICULO 1', 100, 300, 200, '2015-04-30 00:00:00');
+INSERT INTO `art` VALUES (2, 'COD2', 'ARTICULO 2', 300, 150, 0, '0000-00-00 00:00:00');
+INSERT INTO `art` VALUES (3, 'COD3', 'ARTICULO 3', 50, 105, 100, '2015-04-02 00:00:00');
+INSERT INTO `art` VALUES (4, 'COD4', 'ARTICULO 4', 20, 450, 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `catalogo`
+-- 
+
+CREATE TABLE `catalogo` (
+  `id` int(11) NOT NULL auto_increment,
+  `id_catalogo` int(11) NOT NULL,
+  `titulo` varchar(300) collate utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(800) collate utf8_spanish_ci NOT NULL,
+  `codigo` varchar(10) collate utf8_spanish_ci NOT NULL,
+  `portada` varchar(800) collate utf8_spanish_ci NOT NULL,
+  `fondo` varchar(800) collate utf8_spanish_ci NOT NULL,
+  `co_us_in` int(11) NOT NULL,
+  `fe_us_in` datetime NOT NULL,
+  `co_us_mo` int(11) NOT NULL,
+  `fe_us_mo` datetime NOT NULL,
+  `co_us_de` int(11) NOT NULL,
+  `fe_us_de` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `codigo` (`codigo`),
+  UNIQUE KEY `id_catalogo` (`id_catalogo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=20 ;
+
+-- 
+-- Volcar la base de datos para la tabla `catalogo`
+-- 
+
+INSERT INTO `catalogo` VALUES (1, 1, 'CATALOGO ENERO 2015', 'CATALOGO DEL MES DE ENERO 2015', 'ENE15', 'pt_55768ab4b3619.jpg', '', 1, '2015-05-03 01:14:05', 0, '2015-06-09 02:12:02', 0, '2015-05-03 01:14:05');
+INSERT INTO `catalogo` VALUES (4, 2, 'CATALOGO FEBRERO 2015', 'CATALOGO MES DE FEBRERO 2015', 'FEB15', 'pt_55768b65ba401.jpg', '', 1, '2015-05-03 18:44:37', 0, '2015-06-09 02:15:01', 0, '2015-05-03 18:44:37');
+INSERT INTO `catalogo` VALUES (8, 3, 'TITULO MAYO 3', 'DESCRP MAYO 3', 'MAY03', '', '', 1, '2015-05-03 19:53:29', 0, '2015-06-08 00:34:46', 0, '2015-05-03 19:53:29');
+INSERT INTO `catalogo` VALUES (18, 4, 'CATALOGO JUNIO', 'CATALOGO MES DE JUNIO', 'JUN01', 'pt_55770e4a268aa.jpg', '', 1, '2015-06-09 01:16:27', 0, '2015-06-09 11:33:26', 0, '2015-06-09 01:16:27');
+INSERT INTO `catalogo` VALUES (19, 5, 'Catalogo Julio', 'Es un catalogo', 'JULIO', 'pt_559fe1459c901.jpg', 'fd_559fe14ea755c.jpg', 1, '2015-07-10 10:45:32', 0, '2015-07-13 15:24:57', 0, '2015-07-10 10:45:32');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `catalogo_reng`
+-- 
+
+CREATE TABLE `catalogo_reng` (
+  `id` int(11) NOT NULL auto_increment,
+  `id_catalogo` int(11) NOT NULL,
+  `reng_num` int(11) NOT NULL,
+  `cod_art` varchar(10) collate utf8_spanish_ci NOT NULL,
+  `precio` double NOT NULL,
+  `precio_sugerido` double NOT NULL,
+  `oferta` double NOT NULL,
+  `fe_oferta` datetime NOT NULL,
+  `fe_oferta_fin` datetime NOT NULL,
+  `stock_ini` double NOT NULL,
+  `stock_act` double NOT NULL,
+  `stock_comp` double NOT NULL,
+  `stock_ped` double NOT NULL,
+  `cat` int(11) NOT NULL,
+  `subcat` varchar(60) collate utf8_spanish_ci NOT NULL,
+  `cat_desc` varchar(800) collate utf8_spanish_ci NOT NULL,
+  `detalles` text collate utf8_spanish_ci NOT NULL,
+  `co_us_in` int(11) NOT NULL,
+  `fe_us_in` datetime NOT NULL,
+  `co_us_mo` int(11) NOT NULL,
+  `fe_us_mo` datetime NOT NULL,
+  `co_us_de` int(11) NOT NULL,
+  `fe_us_de` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=101 ;
+
+-- 
+-- Volcar la base de datos para la tabla `catalogo_reng`
+-- 
+
+INSERT INTO `catalogo_reng` VALUES (36, 3, 1, 'COD2', 150, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 300, 300, 0, 0, 0, '', '', '', 1, '2015-06-08 00:34:46', 0, '2015-06-08 00:34:46', 0, '2015-06-08 00:34:46');
+INSERT INTO `catalogo_reng` VALUES (37, 3, 2, 'COD4', 450, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 20, 20, 0, 0, 0, '', '', '', 1, '2015-06-08 00:34:46', 0, '2015-06-08 00:34:46', 0, '2015-06-08 00:34:46');
+INSERT INTO `catalogo_reng` VALUES (78, 1, 1, 'COD1', 300, 0, 200, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 100, 100, 0, 0, 0, '', '', '', 1, '2015-06-09 02:12:02', 0, '2015-06-09 02:12:02', 0, '2015-06-09 02:12:02');
+INSERT INTO `catalogo_reng` VALUES (79, 1, 2, 'COD2', 150, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 300, 300, 0, 0, 0, '', '', '', 1, '2015-06-09 02:12:02', 0, '2015-06-09 02:12:02', 0, '2015-06-09 02:12:02');
+INSERT INTO `catalogo_reng` VALUES (80, 1, 3, 'COD3', 105, 0, 100, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 50, 50, 0, 0, 0, '', '', '', 1, '2015-06-09 02:12:02', 0, '2015-06-09 02:12:02', 0, '2015-06-09 02:12:02');
+INSERT INTO `catalogo_reng` VALUES (81, 2, 1, '114407', 105, 0, 100, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 50, 50, 0, 0, 0, '', '', '', 1, '2015-06-09 02:15:01', 0, '2015-06-09 02:15:01', 0, '2015-06-09 02:15:01');
+INSERT INTO `catalogo_reng` VALUES (82, 5, 6, '114408', 300, 0, 200, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 100, 100, 0, 0, 0, '', '', '', 1, '2015-06-09 11:33:26', 0, '2015-06-09 11:33:26', 0, '2015-06-09 11:33:26');
+INSERT INTO `catalogo_reng` VALUES (83, 5, 7, '114409', 150, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 300, 300, 0, 0, 0, '', '', '', 1, '2015-06-09 11:33:26', 0, '2015-06-09 11:33:26', 0, '2015-06-09 11:33:26');
+INSERT INTO `catalogo_reng` VALUES (84, 5, 8, '114410', 105, 0, 100, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 50, 50, 0, 0, 0, '', '', '', 1, '2015-06-09 11:33:26', 0, '2015-06-09 11:33:26', 0, '2015-06-09 11:33:26');
+INSERT INTO `catalogo_reng` VALUES (85, 5, 9, '114411', 450, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 20, 20, 0, 0, 0, '', '', '', 1, '2015-06-09 11:33:26', 0, '2015-06-09 11:33:26', 0, '2015-06-09 11:33:26');
+INSERT INTO `catalogo_reng` VALUES (92, 5, 1, '115127', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '', '', '', 1, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57');
+INSERT INTO `catalogo_reng` VALUES (93, 5, 2, '115129', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '', '', '', 1, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57');
+INSERT INTO `catalogo_reng` VALUES (94, 5, 3, '106490', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '', '', '', 1, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57');
+INSERT INTO `catalogo_reng` VALUES (95, 5, 4, '104538', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '', '', '', 1, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57');
+INSERT INTO `catalogo_reng` VALUES (96, 5, 5, '113631', 0, 0, 12.79, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4, 4, 4, 4, 0, '', '', '', 1, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57', 0, '2015-07-13 15:24:57');
+INSERT INTO `catalogo_reng` VALUES (97, 5, 10, '114412', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '', '', '', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+INSERT INTO `catalogo_reng` VALUES (98, 5, 11, '114413', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '', '', '', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+INSERT INTO `catalogo_reng` VALUES (99, 5, 12, '114879', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '', '', '', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+INSERT INTO `catalogo_reng` VALUES (100, 5, 13, '115272', 0, 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '', '', '', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `img_temp`
+-- 
+
+CREATE TABLE `img_temp` (
+  `id` int(11) NOT NULL auto_increment,
+  `img` varchar(800) character set utf8 collate utf8_spanish_ci NOT NULL,
+  `fecha` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- 
+-- Volcar la base de datos para la tabla `img_temp`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `master_id`
+-- 
+
+CREATE TABLE `master_id` (
+  `id_catalogo` int(11) NOT NULL,
+  `id_pedido` int(11) NOT NULL,
+  UNIQUE KEY `id_catalogo` (`id_catalogo`),
+  UNIQUE KEY `id_pedido` (`id_pedido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- 
+-- Volcar la base de datos para la tabla `master_id`
+-- 
+
+INSERT INTO `master_id` VALUES (5, 0);
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `pnlusuario`
+-- 
+
+CREATE TABLE `pnlusuario` (
+  `id` int(11) NOT NULL auto_increment,
+  `usuario` varchar(100) character set utf8 collate utf8_spanish_ci NOT NULL,
+  `clave` varchar(100) character set utf8 collate utf8_spanish_ci NOT NULL,
+  `nombre` varchar(100) character set utf8 collate utf8_spanish_ci NOT NULL,
+  `email` varchar(100) character set utf8 collate utf8_spanish_ci NOT NULL,
+  `telefono` varchar(50) character set utf8 collate utf8_spanish_ci NOT NULL,
+  `direccion` varchar(800) character set utf8 collate utf8_spanish_ci NOT NULL,
+  `perfil` int(11) NOT NULL,
+  `activo` int(11) NOT NULL,
+  `co_us_in` int(11) NOT NULL,
+  `fe_us_in` datetime NOT NULL,
+  `co_us_mo` int(11) NOT NULL,
+  `fe_us_mo` datetime NOT NULL,
+  `co_us_el` int(11) NOT NULL,
+  `fe_us_el` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+-- 
+-- Volcar la base de datos para la tabla `pnlusuario`
+-- 
+
+INSERT INTO `pnlusuario` VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'ADMINISTRADOR', 'y.alayn@gmail.com', '', '', 1, 1, 1, '2015-05-18 00:00:00', 0, '2015-05-18 00:00:00', 0, '2015-05-18 00:00:00');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura Stand-in para la vista `vw_catalogo_reng`
+-- 
+CREATE TABLE `vw_catalogo_reng` (
+`id` int(11)
+,`id_catalogo` int(11)
+,`reng_num` int(11)
+,`cod_art` varchar(10)
+,`precio` double
+,`precio_sugerido` double
+,`oferta` double
+,`fe_oferta` datetime
+,`stock_ini` double
+,`stock_act` double
+,`stock_comp` double
+,`stock_ped` double
+,`co_us_in` int(11)
+,`fe_us_in` datetime
+,`co_us_mo` int(11)
+,`fe_us_mo` datetime
+,`co_us_de` int(11)
+,`fe_us_de` datetime
+,`descripcion` varchar(300)
+);
+-- --------------------------------------------------------
+
+-- 
+-- Estructura para la vista `vw_catalogo_reng`
+-- 
+DROP TABLE IF EXISTS `vw_catalogo_reng`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `textronic_y`.`vw_catalogo_reng` AS select `textronic_y`.`catalogo_reng`.`id` AS `id`,`textronic_y`.`catalogo_reng`.`id_catalogo` AS `id_catalogo`,`textronic_y`.`catalogo_reng`.`reng_num` AS `reng_num`,`textronic_y`.`catalogo_reng`.`cod_art` AS `cod_art`,`textronic_y`.`catalogo_reng`.`precio` AS `precio`,`textronic_y`.`catalogo_reng`.`precio_sugerido` AS `precio_sugerido`,`textronic_y`.`catalogo_reng`.`oferta` AS `oferta`,`textronic_y`.`catalogo_reng`.`fe_oferta` AS `fe_oferta`,`textronic_y`.`catalogo_reng`.`stock_ini` AS `stock_ini`,`textronic_y`.`catalogo_reng`.`stock_act` AS `stock_act`,`textronic_y`.`catalogo_reng`.`stock_comp` AS `stock_comp`,`textronic_y`.`catalogo_reng`.`stock_ped` AS `stock_ped`,`textronic_y`.`catalogo_reng`.`co_us_in` AS `co_us_in`,`textronic_y`.`catalogo_reng`.`fe_us_in` AS `fe_us_in`,`textronic_y`.`catalogo_reng`.`co_us_mo` AS `co_us_mo`,`textronic_y`.`catalogo_reng`.`fe_us_mo` AS `fe_us_mo`,`textronic_y`.`catalogo_reng`.`co_us_de` AS `co_us_de`,`textronic_y`.`catalogo_reng`.`fe_us_de` AS `fe_us_de`,`textronic_y`.`art`.`descripcion` AS `descripcion` from (`textronic_y`.`catalogo_reng` join `textronic_y`.`art` on((`textronic_y`.`catalogo_reng`.`cod_art` = `textronic_y`.`art`.`codigo`)));

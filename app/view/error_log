@@ -1,0 +1,27 @@
+[13-Sep-2015 21:50:05 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 399
+[13-Sep-2015 21:50:22 America/Chicago] PHP Parse error:  syntax error, unexpected end of file in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 399
+[21-Sep-2015 21:18:32 America/Chicago] PHP Warning:  preg_match(): Compilation failed: missing ) at offset 10 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 140
+[21-Sep-2015 21:20:13 America/Chicago] PHP Warning:  preg_match(): Compilation failed: missing ) at offset 7 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 140
+[21-Sep-2015 21:34:06 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 141
+[21-Sep-2015 21:34:06 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 142
+[21-Sep-2015 21:34:06 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 143
+[21-Sep-2015 21:34:41 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 47 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 141
+[21-Sep-2015 21:34:41 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 142
+[21-Sep-2015 21:34:41 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 143
+[21-Sep-2015 21:45:49 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 50 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 141
+[21-Sep-2015 21:45:49 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 142
+[21-Sep-2015 21:45:49 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 143
+[21-Sep-2015 21:46:01 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 50 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 141
+[21-Sep-2015 21:46:01 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 142
+[21-Sep-2015 21:46:01 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 143
+[21-Sep-2015 21:49:13 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 47 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 141
+[21-Sep-2015 21:49:43 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 141
+[21-Sep-2015 21:50:57 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 44 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 141
+[21-Sep-2015 21:54:11 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 41 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 141
+[21-Sep-2015 21:54:44 America/Chicago] PHP Warning:  preg_match(): Compilation failed: unmatched parentheses at offset 38 in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 141
+[21-Sep-2015 22:03:50 America/Chicago] PHP Warning:  preg_match(): Delimiter must not be alphanumeric or backslash in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 98
+[21-Oct-2015 23:23:25 America/Chicago] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 99
+[21-Oct-2015 23:27:10 America/Chicago] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home2/v1131055/public_html/cat/common/function.php on line 71
+[21-Oct-2015 23:30:36 America/Chicago] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home2/v1131055/public_html/cat/common/function.php on line 71
+[21-Oct-2015 23:59:44 America/Chicago] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home2/v1131055/public_html/cat/app/view/catalogoVista.php on line 97
+[22-Oct-2015 00:03:18 America/Chicago] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home2/v1131055/public_html/cat/common/function.php on line 71

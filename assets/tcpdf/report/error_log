@@ -1,0 +1,145 @@
+[15-Jul-2015 16:04:26 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:04:26 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:04:26 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:04:26 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:04:26 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:04:26 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:04:28 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 302
+[15-Jul-2015 16:04:28 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:04:28 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php:5593) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7624
+[15-Jul-2015 16:05:10 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:05:10 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:05:10 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:05:10 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:05:10 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:05:10 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:05:12 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 302
+[15-Jul-2015 16:05:12 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 5593
+[15-Jul-2015 16:05:12 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php:5593) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7624
+[15-Jul-2015 16:12:38 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 302
+[15-Jul-2015 16:12:38 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php:302) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[15-Jul-2015 16:13:39 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 302
+[15-Jul-2015 16:13:39 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php:302) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[15-Jul-2015 16:13:44 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 302
+[15-Jul-2015 16:13:44 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php:302) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[11-Aug-2015 13:21:25 America/Chicago] PHP Fatal error:  Function name must be a string in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 297
+[11-Aug-2015 13:34:04 America/Chicago] PHP Parse error:  syntax error, unexpected ';' in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 285
+[11-Aug-2015 13:35:13 America/Chicago] PHP Parse error:  syntax error, unexpected '=' in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 285
+[12-Aug-2015 10:55:34 America/Chicago] PHP Parse error:  syntax error, unexpected ',' in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 311
+[12-Aug-2015 10:55:58 America/Chicago] PHP Parse error:  syntax error, unexpected ',' in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 311
+[06-Sep-2015 13:57:36 America/Chicago] PHP Warning:  getimagesize(../../../assets/bootstrap-fileinput-master/portadas/def.jpg): failed to open stream: No such file or directory in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[06-Sep-2015 13:57:36 America/Chicago] PHP Warning:  imagecreatefromjpeg(../../../assets/bootstrap-fileinput-master/portadas/def.jpg): failed to open stream: No such file or directory in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[06-Sep-2015 13:57:40 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[06-Sep-2015 19:03:50 America/Chicago] PHP Warning:  getimagesize(../../../assets/bootstrap-fileinput-master/portadas/def.jpg): failed to open stream: No such file or directory in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[06-Sep-2015 19:03:50 America/Chicago] PHP Warning:  imagecreatefromjpeg(../../../assets/bootstrap-fileinput-master/portadas/def.jpg): failed to open stream: No such file or directory in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[06-Sep-2015 19:03:56 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[06-Sep-2015 19:38:40 America/Chicago] PHP Warning:  getimagesize(../../bootstrap-fileinput-master/portadas/def.jpg): failed to open stream: No such file or directory in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[06-Sep-2015 19:38:40 America/Chicago] PHP Warning:  imagecreatefromjpeg(../../bootstrap-fileinput-master/portadas/def.jpg): failed to open stream: No such file or directory in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[06-Sep-2015 19:38:50 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[06-Sep-2015 19:39:45 America/Chicago] PHP Warning:  getimagesize(../../bootstrap-fileinput-master/portadas/def.jpg): failed to open stream: No such file or directory in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[06-Sep-2015 19:39:45 America/Chicago] PHP Warning:  imagecreatefromjpeg(../../bootstrap-fileinput-master/portadas/def.jpg): failed to open stream: No such file or directory in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[06-Sep-2015 19:39:53 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[13-Sep-2015 21:43:56 America/Chicago] PHP Warning:  fopen(): remote host file access not supported, file://catalogo.pdf in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_static.php on line 2440
+[13-Sep-2015 22:01:55 America/Chicago] PHP Warning:  fopen(): remote host file access not supported, file://catalogo.pdf in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_static.php on line 2440
+[13-Sep-2015 22:08:08 America/Chicago] PHP Warning:  fopen(): remote host file access not supported, file://catalogo.pdf in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_static.php on line 2440
+[13-Sep-2015 22:08:08 America/Chicago] PHP Warning:  fopen(file://catalogo.pdf): failed to open stream: no suitable wrapper could be found in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_static.php on line 2440
+[22-Oct-2015 11:36:22 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:36:22 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:36:22 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:36:22 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:36:22 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:36:22 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:36:22 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 231
+[22-Oct-2015 11:36:22 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7647
+[22-Oct-2015 11:37:05 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:37:05 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:37:05 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:37:05 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:37:05 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:37:05 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:37:05 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 231
+[22-Oct-2015 11:37:05 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7647
+[22-Oct-2015 11:37:58 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:37:58 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:37:58 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:37:58 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:37:58 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:37:58 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:37:58 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 231
+[22-Oct-2015 11:37:58 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[22-Oct-2015 11:53:07 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:53:07 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:53:07 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:53:07 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:53:07 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 11:53:07 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 11:53:07 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 231
+[22-Oct-2015 11:53:07 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[22-Oct-2015 12:00:17 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:00:17 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:00:17 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:00:17 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:00:17 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:00:17 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:00:17 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 229
+[22-Oct-2015 12:00:17 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[22-Oct-2015 12:05:48 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:05:48 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:05:48 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:05:48 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:05:48 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:05:48 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:05:48 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 229
+[22-Oct-2015 12:05:48 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[22-Oct-2015 12:06:37 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:06:37 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:06:37 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:06:37 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:06:37 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:06:37 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:06:37 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 229
+[22-Oct-2015 12:06:37 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[22-Oct-2015 12:07:18 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:07:18 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:07:18 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:07:18 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:07:18 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:07:18 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:07:18 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 229
+[22-Oct-2015 12:07:18 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[22-Oct-2015 12:13:29 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:13:29 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:13:29 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:13:29 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:13:29 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[22-Oct-2015 12:13:29 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[22-Oct-2015 12:13:29 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 229
+[22-Oct-2015 12:13:29 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[25-Oct-2015 18:53:55 America/Chicago] PHP Warning:  main(): Couldn't fetch mysqli_result in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 229
+[25-Oct-2015 18:53:55 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php:229) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[25-Oct-2015 18:55:30 America/Chicago] PHP Warning:  main(): Couldn't fetch mysqli_result in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 229
+[25-Oct-2015 18:55:30 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php:229) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[25-Oct-2015 18:57:05 America/Chicago] PHP Warning:  main(): Couldn't fetch mysqli_result in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 229
+[25-Oct-2015 18:57:05 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php:229) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[25-Oct-2015 18:59:03 America/Chicago] PHP Warning:  main(): Couldn't fetch mysqli_result in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 229
+[25-Oct-2015 18:59:03 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php:229) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[25-Oct-2015 19:33:41 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[25-Oct-2015 19:33:41 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[25-Oct-2015 19:33:41 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[25-Oct-2015 19:33:41 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[25-Oct-2015 19:33:41 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[25-Oct-2015 19:33:41 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[25-Oct-2015 19:33:41 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 231
+[25-Oct-2015 19:33:41 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[25-Oct-2015 19:57:17 America/Chicago] PHP Fatal error:  Call to a member function code_url() on a non-object in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 35
+[25-Oct-2015 22:35:32 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[25-Oct-2015 22:35:32 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[25-Oct-2015 22:35:32 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[25-Oct-2015 22:35:32 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[25-Oct-2015 22:35:32 America/Chicago] PHP Warning:  getimagesize(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php on line 163
+[25-Oct-2015 22:35:32 America/Chicago] PHP Warning:  imagecreatefromjpeg(): Filename cannot be empty in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7036
+[25-Oct-2015 22:35:32 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 237
+[25-Oct-2015 22:35:32 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/include/tcpdf_images.php:163) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[25-Oct-2015 23:23:19 America/Chicago] PHP Warning:  main(): Couldn't fetch mysqli_result in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 235
+[25-Oct-2015 23:23:19 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php:235) in /home2/v1131055/public_html/cat/assets/tcpdf/tcpdf.php on line 7626
+[26-Oct-2015 07:06:12 America/Chicago] PHP Fatal error:  Using $this when not in object context in /home2/v1131055/public_html/cat/assets/tcpdf/report/catalogo.php on line 203
