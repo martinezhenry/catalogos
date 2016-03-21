@@ -10,6 +10,7 @@
         $mss = '';
         if($obj_bdmysql->num_row("catalogo", "", $mysqli) > 0){
             $resul = $obj_bdmysql->select("catalogo", "*,DATE_FORMAT(fe_us_in,'%d/%m/%Y') as fe_us_in_dmy", "", "", "",$mysqli);
+            //echo $resul;
             if(!is_array($resul)){ $mss = 'NO SE ENCONTRARON DATOS.'; }
         }else{
             $mss = "NO SE ENCONTRARON CATALOGOS REGISTRADOS.";
