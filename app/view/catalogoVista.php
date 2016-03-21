@@ -127,9 +127,9 @@
                 }
                 //LISTADO DE ARTICULOS
                 $num_art = $obj_bdmysql->num_row("catalogo_reng","id_catalogo = '".$id_catalogo."'",$mysqli);
-                $resul_art = $obj_bdmysql->select("catalogo_reng","*,DATE_FORMAT(fe_us_in,'%d/%m/%Y') as fe_us_in_dmy","id_catalogo = '".$id_catalogo."'",$catalogo_order_art,"10",$mysqli, true);  // PENDIETNE QUITAR LIMIT
+                $resul_art = $obj_bdmysql->select("catalogo_reng","*,DATE_FORMAT(fe_us_in,'%d/%m/%Y') as fe_us_in_dmy","id_catalogo = '".$id_catalogo."'",$catalogo_order_art,"10",$mysqli, false);  // PENDIETNE QUITAR LIMIT
                 //PDFS
-                echo $resul_art;
+               // echo $resul_art;
 //                echo $num_art.' '.CANT_ART_PDF;
                 if($num_art < CANT_ART_PDF){
                     $download_pdf='<h3><i class="fa fa-file-pdf-o"></i> <a href="'.$link_pdf.'&ind=0" target="_blank">Download</a></h3><br>';
