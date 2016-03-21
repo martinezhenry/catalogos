@@ -330,8 +330,12 @@
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Categoria</label>
                                                             <select class="form-control" id="catalogo_categoria"><?php echo $list_categoria;?></select>
-                                                            <label class="control-label">Sub-Categoria</label>
-                                                            <select class="form-control" id="catalogo_subcategoria"><?php echo $list_sub_categoria;?></select>
+                                                            <div class="col-sm-6">
+																<label class=" control-label">Sub-Categoria</label>
+																<div id="catalogo_subcategoria" class="form-control" style="overflow:auto;height:150px;"><?php echo $list_sub_categoria;?></div>
+															</div>															
+															<!--<label class="control-label">Sub-Categoria</label>
+                                                            <select class="form-control" id="catalogo_subcategoria"><?php echo $list_sub_categoria;?></select>-->
                                                             <label class="control-label">Stock</label>
                                                             <div class="input-group">
                                                                 <input type="text" id="catalogo_stock" class="form-control" aria-label="..." onkeyup="mascara(this,'',patron7,true);">
@@ -632,14 +636,27 @@
             var catalogo_stock_cond = '';
             var catalogo_flags = '';
             function buscar_articulo(){
+				$('#catalogo_subcategoria').children('input').each(function(){
+					if(this.checked == true){
+						if(catalogo_subcategoria_desc != ''){
+							catalogo_subcategoria_desc += ",";
+							catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
+							catalogo_subcategoria += ",";
+							catalogo_subcategoria += this.value;
+						}else{
+							catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
+							catalogo_subcategoria += this.value;
+						}
+					}					
+				});
                 filtro = '';
                 n_pag = 0;
                 n_pag = n_pag;
                 resul_n = 0;
                 opc = "catalogoArtBusca";
                 catalogo_categoria = forma_cad(document.getElementById('catalogo_categoria').value);
-                catalogo_subcategoria = forma_cad(document.getElementById('catalogo_subcategoria').value);
-                catalogo_subcategoria_desc = $("#catalogo_subcategoria option:selected").text();
+                //catalogo_subcategoria = forma_cad(document.getElementById('catalogo_subcategoria').value);
+                //catalogo_subcategoria_desc = $("#catalogo_subcategoria option:selected").text();
                 catalogo_stock = forma_cad(document.getElementById('catalogo_stock').value);
                 catalogo_stock_cond = forma_cad(document.getElementById('catalogo_stock_cond').value);
 //                catalogo_stock_dts = forma_cad(document.getElementById('catalogo_stock_dts').value);
