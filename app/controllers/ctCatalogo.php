@@ -80,7 +80,7 @@ switch ($opc){
             if($catalogo_articulo != ''){ $where.= " AND ( ( PartNo like '%".$catalogo_articulo."%' ) OR ( SkuNo like '%".$catalogo_articulo."%' ) OR ( ProdDesc like '%".$catalogo_articulo."%' ) )"; }
             if($catalogo_categoria != ''){ $where.= " AND ( CatCode = '".$catalogo_categoria."' ) "; }
             //ACA DEBERIA FILTRAR POR EL NOMBRE DE LA SUB-CATEGORIA
-            if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode = '".$catalogo_subcategoria_desc."' ) "; }
+             if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode IN (".$catalogo_subcategoria_desc.") ) "; }
             if($catalogo_stock != ''){ $where.= " AND ( OnHand + qty_dts ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
 //            if($catalogo_stock != ''){ $where.= " AND ( OnHand ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
             if($catalogo_flags != ''){ 
@@ -624,7 +624,8 @@ switch ($opc){
                 $resul = $obj_bdmysql->select("`codes catsub`", "*", "CatCode = '".$cat_val."'", "PrdCode", "0,100",$mysqli);
                 if(!is_array($resul)){ $mss = 'ERROR AL CARGAR DATOS.'; }
                 foreach ($resul as $r){
-                    $salida.= '<option value="'.$r['PrdCode'].'">'.$r['PrdDesc'].'</option>';
+                    //$salida.= '<option value="'.$r['PrdCode'].'">'.$r['PrdDesc'].'</option>';
+					$salida.='<input type="checkbox" id="catalogo_ch_'.$r['PrdCode'].'" value="'.$r['PrdCode'].'"> <label for="catalogo_ch_'.$r['PrdCode'].'">'.$r['PrdDesc'].'</label> <br>';
                 }
             }else{
                 $mss = 'NO SE ENCONTRARON DATOS';
