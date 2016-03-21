@@ -39,8 +39,8 @@
             }
 
             //SUB-CATAGORIAS
-            $list_sub_categoria = '<option value="">Seleccione Categoria...</option>';
-            /*
+            //$list_sub_categoria = '<option value="">Seleccione Categoria...</option>';
+            
             $list_sub_categoria = '<option value="">Seleccione...</option>';
             $n_vehiculos = $obj_bdmysql->num_row("`codes catsub`", "", $mysqli);
             if($n_vehiculos > 0){
@@ -52,7 +52,7 @@
             }else{
                 $list_sub_categoria = '<option value="">NO SE ENCONTRARON DATOS</option>';
             }
-            */
+            
             //FLAG        
             $list_flag = '';
             $n_vehiculos = $obj_bdmysql->num_row("`codes flag`", "FlagActive = '1'", $mysqli2);
@@ -248,8 +248,12 @@
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Categoria</label>
                                                             <select class="form-control" id="catalogo_categoria"><?php echo $list_categoria;?></select>
-                                                            <label class="control-label">Sub-Categoria</label>
-                                                            <select class="form-control" id="catalogo_subcategoria"><?php echo $list_sub_categoria;?></select>
+															<div class="col-sm-6">
+																<label class=" control-label">Sub-Categoria</label>
+																<div id="catalogo_subcategoria" class="form-control" style="overflow:auto;height:150px;"><?php echo $list_sub_categoria;?></div>
+															</div>
+                                                            <!--<label class="control-label">Sub-Categoria</label>-->
+                                                            <!--<select class="form-control" id="catalogo_subcategoria"><?php echo $list_sub_categoria;?></select>-->
                                                             <label class="control-label">Stock</label>
                                                             <!--<input type="text" id="catalogo_stock" class="form-control col-sm-6" value="" placeholder="" onkeyup="mascara(this,'/',patron,true);">-->
                                                             <div class="input-group">
@@ -431,9 +435,12 @@
                              "opc":opc
                             ,"cat_val":cat_val
                         },function(data){
+                            console.log(data);
                             if(data.mss === '1'){
                                 $("#"+sub_cat_id).html(data.salida);
-                            }else{ alert(data.mss); }
+                            }else{ 
+                                alert(data.mss);
+                            }
                             desactiva_preloader();
                         },"json");
                     }else{
@@ -464,14 +471,28 @@
             var catalogo_stock_cond = '';
             var catalogo_flags = '';
             function buscar_articulo(){
+				$('#catalogo_subcategoria').children('input').each(function(){
+					if(this.checked == true){
+						if(catalogo_subcategoria_desc != ''){
+							catalogo_subcategoria_desc += ",";
+							catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
+							catalogo_subcategoria += ",";
+							catalogo_subcategoria += this.value;
+						}else{
+							catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
+							catalogo_subcategoria += this.value;
+						}
+					}					
+				});
+				
                 filtro = '';
                 n_pag = 0;
                 n_pag = n_pag;
                 resul_n = 0;
                 opc = "catalogoArtBusca";
                 catalogo_categoria = forma_cad(document.getElementById('catalogo_categoria').value);
-                catalogo_subcategoria = forma_cad(document.getElementById('catalogo_subcategoria').value);
-                catalogo_subcategoria_desc = $("#catalogo_subcategoria option:selected").text();
+                //catalogo_subcategoria = forma_cad(document.getElementById('catalogo_subcategoria').value);
+                //catalogo_subcategoria_desc = $("#catalogo_subcategoria option:selected").text();
                 catalogo_stock = forma_cad(document.getElementById('catalogo_stock').value);
                 catalogo_stock_cond = forma_cad(document.getElementById('catalogo_stock_cond').value);
                 catalogo_flags = captura_valor_ch('catalogo_flags');
