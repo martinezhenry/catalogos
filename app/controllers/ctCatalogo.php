@@ -169,7 +169,7 @@ switch ($opc){
             ";
 
            // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
-            $resul = $obj_bdmysql->select($myTable, $campos, $where, "SkuNo", $limit,$mysqli,false);
+            $resul = $obj_bdmysql->select($myTable, $campos, $where, "SkuNo", $limit,$mysqli,FALSE);
             //$mss = $resul;
             //var_dump($resul);
 

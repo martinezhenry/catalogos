@@ -75,7 +75,8 @@
             //DATOS DEL CATALOGO
             $mss = '';
             $mss_art = '';
-            $n_cat= $obj_bdmysql->num_row("catalogo", "id_catalogo = '".$id_catalogo."'", $mysqli);
+            $n_cat = 1;
+           // $n_cat= $obj_bdmysql->num_row("catalogo", "id_catalogo = '".$id_catalogo."'", $mysqli);
             if($n_cat > 0){
                 $resul = $obj_bdmysql->select("catalogo","*,DATE_FORMAT(fe_us_in,'%d/%m/%Y') as fe_us_in_dmy","id_catalogo = '".$id_catalogo."'","","",$mysqli);
                 if(!is_array($resul)){ $mss = 'NO SE ENCONTRARON DATOS PARA EL CATALOGO. '.$resul; }
@@ -636,6 +637,9 @@
             var catalogo_stock_cond = '';
             var catalogo_flags = '';
             function buscar_articulo(){
+
+                catalogo_subcategoria_desc='';
+
 				$('#catalogo_subcategoria').children('input').each(function(){
 					if(this.checked == true){
 						if(catalogo_subcategoria_desc != ''){
@@ -649,6 +653,8 @@
 						}
 					}					
 				});
+
+                console.log(catalogo_subcategoria_desc);
                 filtro = '';
                 n_pag = 0;
                 n_pag = n_pag;
@@ -666,6 +672,7 @@
            
 //                $('#modal_busqueda').html('Cargando...').fadeIn('fast');
                 activa_preloader();
+                console.log(catalogo_subcategoria_desc);
               /// console.log("cargando articulos: <?php echo $controller;?>");
                 $.post("../controllers/<?php echo $controller;?>",{
                      "opc":opc

@@ -39,8 +39,8 @@
             }
 
             //SUB-CATAGORIAS
-            //$list_sub_categoria = '<option value="">Seleccione Categoria...</option>';
-            
+            $list_sub_categoria = '<option value="">Seleccione Categoria...</option>';
+            /*
             $list_sub_categoria = '<option value="">Seleccione...</option>';
             $n_vehiculos = $obj_bdmysql->num_row("`codes catsub`", "", $mysqli);
             if($n_vehiculos > 0){
@@ -51,7 +51,7 @@
                 }
             }else{
                 $list_sub_categoria = '<option value="">NO SE ENCONTRARON DATOS</option>';
-            }
+            }*/
             
             //FLAG        
             $list_flag = '';
@@ -471,6 +471,8 @@
             var catalogo_stock_cond = '';
             var catalogo_flags = '';
             function buscar_articulo(){
+
+                catalogo_subcategoria_desc='';
 				$('#catalogo_subcategoria').children('input').each(function(){
 					if(this.checked == true){
 						if(catalogo_subcategoria_desc != ''){
@@ -509,7 +511,7 @@
                     ,"n_pag":n_pag
                 },function(data){
                     if(data.mss === '1'){
-                        $('#catalogo_articulo_list_busca').html(data.salida);
+                        $('#catalogo_articulo_list_busca').html(contruirArticulos(data.salida));
                         n_pag = 1;
                         modal_busqueda_sal = '';
                         //CUENTA ARTICULOS BUSQUEDA
