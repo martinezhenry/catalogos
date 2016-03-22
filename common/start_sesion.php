@@ -14,10 +14,11 @@
             $r = $obj_bdmysql->select("pnlUsuario","*","usuario = '".$usuario."' AND clave = '".$clave."'", "", "",$mysqli);
 //            echo $r;
             if (is_array($r)){
+             
                 if ($r[0]['activo'] == '1'){
                     $_SESSION['valida_sesion'] = '1';
-                    $_SESSION["user"]=$r['nombre'];
-                    $_SESSION["cod_usuario"]=$r['id'];
+                    $_SESSION["user"]=$r[0]['nombre'];
+                    $_SESSION["cod_usuario"]=$r[0]['id'];
 //                    $_SESSION["perfil"]=$r['perfil'];
                     header("location:../app/view/init.php");
                 }else{ header("location:../index.php?salida=inactivo");}

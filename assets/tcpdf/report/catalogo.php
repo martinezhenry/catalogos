@@ -37,7 +37,7 @@ $titulo_color = '0,0,0';
 $titulo_hor = 'C';
 $titulo_ver = '120';
 //PAGINACION
-$ind_pag = trim($_REQUEST['ind']);
+$ind_pag = (isset($_REQUEST['ind'])) ? trim($_REQUEST['ind']):0;
 $top_art_pag = $ind_pag * CANT_ART_PDF;
 //BD
 $column = "*,DATE_FORMAT(fe_us_in,'%d/%m/%Y') as fe_us_in_dmy,(SELECT order_art FROM catalogo_order WHERE id = order_id) order_art";
