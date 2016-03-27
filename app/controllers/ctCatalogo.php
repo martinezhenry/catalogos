@@ -78,7 +78,18 @@ switch ($opc){
             $mysqli->set_charset("utf8");
 
             $where = "";
-            $where.= " (Discontinued = 0)";
+
+            if($catalogo_descontinuado == 'true'){
+                $where.= " (Discontinued = 1)";
+            } else {
+                $where.= " (Discontinued = 0)";
+            }
+
+            //echo  $catalogo_descontinuado . " : " . $where;
+            //exit;
+
+
+            
            // if($catalogo_articulo != ''){
             // $where.= " AND ( ( PartNo like '%".$catalogo_articulo."%' ) OR ( SkuNo like '%".$catalogo_articulo."%' ) OR ( ProdDesc like '%".$catalogo_articulo."%' ) )";
              // }
@@ -97,7 +108,16 @@ switch ($opc){
           //  }
 
              if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode IN (".$catalogo_subcategoria_desc.") ) "; }
-            if($catalogo_stock != ''){ $where.= " AND ( OnHand + qty_dts ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
+
+            if ($catalogo_tipo_inventario == '1'){
+                $tipoInv = ' ifnull(OnHand,0) ';
+            } else if ($catalogo_tipo_inventario == '2'){
+                $tipoInv = ' ifnull(invdts.qty,0) ';
+            } else {
+                $tipoInv = ' ifnull(OnHand,0) + ifnull(invdts.qty,0) ';
+            }
+
+            if($catalogo_stock != ''){ $where.= " AND ( ".$tipoInv." ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
 
 //            if($catalogo_stock != ''){ $where.= " AND ( OnHand ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
             if($catalogo_flags != ''){ 
@@ -109,6 +129,10 @@ switch ($opc){
                 }
                 $where.= str_replace("ORX","",$where_flag."X")." )";
             }
+
+
+
+           
            // $n_elem_pag = 50;
           //  if($n_pag == ''){ $ini_pag = 0; }else{ $ini_pag = $n_pag*$n_elem_pag; }
             $n_pag++;
@@ -123,30 +147,12 @@ switch ($opc){
             where
                 (`codes cat`.`CatCode` = `g_inventory`.`CatCode`)) AS `CatDesc`,
         `g_inventory`.`PrdCode` AS `PrdDesc`,
-        (case
-            when
-                isnull((select distinct
-                                `inventory dts`.`Qty`
-                            from
-                                `inventory dts`
-                            where
-                                ((`inventory dts`.`SkuNo` = `g_inventory`.`SkuNo`)
-                                    and (`inventory dts`.`SkuNo` <> 0))
-                            limit 1))
-            then
-                0
-            else (select distinct
-                    `inventory dts`.`Qty`
-                from
-                    `inventory dts`
-                where
-                    ((`inventory dts`.`SkuNo` = `g_inventory`.`SkuNo`)
-                        and (`inventory dts`.`SkuNo` <> 0))
-                limit 1)
-        end) AS `qty_dts`,
+        IFNULL(invdts.qty,0) as qty_dts,
+(IFNULL(invdts.qty,0) +  g_inventory.OnHand) as totalcant,
             ifnull(z.Precio,0) as Precio,
             ifnull(z.Date_To_dma,\'00/00/0000\') as Date_To_dma,
             ifnull(z.Date_From_dma,\'00/00/0000\') as Date_From_dma
+
 
 
             ';
@@ -154,18 +160,32 @@ switch ($opc){
 
 
             $myTable = "
-                    g_inventory 
+                   g_inventory 
                     left join (
-                    select det.Precio, det.SkuNo,
+                    select  det.SkuNo, det.precio,
                     DATE_FORMAT(max(ofer.Date_To),'%d/%m/%Y') AS Date_To_dma,
                     DATE_FORMAT(max(ofer.Date_From),'%d/%m/%Y') AS Date_From_dma
-                     from `ofertas` ofer
-                    right join `ofertas detail` det
+                    
+                     from  `ofertas detail` det
+                    left join `ofertas` ofer
                     on (ofer.ofertaid = det.id )
                     group by
-                    det.SkuNo, det.Precio
+                    det.SkuNo, det.precio
+order by ofer.date_to
+                    limit 1
                     ) z
                     on (z.SkuNo = g_inventory.SkuNo)
+left join
+(
+select 
+                                `inventory dts`.`SkuNo`,
+                                (`inventory dts`.`Qty`) qty
+                            from
+                                `inventory dts`
+                            where
+                        #((`inventory dts`.`SkuNo` = `g_inventory`.`SkuNo`)
+                             (`inventory dts`.`SkuNo` <> 0)) as invdts
+on (invdts.SkuNo = g_inventory.SkuNo)
             ";
 
            // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
@@ -492,7 +512,7 @@ switch ($opc){
         $fondo = $_SESSION['cod_img_fd'];
         $art_repetido = ''; 
         $mysqli2 = new mysqli(DBHOST2, DBUSER2, DBPASS2, DBNOM2);
-        if (!$mysqli->connect_error){
+        if (!$mysqli2->connect_error){
             $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
             if (!$mysqli->connect_error){
                 $mss = '';
@@ -570,7 +590,7 @@ switch ($opc){
                                             //INICIA TRANSACCION
                                             $mysqli->autocommit(FALSE);
                                             //EDITA CATALOGO
-                                            $campo = "codigo = '".$catalogo_codigo."',titulo = '".$catalogo_titulo."',descripcion = '".$catalogo_descripcion."'".$upd_portada.$upd_fondo.",precio_pdf = '".$catalogo_sel_precio_pdf."',order_id = '".$catalogo_order_id."',titulo_fuente = '".$catalogo_titulo_fuente."',titulo_tamano = '".$catalogo_titulo_tamano."',titulo_color = '".$catalogo_titulo_color."',titulo_estilo = '".$catalogo_titulo_estilo."',titulo_ali_hor = '".$catalogo_titulo_ali_hor."',titulo_ali_ver = '".$catalogo_titulo_ali_ver."',co_us_mo = '".$cod_usuario."',fe_us_mo = NOW()";
+                                            $campo = "codigo = '".$catalogo_codigo."',titulo = '".$catalogo_titulo."',descripcion = '".$catalogo_descripcion."'".$upd_portada.$upd_fondo.",precio_pdf = '".$catalogo_sel_precio_pdf."',order_id = '".$catalogo_order_id."',titulo_fuente = '".$catalogo_titulo_fuente."',titulo_tamano = '".$catalogo_titulo_tamano."',titulo_color = '".$catalogo_titulo_color."',titulo_estilo = '".$catalogo_titulo_estilo."',titulo_ali_hor = '".$catalogo_titulo_ali_hor."',titulo_ali_ver = '".$catalogo_titulo_ali_ver."',co_us_mo = '".$cod_usuario."',fe_us_mo = NOW(), presentacion = '".$catalogo_sel_presentacion."'";
 //                                            $campo = "codigo = '".$catalogo_codigo."',titulo = '".$catalogo_titulo."',descripcion = '".$catalogo_descripcion."'".",precio_pdf = '".$catalogo_sel_precio_pdf."',co_us_mo = '".$cod_usuario."',fe_us_mo = NOW()";
                                             $where = "id_catalogo = '".$catalogo_id."'";
         //                                    $catalogo_insert = $obj_bdmysql->insert("catalogo", $campo, $valor, $mysqli);
@@ -582,7 +602,7 @@ switch ($opc){
                                                     //INSERTA LOS RENGLONES DEL CATALOGO
                                                     $num_reng = 1;
                                                     $error_reng = '';
-                                                    $campo = "id_catalogo, reng_num, cod_art, precio, precio_sugerido, oferta, fe_oferta, fe_oferta_fin, stock_ini, stock_act, stock_comp, stock_ped, cat, subcat, PartNo, ProdDesc, co_us_in, fe_us_in, co_us_mo, fe_us_mo, co_us_de, fe_us_de";
+                                                    $campo = "id_catalogo, reng_num, cod_art, precio, precio_sugerido, oferta, fe_oferta, fe_oferta_fin, stock_ini, stock_act, stock_comp, stock_ped, cat, subcat, PartNo, ProdDesc, co_us_in, fe_us_in, co_us_mo, fe_us_mo, co_us_de, fe_us_de, cat_desc, detalles";
                                                     foreach ($catalogo_articulo_array as $ca_array){
                                                         $catalogo_reng = explode('|',str_replace('_|','','_'.$ca_array));
                                                         $SkuNo = trim($catalogo_reng[0]);
@@ -591,17 +611,17 @@ switch ($opc){
                                                         $precio = trim($catalogo_reng[3]);
                                                         $OnHand = trim($catalogo_reng[4]);
                                                         $oferta = trim($catalogo_reng[5]);
-                                                        $fecha_to_oferta = trim($catalogo_reng[6]);
-                                                        $fecha_from_oferta = trim($catalogo_reng[7]);
-                                                        $valor = "'".$catalogo_id."','".$num_reng."','".$SkuNo."','".$precio."','0','".$oferta."','".$fecha_to_oferta."','".$fecha_from_oferta."','".$OnHand."','".$OnHand."','".$OnHand."','".$OnHand."','','','".$PartNo."','".$ProdDesc."','1',NOW(),'0',NOW(),'0',NOW()";
-                                                        $catalogo_reng_insert = $obj_bdmysql->insert("catalogo_reng", $campo, $valor, $mysqli);
+                                                        $fecha_to_oferta = (trim($catalogo_reng[6]) == '') ? '00/00/0000' : trim($catalogo_reng[6]);
+                                                        $fecha_from_oferta = (trim($catalogo_reng[7]) == '') ? '00/00/0000':trim($catalogo_reng[7]);
+                                                        $valor = "'".$catalogo_id."','".$num_reng."','".$SkuNo."','".$precio."','0','".$oferta."','".$fecha_to_oferta."','".$fecha_from_oferta."','".$OnHand."','".$OnHand."','".$OnHand."','".$OnHand."','0','','".$PartNo."','".$ProdDesc."','1',CURRENT_TIME,'0',CURRENT_TIME,'0',CURRENT_TIME, '', ''";
+                                                        $catalogo_reng_insert = $obj_bdmysql->insert("catalogo_reng", $campo, $valor, $mysqli, false);
                                                         $num_reng = $num_reng + 1; 
                                                         if($catalogo_reng_insert != '1'){ $error_reng = $error_reng.'. '.$catalogo_reng[0].': '.$catalogo_reng_insert; }
                                                     }
 
                                                     if($error_reng == ''){
                                                         //GENERA CODIGO QR O LO ACTUALIZA
-                                                        $id_catalogo_code = $obj_function->code_url($id_catalogo,'code');
+                                                        $id_catalogo_code = $obj_function->code_url($catalogo_id,'code');
                                                         $link = 'http://textronic.info/cat/cv?cd='.$id_catalogo_code;
 //                                                        $url = "http://www.gibble.com.ve/textronic/web/index.php?id=".$id_catalogo_code;
                                                         $s = $obj_function->codeQR($link, $catalogo_id);
@@ -687,8 +707,24 @@ switch ($opc){
                             $catalogo_reng_insert = $obj_bdmysql->delete($tabla_reng,$where,$mysqli);
                             if($catalogo_reng_insert  == '1'){
                                 //ELIMINA IMAGENES
-                                if(file_exists($portada)){ if(unlink($portada)){ $portada_val = 1; }else{ $portada_val = '0'; }}else{ $portada_val = '1'; }
-                                if(file_exists($fondo)){ if(unlink($fondo)){ $fondo_val = 1; }else{ $fondo_val = '0'; }}else{ $fondo_val = '1'; }
+                                if(file_exists($portada) && strcmp($resul[0]['portada'], 'def.jpg') !== 0){
+                                    if(unlink($portada)){
+                                        $portada_val = 1;
+                                    }else{
+                                         $portada_val = '1';
+                                    }
+                                }else{
+                                     $portada_val = '1';
+                                }
+                                if(file_exists($fondo) && strcmp($resul[0]['portada'], 'def.jpg') !== 0){
+                                     if(unlink($fondo)){
+                                        $fondo_val = 1;
+                                    }else{ 
+                                        $fondo_val = '1';
+                                    }
+                                }else{ 
+                                    $fondo_val = '1'; 
+                                }
                                 if($portada_val == '1'){
                                     if($fondo_val == '1'){
                                         $mss = '1';$salida = 'REGISTRO ELIMINADO CORRECTAMENTE. '; $mysqli->commit();

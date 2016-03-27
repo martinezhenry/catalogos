@@ -7,6 +7,7 @@ function cargar_articulo(){
     ch_art = captura_valor_ch('catalogo_articulo_list_busca');
     n = 1;
     html = '';
+    count = 0;
     if(ch_art !== ''){
         ch_art = '_'+ch_art;
         ch_art = ch_art.replace('_/*','');
@@ -26,6 +27,7 @@ function cargar_articulo(){
             fecha_from_oferta = arr_art[9];
             flag = arr_art[10];
             if(!document.getElementById('catalogo_articulo_fila_carga_'+SkuNo)){
+                count=count+1;
             html =  html+
                     '<tr class="catalogo_articulo_fila_carga" id="catalogo_articulo_fila_carga_'+SkuNo+'">'+
                     '    <td data-title="remove" id="catalogo_articulo_list_remove_'+SkuNo+'" style="text-align:center;" onclick="remover_articulo(this.id);"><i class="fa fa-trash-o" style="font-size:18px"></i></td>'+
@@ -42,6 +44,13 @@ function cargar_articulo(){
                     '    <td data-title="FLAG">'+flag+'</td>'+
                     '</tr>';
             n = n + 1;
+            if (count > 100){
+                $('#catalogo_articulo_list_carga').append(html);
+                html = null;
+                count = null;
+                html = "";
+                count = 0;        
+            }
             }
         });
         $('#catalogo_articulo_list_carga').append(html);
@@ -177,6 +186,19 @@ var salida = '';
                     n = ini_pag+1;
                     $.each(resul, function(k,r){
                         //DEFINE PRECIO
+
+                        if ($('#catalogo_con_img').prop('checked')){
+                            var conImg = true;
+                            
+                        } else {
+                            var conImg = false;
+                        }
+
+                        if (conImg == true){
+                            if (file_exists('../../assets/img/art/'+r.SkuNo+'.jpg') != true) {
+                                return;
+                            }
+                        }
                         var precio = '0';
                         //DEFINE FLAG
                         var flag = '';
@@ -236,3 +258,79 @@ var salida = '';
 
 }
 
+function verificarExisteFile(SkuNo){
+
+    $.ajax({
+    url:'../../assets/img/art/'+SkuNo+'.jpg',
+    type:'HEAD',
+    statusCode : {
+        404: function(){
+            return false;
+        }
+
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown)
+    {
+        //file not exists
+        console.log('error error');
+        return false;
+    },
+    success: function()
+    {
+        //file exists
+        return true;
+    }
+}).fail(function( jqXHR, textStatus, errorThrown ){
+    console.log('error not found');
+    return false;
+});
+
+}
+
+
+function UrlExists(url)
+{
+    try {
+    var http = new XMLHttpRequest();
+    http.open('HEAD', '../../assets/img/art/' + url + '.jpg', false);
+    http.send();
+    1/0;
+    if (http.status!=404){
+        return true;
+    } else {
+        return false;
+    }
+   // return http.status!=404;
+} catch (excepcion){
+
+    console.log(excepcion);
+    alert(excepcion);
+    return false;
+
+}
+}
+
+
+function file_exists(url) {
+  // http://kevin.vanzonneveld.net
+  // +   original by: Enrique Gonzalez
+  // +      input by: Jani Hartikainen
+  // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+  // %        note 1: This function uses XmlHttpRequest and cannot retrieve resource from different domain.
+  // %        note 1: Synchronous so may lock up browser, mainly here for study purposes.
+  // *     example 1: file_exists('http://kevin.vanzonneveld.net/pj_test_supportfile_1.htm');
+  // *     returns 1: '123'
+  var req = this.window.ActiveXObject ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest();
+  if (!req) {
+    throw new Error('XMLHttpRequest not supported');
+  }
+
+  // HEAD Results are usually shorter (faster) than GET
+  req.open('HEAD', url, false);
+  req.send(null);
+  if (req.status == 200) {
+    return true;
+  }
+
+  return false;
+}

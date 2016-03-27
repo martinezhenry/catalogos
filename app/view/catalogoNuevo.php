@@ -185,6 +185,17 @@
                                                                 <option value="B">Abajo</option>
                                                             </select>
                                                         </div>
+
+
+                                                        <label class="input-group control-label">Pantilla</label>
+                                                            <div class="col-sm-3">
+                                                            <select class="form-control" id="catalogo_sel_presentacion">
+                                                                <option value="5x4">5x4</option>
+                                                                <option value="4x4">4x4</option>
+                                                                <option value="3x5">3x5</option>
+                                                            </select>
+                                                            <br>
+                                                            </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
@@ -254,6 +265,19 @@
 															</div>
                                                             <!--<label class="control-label">Sub-Categoria</label>-->
                                                             <!--<select class="form-control" id="catalogo_subcategoria"><?php echo $list_sub_categoria;?></select>-->
+
+                                                            <label class="input-group control-label">Invetario</label>
+                                                            <div class="col-sm-6">
+                                                            <select class="form-control" id="catalogo_sel_tipo_inv">
+                                                                <option value="0">TEX y DTS</option>
+                                                                <option value="1">TEX</option>
+                                                                <option value="2">DTS</option>
+                                                            </select>
+                                                            <br>
+                                                            </div>
+
+
+
                                                             <label class="control-label">Stock</label>
                                                             <!--<input type="text" id="catalogo_stock" class="form-control col-sm-6" value="" placeholder="" onkeyup="mascara(this,'/',patron,true);">-->
                                                             <div class="input-group">
@@ -268,11 +292,66 @@
                                                                     </select>
                                                                 </div><!-- /btn-group -->
                                                               </div>
+
+                                                              <div class="col-sm-12">
+                                                            <br>
+                                                            <div class="switch switch-square"
+                                                                 data-on-label="<i class=' fa fa-check'></i>"
+                                                                 data-off-label="<i class='fa fa-times'></i>">
+                                                                <input type="checkbox" id="checkSubCategories"/>
+                                                            </div>
+                                                            <label style="font-size:20px;padding:4px;">Marcar Todas</label>
+                                                        </div>
+
+
+
+
+
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <label class=" control-label">Flag</label>
                                                             <div id="catalogo_flags" class="form-control" style="overflow:auto;height:150px;"><?php echo $list_flag;?></div>
                                                         </div>
+
+
+                                                        <div class="col-sm-3">
+                                                        <label class="control-label">Vendido Desde</label>
+                                                            <div class="input-group">
+                                                                <input type="text" id="cat_vendido_desde" class="form-control" aria-label="..." onkeyup="">
+                                                          
+                                                            </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                        <label class="control-label">Vendido Hasta</label>
+                                                            <div class="input-group">
+                                                                <input type="text" id="cat_vandido_hasta" class="form-control" aria-label="..." onkeyup="">
+                                                          
+                                                            </div>
+                                                            </div>
+
+                                                            <div class="col-sm-3">
+                                                            <br>
+                                                            <div class="switch switch-square"
+                                                                 data-on-label="<i class=' fa fa-check'></i>"
+                                                                 data-off-label="<i class='fa fa-times'></i>">
+                                                                <input type="checkbox" id="catalogo_descontinuado"/>
+                                                            </div>
+                                                            <label style="font-size:20px;padding:4px;">Descontinuado</label>
+                                                        </div>
+
+                                                        <div class="col-sm-3">
+                                                            <br>
+                                                            <div class="switch switch-square"
+                                                                 data-on-label="<i class=' fa fa-check'></i>"
+                                                                 data-off-label="<i class='fa fa-times'></i>">
+                                                                <input type="checkbox" id="catalogo_con_img" value="true"/>
+                                                            </div>
+                                                            <label style="font-size:20px;padding:4px;">Con Imagen</label>
+                                                        </div>
+
+
+
+
                                                         <div class="col-sm-12">
                                                             <label class="control-label">Articulo</label>
                                                             <div class="input-group">
@@ -424,6 +503,15 @@
         <!--ACCIONES DEL FORMULARIO-->
         <script>
             $(document).ready(function(){
+
+                // Selecciona todoas las subcategorias
+                $('body').on('change', '#checkSubCategories', function(){
+                    
+                    $('#catalogo_subcategoria input[type=checkbox]').prop('checked', $(this).prop('checked'));
+                });
+
+
+
                 //CARGA SELECT SUBCATEGORIA DE A PARTIR DE LA CATEGORIA
                 $("#catalogo_categoria").change(function() {
                     cat_val = this.value;
@@ -498,6 +586,9 @@
                 catalogo_stock = forma_cad(document.getElementById('catalogo_stock').value);
                 catalogo_stock_cond = forma_cad(document.getElementById('catalogo_stock_cond').value);
                 catalogo_flags = captura_valor_ch('catalogo_flags');
+                catalogo_con_img = $('#catalogo_con_img').val();
+                catalogo_tipo_inventario = $('#catalogo_sel_tipo_inv').val();
+                catalogo_descontinuado = $('#catalogo_descontinuado').prop('checked');
 //                $('#modal_busqueda').html('Cargando...').fadeIn('fast');
                 activa_preloader();
                 $.post("../controllers/<?php echo $controller;?>",{
@@ -509,6 +600,8 @@
                     ,"catalogo_stock_cond":catalogo_stock_cond
                     ,"catalogo_flags":catalogo_flags
                     ,"n_pag":n_pag
+                    , "catalogo_tipo_inventario":catalogo_tipo_inventario
+                    , "catalogo_descontinuado":catalogo_descontinuado
                 },function(data){
                     if(data.mss === '1'){
                         $('#catalogo_articulo_list_busca').html(contruirArticulos(data.salida));
@@ -521,7 +614,7 @@
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
                         desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
                     }else{ 
-                        alert(data.mss);
+                        alert(data);
                         modal_busqueda_sal = 'Realice una busqueda para mostrar articulos. '+data.mss;
 //                        $('#modal_busqueda').html(modal_busqueda_sal);
                         $('#catalogo_articulo_list_busca').html();
@@ -571,6 +664,7 @@
                 catalogo_titulo_estilo = forma_cad(document.getElementById('catalogo_titulo_estilo').value);
                 catalogo_titulo_ali_hor = forma_cad(document.getElementById('catalogo_titulo_ali_hor').value);
                 catalogo_titulo_ali_ver = forma_cad(document.getElementById('catalogo_titulo_ali_ver').value);
+                catalogo_sel_presentacion = $('#catalogo_sel_presentacion').val();
                 if($("#catalogo_sel_precio_pdf").is(':checked')){ catalogo_sel_precio_pdf = 1;
                 }else{ catalogo_sel_precio_pdf = 0; }
                 articulos = captura_valor_class_hijos('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
@@ -589,13 +683,20 @@
                     ,"catalogo_titulo_ali_hor":catalogo_titulo_ali_hor
                     ,"catalogo_titulo_ali_ver":catalogo_titulo_ali_ver
                     ,"articulos":articulos
+                    ,"catalogo_sel_presentacion":catalogo_sel_presentacion
                 },function(data){
+                    console.log(data);
                     if(data.mss === '1'){
                         alert(data.salida);
                         ir_a('catalogoIndex.php','');
                     }else{ alert(data.mss); }
                     desactiva_preloader();
-                },"json");
+                },"json").fail(function(error, errormsg){
+                    console.log("Error guardar_catalogo: " + errormsg);
+                    desactiva_preloader();
+
+                });
+
             }
             
             var ajaxProcess = false;

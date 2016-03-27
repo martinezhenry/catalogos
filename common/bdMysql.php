@@ -29,7 +29,7 @@ class coBdmysql{
                                     $resp[$i] = $r;
                                     $i = $i + 1;
                                 }
-                            }else{ $resp = $resultado;}
+                            }else{ $resp = $resultado->num_rows;}
                         $resultado->close();
                     }else{ $resp = $resultado;}
                 }

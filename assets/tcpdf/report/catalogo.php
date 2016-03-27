@@ -28,6 +28,11 @@ include '../../../common/general.php';
 $obj_bdmysql = new coBdmysql();
 $obj_function = new coFunction();
 $id_catalogo = $obj_function->code_url($_REQUEST['id'],'decode');
+//echo base64_decode($_REQUEST['id']);
+//echo "<br>".substr(base64_decode($_REQUEST['id']),7);
+//echo "<br>".substr(substr(base64_decode($_REQUEST['id']),7),-3);
+//echo "<br>".str_replace(substr(substr(base64_decode($_REQUEST['id']),7),-3),"",substr(base64_decode($_REQUEST['id']),7));
+//exit;
 //TITULO
 //$desc_catalogo = 'CATALOGO MES DE MAYO.';
 $titulo_fuente = 'helvetica';
@@ -45,7 +50,8 @@ $where = "id_catalogo = '".$id_catalogo."'";
 $limit = "";
 $order = "";
 //$limit_art = "0,10";
-$limit_art = $top_art_pag.",".CANT_ART_PDF;
+//$limit_art = $top_art_pag.",".CANT_ART_PDF;
+$limit_art = "";
 $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
 if (!$mysqli->connect_error) {
     if($obj_bdmysql->num_row("catalogo", $where, $mysqli) > 0){
@@ -55,6 +61,8 @@ if (!$mysqli->connect_error) {
         }else{
             //TITULO
             $desc_catalogo = $resul[0]['titulo'];
+            // Get Filas Columnas
+            $filasXcolumnas = $resul[0]['presentacion'];
             //CODIGO QR
             $codigo_qr = '../../../common/codeqr/'.$id_catalogo.'.png';
             //PORTADA
@@ -208,19 +216,60 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
     //$pdf->Image($image_panel, 50, 50, 40, 40, '', 'http://www.tcpdf.org', '', false, 300);
 
     //SEPARACION
+    $colS = explode('x', $filasXcolumnas)[1];
+    $filS = explode('x', $filasXcolumnas)[0];
     $marginx = 3;
     $marginy = 14;
-    $paddinx = 1;
-    $paddiny = 4;
-    //FILAS Y COLUMNAS
-    $col = 4;
-    $fil = 5;
-    //CONTADOR FILA COLUMNA
-    $nf = 0;
-    $nc = 0;
     //ANCHO Y ALTO DE ITEM
     $wpanel = 50; 
     $hpanel = 50;
+
+    //$colS = 4;
+   // $filS = 5;
+    // ancho descfripcion
+    $widthDesc = 41;
+    // ancho flag
+    $widthFlag = 13;
+    // suma articulo panel
+    $plusArt = 13;
+    // XY QR
+    $xyQR = 10;
+    // plus Y QR
+    $plusYQR = 40;
+    // plus X Desc
+    $plusXDesc = 3;
+
+    if ($filS == 3){
+        $multiplicadorY = 11;
+        $marginy = 30;
+    } else if ($filS == 4){
+        $multiplicadorY = 4;
+        $marginy = 20;
+    } else {
+        $multiplicadorY = 1;
+    }
+
+    if ($colS == 5){
+        $multiplicadorX = 1;
+        $wpanel = 40;
+        $widthDesc = 31;
+        $widthFlag = 8;
+        $plusArt = 9;
+        $xyQR = 9;
+        $plusYQR = 44;
+        $plusXDesc = 5;
+    } else {
+        $multiplicadorX = 1;
+    }
+    $paddinx = 1 * $multiplicadorX;
+    $paddiny = 4 * $multiplicadorY;
+    //FILAS Y COLUMNAS
+    $col = $colS;
+    $fil = $filS;
+    //CONTADOR FILA COLUMNA
+    $nf = 0;
+    $nc = 0;
+    
 //    $resul_art = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22);
     foreach ($resul_art as $r_art){
         $SkuNo = trim($r_art['cod_art']);
@@ -302,13 +351,13 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $xf = $marginx+(($wpanel+$paddinx)*$nc); $yf = $marginy+($hpanel+$paddiny)*$nf;
     //    $xpanel = 14;$ypanel = 50;    
         $xpanel = $xf;$ypanel = $yf;
-        $xart = $xpanel+13; $yart = $ypanel+9;
+        $xart = $xpanel+$plusArt; $yart = $ypanel+9;
         $xcod = $xpanel; $ycod = $ypanel+3;
-        $xdes = $xpanel+3; $ydes = $ypanel+33;
+        $xdes = $xpanel+$plusXDesc; $ydes = $ypanel+33;
         $xlabel = $xpanel+35; $ylabel = $ypanel+38;
         $xtexprice = $xlabel+2; $ytexprice = $ylabel+6;
         $xsale = $xpanel-2; $ysale = $ypanel-1;
-        $xartqr = $xpanel; $yartqr = $ypanel+40;
+        $xartqr = $xpanel; $yartqr = $ypanel+$plusYQR;
         $xartqr_panel = $xpanel+9; $yartqr_panel = $ypanel+40;
         //IIIIIIIIIIIIIII IMAGEN PANEL
         $pdf->Image($image_panel, $xpanel, $ypanel, $wpanel, $hpanel, '', '', '', false, 300);
@@ -334,10 +383,10 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $pdf->writeHTMLCell('50','14',$xcod,$ycod,$PartNo,0,0,false,true,'C',true);
         $pdf->SetFont('helvetica', '', 8);
         //IIIIIIIIIIIIIII DESCRIPCION PRODUCTO
-        $pdf->writeHTMLCell('41','14',$xdes,$ydes,$ProdDesc,0,0,false,true,'C',true);
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes,$ProdDesc,0,0,false,true,'C',true);
         //IIIIIIIIIIIIIII CODIGO QR DE ARTICULO
 //        $pdf->Image($image_panel_qr, $xartqr_panel, $yartqr_panel, 30, 15, '', '', '', false, 300);
-        $pdf->Image($image_art_qr, $xartqr, $yartqr, 10, 10, '', '', '', false, 300);
+        $pdf->Image($image_art_qr, $xartqr, $yartqr, $xyQR, $xyQR, '', '', '', false, 300);
         //IIIIIIIIIIIIIII OFERTAS
         if($oferta != 0){ $pdf->Image($image_sale, $xsale, $ysale, 16, 16, '', '', '', false, 300); }
 //        $pdf->Image($image_sale, $xsale, $ysale, 16, 16, '', '', '', false, 300);
@@ -345,7 +394,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $xflag = $xpanel-0.7; $yflag = $ypanel+14;
         if(is_array($arr_flag)){
             foreach ($arr_flag as $r_flag){
-                $pdf->Image($dir_flag.$r_flag, $xflag, $yflag, 13, 7, '', '', '', false, 300);
+                $pdf->Image($dir_flag.$r_flag, $xflag, $yflag, $widthFlag, 7, '', '', '', false, 300);
 //                $xflag = $xflag+8; 
                 $yflag = $yflag+5; 
             }
