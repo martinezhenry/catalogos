@@ -89,6 +89,9 @@
     $obj_common->head();?>
     <link type="text/css" rel="stylesheet" href="../../assets/bootstrap-fileinput-master/css/fileinput.css" />
     <link type="text/css" rel="stylesheet" media="all" href="../../assets/bootstrap-colorpickersliders-master/bootstrap.colorpickersliders.css">
+    <link type="text/css" rel="stylesheet" media="all" href="../../assets/css/jquery-ui-1.9.2.custom.min.css">
+    
+
     <body>
         <div id="modal" style="width:100%; height:100%; position:fixed; top:0; left:0; right:0; bottom:0; margin:auto; padding:10px;background:rgba(0,0,0,0.6); z-index:9000; text-align:center;display:none;">&nbsp;</div>
         <div id="preloader" style="display:none;width:100%; height:100%; position:fixed; top:0; left:0; right:0; bottom:0; margin:auto; background: rgba(255,255,255,0.9); z-index:10000; text-align:center;">
@@ -317,14 +320,14 @@
                                                         <div class="col-sm-3">
                                                         <label class="control-label">Vendido Desde</label>
                                                             <div class="input-group">
-                                                                <input type="text" id="cat_vendido_desde" class="form-control" aria-label="..." onkeyup="">
+                                                                <input style="z-index: 999;" readonly type="text" id="cat_vendido_desde" class="form-control" aria-label="..." onkeyup="">
                                                           
                                                             </div>
                                                             </div>
                                                             <div class="col-sm-3">
                                                         <label class="control-label">Vendido Hasta</label>
                                                             <div class="input-group">
-                                                                <input type="text" id="cat_vandido_hasta" class="form-control" aria-label="..." onkeyup="">
+                                                                <input style="z-index: 999;" readonly type="text" id="cat_vendido_hasta" class="form-control" aria-label="..." onkeyup="">
                                                           
                                                             </div>
                                                             </div>
@@ -471,6 +474,7 @@
         <script src="../../assets/js/funcionesCat.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/tinycolor/0.11.1/tinycolor.min.js"></script>
         <script src="../../assets/bootstrap-colorpickersliders-master/bootstrap.colorpickersliders.js" type="text/javascript"></script>
+        <script src="../../assets/js/jquery-ui-1.9.2.custom.min.js"></script>
         
         <!--INICIALIZACION-->
         <script>
@@ -503,6 +507,36 @@
         <!--ACCIONES DEL FORMULARIO-->
         <script>
             $(document).ready(function(){
+
+                //$('#cat_vendido_desde').datepicker();
+                //$('#cat_vendido_hasta').datepicker();
+
+                    $( "#cat_vendido_desde" ).datepicker({
+                      defaultDate: "+1w",
+                      changeMonth: true,
+                      dateFormat: 'yy-mm-dd',
+                      //numberOfMonths: 3,
+                      onClose: function( selectedDate ) {
+                        $( "#cat_vendido_hasta" ).datepicker( "option", "minDate", selectedDate );
+                      }
+                    });
+                    $( "#cat_vendido_hasta" ).datepicker({
+                      defaultDate: "+1w",
+                      changeMonth: true,
+                      dateFormat: 'yy-mm-dd',
+                      //numberOfMonths: 3,
+                      onClose: function( selectedDate ) {
+                        $( "#cat_vendido_desde" ).datepicker( "option", "maxDate", selectedDate );
+                      }
+                    });
+
+
+                    $("#cat_vendido_hasta, #cat_vendido_desde").keyup(function(e) {
+                        if(e.keyCode == 8 || e.keyCode == 46) {
+                            $.datepicker._clearDate(this);
+                        }
+                    });
+                
 
                 // Selecciona todoas las subcategorias
                 $('body').on('change', '#checkSubCategories', function(){
@@ -589,6 +623,9 @@
                 catalogo_con_img = $('#catalogo_con_img').val();
                 catalogo_tipo_inventario = $('#catalogo_sel_tipo_inv').val();
                 catalogo_descontinuado = $('#catalogo_descontinuado').prop('checked');
+                catalogo_ventaFrom = $('#cat_vendido_desde').val();
+                catalogo_ventaTo = $('#cat_vendido_hasta').val();
+
 //                $('#modal_busqueda').html('Cargando...').fadeIn('fast');
                 activa_preloader();
                 $.post("../controllers/<?php echo $controller;?>",{
@@ -602,6 +639,8 @@
                     ,"n_pag":n_pag
                     , "catalogo_tipo_inventario":catalogo_tipo_inventario
                     , "catalogo_descontinuado":catalogo_descontinuado
+                    , "catalogo_ventaFrom" : catalogo_ventaFrom
+                    , "catalogo_ventaTo" : catalogo_ventaTo
                 },function(data){
                     if(data.mss === '1'){
                         $('#catalogo_articulo_list_busca').html(contruirArticulos(data.salida));
@@ -615,6 +654,7 @@
                         desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
                     }else{ 
                         alert(data);
+                        console.log(data);
                         modal_busqueda_sal = 'Realice una busqueda para mostrar articulos. '+data.mss;
 //                        $('#modal_busqueda').html(modal_busqueda_sal);
                         $('#catalogo_articulo_list_busca').html();

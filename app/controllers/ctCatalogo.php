@@ -131,6 +131,15 @@ switch ($opc){
             }
 
 
+            if ($catalogo_ventaFrom != ''){
+                $where .= " AND dateord >= '". $catalogo_ventaFrom . "'";
+            }
+
+            if ($catalogo_ventaTo != ''){
+                $where .= " AND dateord <= '". $catalogo_ventaTo . "'";
+            }
+
+
 
            
            // $n_elem_pag = 50;
@@ -151,7 +160,9 @@ switch ($opc){
 (IFNULL(invdts.qty,0) +  g_inventory.OnHand) as totalcant,
             ifnull(z.Precio,0) as Precio,
             ifnull(z.Date_To_dma,\'00/00/0000\') as Date_To_dma,
-            ifnull(z.Date_From_dma,\'00/00/0000\') as Date_From_dma
+            ifnull(z.Date_From_dma,\'00/00/0000\') as Date_From_dma,
+            ifnull(invpri.CurPrice, \'0.0000\') as precio2,
+            ifnull(y.dateord, \'00/00/0000\') as dateord
 
 
 
@@ -171,7 +182,7 @@ switch ($opc){
                     on (ofer.ofertaid = det.id )
                     group by
                     det.SkuNo, det.precio
-order by ofer.date_to
+                    order by ofer.date_to desc
                     limit 1
                     ) z
                     on (z.SkuNo = g_inventory.SkuNo)
@@ -183,18 +194,31 @@ select
                             from
                                 `inventory dts`
                             where
-                        #((`inventory dts`.`SkuNo` = `g_inventory`.`SkuNo`)
+                        
                              (`inventory dts`.`SkuNo` <> 0)) as invdts
-on (invdts.SkuNo = g_inventory.SkuNo)
+                            on (invdts.SkuNo = g_inventory.SkuNo)
+                            left join `inventory pricing` invpri
+                            on (invpri.SkuNo = g_inventory.SkuNo and invpri.PriceColumn = 4)
+                        left join (
+                            
+                            select max(ord.invDate) as dateord, orddet.skuno from `orders detail` orddet
+                            left join
+                            orders ord
+                            on (ord.ordid = orddet.ordid)
+                            group by orddet.skuno
+
+                        ) y
+                        on (y.skuno = g_inventory.SkuNo)
+                            
             ";
 
            // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
-            $resul = $obj_bdmysql->select($myTable, $campos, $where, "SkuNo", $limit,$mysqli,FALSE);
+            $resul = $obj_bdmysql->select($myTable, $campos, $where, "SkuNo", $limit,$mysqli,false);
             //$mss = $resul;
             //var_dump($resul);
 
             $resul_n = 1;
-            if($resul_n == 0){ 
+            if(count($resul) == 0){ 
                 $mss = 'NO SE ENCONTRARON ARTICULOS. ';
             }else{
                 if(!is_array($resul)){ 

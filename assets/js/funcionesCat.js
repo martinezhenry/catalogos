@@ -232,6 +232,7 @@ var salida = '';
                           oferta = r.Precio;
                            fecha_to_oferta = r.Date_To_dma;
                             fecha_from_oferta = r.Date_From_dma;
+                            precio = r.precio2;
                         
                         catalogo_articulo_arr = r.SkuNo + '/*'+ r.PartNo+'/*'+r.ProdDesc+'/*'+r.CatDesc+'/*'+r.PrdDesc+'/*'+precio+'/*'+r.OnHand+'/*'+oferta+'/*'+fecha_to_oferta+'/*'+fecha_to_oferta+'/*'+flag;
                         salida+= '<tr class="catalogo_articulo_fila" id="catalogo_articulo_fila_'+r.SkuNo+'" >'+
