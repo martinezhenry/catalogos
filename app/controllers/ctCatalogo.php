@@ -188,14 +188,16 @@ switch ($opc){
                     on (z.SkuNo = g_inventory.SkuNo)
 left join
 (
-select 
-                                `inventory dts`.`SkuNo`,
-                                (`inventory dts`.`Qty`) qty
+                            select 
+                                aa.`SkuNo`,
+                                (aa.`Qty`) qty
                             from
-                                `inventory dts`
+                                `inventory dts` aa
                             where
                         
-                             (`inventory dts`.`SkuNo` <> 0)) as invdts
+                             (aa.`SkuNo` <> 0) and
+                             qty = (select max(qty) from `inventory dts`  where SkuNo = aa.SkuNo)
+                             ) as invdts
                             on (invdts.SkuNo = g_inventory.SkuNo)
                             left join `inventory pricing` invpri
                             on (invpri.SkuNo = g_inventory.SkuNo and invpri.PriceColumn = 4)
