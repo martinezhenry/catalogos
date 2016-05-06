@@ -106,11 +106,11 @@
                 if(trim($resul[0]['titulo_ali_hor']) != ''){ $titulo_hor = $resul[0]['titulo_ali_hor']; }
                 if(trim($resul[0]['titulo_ali_ver']) != ''){ $titulo_ver = $resul[0]['titulo_ali_ver']; }
 
-                $selectedPlantilla3x5 = '';
+                $selectedPlantilla5x3 = '';
                 $selectedPlantilla5x4 = ''; 
                 $selectedPlantilla4x4 = '';
-                if(trim($resul[0]['presentacion'] == '3x5')){
-                    $selectedPlantilla3x5 = 'selected';
+                if(trim($resul[0]['presentacion'] == '5x3')){
+                    $selectedPlantilla5x3 = 'selected';
                 } else if(trim($resul[0]['presentacion'] == '4x4')){
                     $selectedPlantilla4x4 = 'selected';
                 } else {
@@ -274,7 +274,7 @@
                                                             <select class="form-control" id="catalogo_sel_presentacion">
                                                                 <option <?php echo $selectedPlantilla5x4 ?> value="5x4">5x4</option>
                                                                 <option <?php echo $selectedPlantilla4x4 ?> value="4x4">4x4</option>
-                                                                <option <?php echo $selectedPlantilla3x5 ?> value="3x5">3x5</option>
+                                                                <option <?php echo $selectedPlantilla5x3 ?> value="5x3">5x3</option>
                                                             </select>
                                                             <br>
                                                             </div>

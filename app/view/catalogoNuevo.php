@@ -195,7 +195,7 @@
                                                             <select class="form-control" id="catalogo_sel_presentacion">
                                                                 <option value="5x4">5x4</option>
                                                                 <option value="4x4">4x4</option>
-                                                                <option value="3x5">3x5</option>
+                                                                <option value="5x3">5x3</option>
                                                             </select>
                                                             <br>
                                                             </div>

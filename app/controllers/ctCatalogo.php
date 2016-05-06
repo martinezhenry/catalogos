@@ -459,8 +459,8 @@ select
                                         //INICIA TRANSACCION
                                         $mysqli->autocommit(FALSE);
                                         //INSERTA CATALOGO
-                                        $campo = "id_catalogo, codigo, titulo, descripcion, portada, fondo, precio_pdf, order_id, titulo_fuente, titulo_tamano, titulo_color, titulo_estilo, titulo_ali_hor, titulo_ali_ver, co_us_in, fe_us_in, co_us_mo, fe_us_mo, co_us_de, fe_us_de";
-                                        $valor = "'".$catalogo_id."','".$catalogo_codigo."','".$catalogo_titulo."','".$catalogo_descripcion."','".$portada."','".$fondo."','".$catalogo_sel_precio_pdf."','".$catalogo_order_id."','".$catalogo_titulo_fuente."','".$catalogo_titulo_tamano."','".$catalogo_titulo_color."','".$catalogo_titulo_estilo."','".$catalogo_titulo_ali_hor."','".$catalogo_titulo_ali_ver."','".$cod_usuario."',NOW(),'0',NOW(),'0',NOW()";
+                                        $campo = "id_catalogo, codigo, titulo, descripcion, portada, fondo, precio_pdf, order_id, titulo_fuente, titulo_tamano, titulo_color, titulo_estilo, titulo_ali_hor, titulo_ali_ver, co_us_in, fe_us_in, co_us_mo, fe_us_mo, co_us_de, fe_us_de, presentacion";
+                                        $valor = "'".$catalogo_id."','".$catalogo_codigo."','".$catalogo_titulo."','".$catalogo_descripcion."','".$portada."','".$fondo."','".$catalogo_sel_precio_pdf."','".$catalogo_order_id."','".$catalogo_titulo_fuente."','".$catalogo_titulo_tamano."','".$catalogo_titulo_color."','".$catalogo_titulo_estilo."','".$catalogo_titulo_ali_hor."','".$catalogo_titulo_ali_ver."','".$cod_usuario."',NOW(),'0',NOW(),'0',NOW(), '".$catalogo_sel_presentacion."'";
                                         $catalogo_insert = $obj_bdmysql->insert("catalogo", $campo, $valor, $mysqli);
 
                                         if($catalogo_insert  == '1'){

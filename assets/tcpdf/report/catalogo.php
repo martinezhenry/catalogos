@@ -258,6 +258,9 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $xyQR = 9;
         $plusYQR = 44;
         $plusXDesc = 5;
+    } else if($colS == 3){
+        $multiplicadorX = 18;
+        $marginx = 12;
     } else {
         $multiplicadorX = 1;
     }
@@ -392,13 +395,13 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 //        $pdf->Image($image_sale, $xsale, $ysale, 16, 16, '', '', '', false, 300);
         //IIIIIIIIIIIIIII FLAG
         $xflag = $xpanel-0.7; $yflag = $ypanel+14;
-        if(is_array($arr_flag)){
+     /*   if(is_array($arr_flag)){
             foreach ($arr_flag as $r_flag){
                 $pdf->Image($dir_flag.$r_flag, $xflag, $yflag, $widthFlag, 7, '', '', '', false, 300);
 //                $xflag = $xflag+8; 
                 $yflag = $yflag+5; 
             }
-        }
+        } */
         
 //        $pdf->writeHTMLCell('50','14',$xcod,$ycod,'SKU: 107227',0,0,false,true,'C',true);
 //        $pdf->writeHTMLCell('41','14',$xdes,$ydes,'Alt-nd Irif Celica, Camry 70A 2.2L',0,0,false,true,'C',true);
