@@ -575,7 +575,7 @@
                                                                 }
                                                         ?>
                                                         <tr class="catalogo_articulo_fila_carga" id="catalogo_articulo_fila_carga_<?php echo $SkuNo;?>">
-                                                            <td data-title="remove" id="catalogo_articulo_list_remove_<?php echo $SkuNo;?>" style="text-align:center;" onclick="remover_articulo(this.id);"><i class="fa fa-trash-o" style="font-size:18px"></i></td>
+                                                            <td data-title="remove" id="catalogo_articulo_list_remove_<?php echo $SkuNo;?>" style="text-align:center;" onclick="remover_articulo(this.id);"><i class="fa fa-trash-o" style="font-size:18px; cursor: pointer;"></i></td>
                                                             <td data-title="CODIGO" id="catalogo_articulo_list_cod"><input type="hidden" id="catalogo_articulo_list_price" class="catalogo_articulo_list_cod" value="<?php echo $SkuNo;?>"><?php echo $SkuNo;?></td>
                                                             <td data-title="PARTNO"><input type="hidden" id="catalogo_articulo_list_partno" value="<?php echo $PartNo;?>"><?php echo $PartNo;?></td>
                                                             <td data-title="ARTICULO"><input type="hidden" id="catalogo_articulo_list_proddesc" value="<?php echo $ProdDesc;?>"><?php echo $ProdDesc;?></td>
