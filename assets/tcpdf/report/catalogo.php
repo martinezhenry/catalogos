@@ -293,6 +293,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
                     $ProdDesc = $r_art2['ProdDesc'];
                     $CatDesc = $r_art2['CatDesc'];
                     $PrdDesc = $r_art2['PrdDesc'];
+                    $MfgCode = $r_art2['MfgCode'];
                     //DEFINE IMAGEN
                     $image_art= "../../img/art/".$SkuNo.".jpg";
                     $image_art_qr= "../../img/art_qr/".$SkuNo.".jpg";
@@ -333,7 +334,32 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
                             $fecha_from_oferta = $resul_oferta[0]['Date_From_dma'];
                             $image_label = $image_label_sale;
 //                        }
-                    }             
+                    } 
+                    
+                    //DEFINE XREF
+                    $where = "SkuNo = '".$SkuNo."' and MfgCode = '$MfgCode'";
+                    //echo $where;
+                    $resul_xref = $obj_bdmysql->select("`inventory items xref`", "PartNo", $where, "PartNo", "",$mysqli2);
+                    if(!is_array($resul_xref)){ $xref = ''; 
+                    }else{    
+                        //DIAS DE DIFERENCIA FECHA FIN OFERTA Y FECHA ACTUAL
+//                        $datetime1 = new DateTime($resul_oferta[0]['Date_From_dma'], new DateTimeZone('America/Caracas'));
+//                        $datetime2 = new DateTime(date('d/m/Y'), new DateTimeZone('America/Caracas'));
+//                        $interval = $datetime1->diff($datetime2);
+//                        $dif_fecha = $interval->format('%R%a');
+//                        if($dif_fecha > 0){
+                        $xref = "";
+                       // var_dump($resul_xref);
+                        foreach ($resul_xref as $value) {
+                           // var_dump($value);
+                            $xref .= $value['PartNo'] . "; ";
+                        }
+                        $xref = substr($xref, 0, -2);
+                        
+                     //   echo $xref;
+//                        }
+                    }          
+                    
                 }
             }
         }else{
@@ -387,6 +413,10 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $pdf->SetFont('helvetica', '', 8);
         //IIIIIIIIIIIIIII DESCRIPCION PRODUCTO
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes,$ProdDesc,0,0,false,true,'C',true);
+        //IIIIIIIIIIIIIII DESCRIPCION XREF
+        
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+6,"Ref: " . $xref,0,0,false,true,'C',true);
+        
         //IIIIIIIIIIIIIII CODIGO QR DE ARTICULO
 //        $pdf->Image($image_panel_qr, $xartqr_panel, $yartqr_panel, 30, 15, '', '', '', false, 300);
         $pdf->Image($image_art_qr, $xartqr, $yartqr, $xyQR, $xyQR, '', '', '', false, 300);
