@@ -340,8 +340,8 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
                     //DEFINE XREF
                     $where = "SkuNo = '".$SkuNo."' and MfgCode = '$MfgCode'";
                     //echo $where;
-                    $resul_xref = $obj_bdmysql->select("`inventory items xref`", "PartNo", $where, "PartNo", "4",$mysqli2);
-                    if(!is_array($resul_xref)){ $xref = ''; 
+                    $resul_xref = $obj_bdmysql->select("`inventory items xref` a", "a.PartNo, a.Desc", $where, "a.PartNo", "",$mysqli2);
+                    if(!is_array($resul_xref)){ $xref = ''; $univXref = ''; $altXref = '';
                     }else{    
                         //DIAS DE DIFERENCIA FECHA FIN OFERTA Y FECHA ACTUAL
 //                        $datetime1 = new DateTime($resul_oferta[0]['Date_From_dma'], new DateTimeZone('America/Caracas'));
@@ -350,16 +350,34 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 //                        $dif_fecha = $interval->format('%R%a');
 //                        if($dif_fecha > 0){
                         $xref = "";
+                        $altXref = '';
+                        $univXref = '';
                        // var_dump($resul_xref);
+                        $xrefCant = 0;
                         foreach ($resul_xref as $value) {
                            // var_dump($value);
-                            $xref .= $value['PartNo'] . "; ";
+                            
+                            if (strpos(strtoupper($value['Desc']), 'UNIVERSAL') !== false){
+                               $univXref = $value['PartNo'];
+                            } else if (strpos(strtoupper($value['Desc']), 'DTS-ISKRO') !== false){
+                               $altXref = $value['PartNo'];
+                            } else {
+                               $xrefCant++;
+                               if ($xrefCant <= 4) {
+                                 $xref .= $value['PartNo'] . "; ";
+                               //echo $xref;
+                               } else {
+                                 //echo "no hayyy"  ;
+                               }
+                            }
+                            
                         }
                         $xref = substr($xref, 0, -2);
                         
                      //   echo $xref;
 //                        }
-                    }          
+                    }       
+                    
                     
                 }
             }
@@ -416,7 +434,9 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes,$ProdDesc,0,0,false,true,'C',true);
         //IIIIIIIIIIIIIII DESCRIPCION XREF
         $pdf->SetFont('helvetica', '', 7);
-        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+6,"Ref: " . $xref,0,0,false,true,'C',true);
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+6,"Ref: " . $univXref,0,0,false,true,'C',true);
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+9,"" . $xref,0,0,false,true,'C',true);
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+12,"Alt Ref: " . $altXref,0,0,false,true,'C',true);
         $pdf->SetFont('helvetica', '', 8);
         //IIIIIIIIIIIIIII CODIGO QR DE ARTICULO
 //        $pdf->Image($image_panel_qr, $xartqr_panel, $yartqr_panel, 30, 15, '', '', '', false, 300);
