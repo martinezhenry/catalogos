@@ -135,8 +135,9 @@ class MYPDF extends TCPDF {
         $image_file = "../../../assets/img/catalogo/footer1.jpg";
         $this->Image($image_file, 0, 285, 210, 13, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
         $n_pagina = $top_art_pag + floatval($this->getAliasNumPage());
-        $this->writeHTMLCell('0','14','30','286',$top_art_pag.' + '.floatval($this->getAliasNumPage()).', '.$n_pagina.' '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0,0,false,true,'C',true);
-        $this->writeHTMLCell('0','14','10','291','Textronic Inc 4079 NW 79th Ave Doral FL 33166 * Phone: (305) 597-5740 * Toll Free: * Fax: (305) 597-5741. P'.$ind_pag,0,0,false,true,'C',true);
+        //$this->writeHTMLCell('0','14','30','286',$top_art_pag.' + '.floatval($this->getAliasNumPage()).', '.$n_pagina.' '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0,0,false,true,'C',true);
+        $this->writeHTMLCell('0','14','30','286',$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0,0,false,true,'C',true);
+        $this->writeHTMLCell('0','14','10','291','Textronic Inc 4079 NW 79th Ave Doral FL 33166 * Phone: (305) 597-5740 Fax: (305) 597-5741. P'.$ind_pag,0,0,false,true,'C',true);
     //        }
     //        $this->Cell(0, 10, 'Pag '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 1, '', 1, false, 'T', 'M');
     //        $this->Cell(0, 10, 'Pag '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
@@ -221,8 +222,8 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
     $marginx = 3;
     $marginy = 14;
     //ANCHO Y ALTO DE ITEM
-    $wpanel = 50; 
-    $hpanel = 50;
+    $wpanel = 52; 
+    $hpanel = 52;
 
     //$colS = 4;
    // $filS = 5;
@@ -235,7 +236,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
     // XY QR
     $xyQR = 10;
     // plus Y QR
-    $plusYQR = 40;
+    $plusYQR = 41;
     // plus X Desc
     $plusXDesc = 3;
 
@@ -251,12 +252,12 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
     if ($colS == 5){
         $multiplicadorX = 1;
-        $wpanel = 40;
+        $wpanel = 42;
         $widthDesc = 31;
         $widthFlag = 8;
         $plusArt = 9;
         $xyQR = 9;
-        $plusYQR = 44;
+        $plusYQR = 45;
         $plusXDesc = 5;
     } else if($colS == 3){
         $multiplicadorX = 18;
@@ -264,7 +265,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
     } else {
         $multiplicadorX = 1;
     }
-    $paddinx = 1 * $multiplicadorX;
+    $paddinx = 0.5 * $multiplicadorX;
     $paddiny = 4 * $multiplicadorY;
     //FILAS Y COLUMNAS
     $col = $colS;
@@ -339,7 +340,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
                     //DEFINE XREF
                     $where = "SkuNo = '".$SkuNo."' and MfgCode = '$MfgCode'";
                     //echo $where;
-                    $resul_xref = $obj_bdmysql->select("`inventory items xref`", "PartNo", $where, "PartNo", "",$mysqli2);
+                    $resul_xref = $obj_bdmysql->select("`inventory items xref`", "PartNo", $where, "PartNo", "4",$mysqli2);
                     if(!is_array($resul_xref)){ $xref = ''; 
                     }else{    
                         //DIAS DE DIFERENCIA FECHA FIN OFERTA Y FECHA ACTUAL
@@ -380,9 +381,9 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $xf = $marginx+(($wpanel+$paddinx)*$nc); $yf = $marginy+($hpanel+$paddiny)*$nf;
     //    $xpanel = 14;$ypanel = 50;    
         $xpanel = $xf;$ypanel = $yf;
-        $xart = $xpanel+$plusArt; $yart = $ypanel+9;
-        $xcod = $xpanel; $ycod = $ypanel+3;
-        $xdes = $xpanel+$plusXDesc; $ydes = $ypanel+33;
+        $xart = $xpanel+$plusArt; $yart = $ypanel+6.5;
+        $xcod = $xpanel; $ycod = $ypanel+0.5;
+        $xdes = $xpanel+$plusXDesc; $ydes = $ypanel+30.5;
         $xlabel = $xpanel+35; $ylabel = $ypanel+38;
         $xtexprice = $xlabel+2; $ytexprice = $ylabel+6;
         $xsale = $xpanel-2; $ysale = $ypanel-1;
@@ -414,9 +415,9 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         //IIIIIIIIIIIIIII DESCRIPCION PRODUCTO
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes,$ProdDesc,0,0,false,true,'C',true);
         //IIIIIIIIIIIIIII DESCRIPCION XREF
-        
+        $pdf->SetFont('helvetica', '', 7);
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+6,"Ref: " . $xref,0,0,false,true,'C',true);
-        
+        $pdf->SetFont('helvetica', '', 8);
         //IIIIIIIIIIIIIII CODIGO QR DE ARTICULO
 //        $pdf->Image($image_panel_qr, $xartqr_panel, $yartqr_panel, 30, 15, '', '', '', false, 300);
         $pdf->Image($image_art_qr, $xartqr, $yartqr, $xyQR, $xyQR, '', '', '', false, 300);
