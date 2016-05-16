@@ -90,9 +90,10 @@ switch ($opc){
 
 
             
-           // if($catalogo_articulo != ''){
-            // $where.= " AND ( ( PartNo like '%".$catalogo_articulo."%' ) OR ( SkuNo like '%".$catalogo_articulo."%' ) OR ( ProdDesc like '%".$catalogo_articulo."%' ) )";
-             // }
+            if($catalogo_articulo != ''){
+             $where.= " AND ( ( g_inventory.PartNo like '%".$catalogo_articulo."%' ) OR ( g_inventory.SkuNo like '%".$catalogo_articulo."%' ) OR ( g_inventory.ProdDesc like '%".$catalogo_articulo."%' ) )";
+              }
+
             if($catalogo_categoria != ''){
 
                  $where.= " AND ( CatCode = '".$catalogo_categoria."' ) "; 

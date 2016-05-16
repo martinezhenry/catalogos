@@ -166,12 +166,13 @@ var ini_pag;
 var n_pag=1; 
 var salida = '';
                     if(n_pag == 1){
-                    salida = '<tr><th>'+
+                    salida = '<tr>'+
                                 '<th>N</th>'+
                                 '<th>Sel</th>'+
                                 '<th width="10%">SkuNo</th>'+
                                 '<th width="10%">PartNo</th>'+
                                 '<th>Descripcion</th>'+
+                                '<th>Categoria.</th>'+
                                 '<th>Sub Cat.</th>'+
                                 '<th class="numeric">Precio</th>'+
                                 '<th>Cat Tex.</th>'+

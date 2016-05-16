@@ -625,6 +625,7 @@
                 catalogo_descontinuado = $('#catalogo_descontinuado').prop('checked');
                 catalogo_ventaFrom = $('#cat_vendido_desde').val();
                 catalogo_ventaTo = $('#cat_vendido_hasta').val();
+                catalogo_articulo = $('#catalogo_articulo').val();
 
 //                $('#modal_busqueda').html('Cargando...').fadeIn('fast');
                 activa_preloader();
@@ -641,6 +642,7 @@
                     , "catalogo_descontinuado":catalogo_descontinuado
                     , "catalogo_ventaFrom" : catalogo_ventaFrom
                     , "catalogo_ventaTo" : catalogo_ventaTo
+                    , "catalogo_articulo" : catalogo_articulo
                 },function(data){
                     if(data.mss === '1'){
                         $('#catalogo_articulo_list_busca').html(contruirArticulos(data.salida));
@@ -653,7 +655,7 @@
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
                         desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
                     }else{ 
-                        alert(data);
+                        alert(data.mss);
                         console.log(data);
                         modal_busqueda_sal = 'Realice una busqueda para mostrar articulos. '+data.mss;
 //                        $('#modal_busqueda').html(modal_busqueda_sal);
