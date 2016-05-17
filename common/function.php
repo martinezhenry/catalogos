@@ -84,9 +84,15 @@ class coFunction{
         return($resp);
     } 
     
-    function codeQR($valor,$name){
-        $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'codeqr'.DIRECTORY_SEPARATOR;
-        include "../../assets/phpqrcode/qrlib.php";    
+    function codeQR($valor,$name, $directory = NULL){
+        if (is_null($directory)){
+            $PNG_TEMP_DIR = dirname(__FILE__).DIRECTORY_SEPARATOR.'codeqr'.DIRECTORY_SEPARATOR;
+        } else {
+            $PNG_TEMP_DIR = str_replace(DIRECTORY_SEPARATOR.'common','',dirname(__FILE__)).DIRECTORY_SEPARATOR.'assets'.DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.'art_qr'.DIRECTORY_SEPARATOR;
+        }
+       // echo $PNG_TEMP_DIR;
+        //exit;
+        include_once "../../assets/phpqrcode/qrlib.php";    
 
         //ofcourse we need rights to create temp dir
         if (!file_exists($PNG_TEMP_DIR)){
@@ -98,9 +104,17 @@ class coFunction{
         $matrixPointSize = 10;
         $errorCorrectionLevel = 'L';
 //        //$filename = $PNG_TEMP_DIR.'test'.md5($valor.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
-        $filename = $PNG_TEMP_DIR.$name.'.png';
-        QRcode::png($valor, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
-        return $valor.$name;
+        if (is_null($directory)){
+            $filename = $PNG_TEMP_DIR.$name.'.png';
+            QRcode::png($valor, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+            return $valor.$name;
+        } else {
+            $filename = $PNG_TEMP_DIR.$name.'.png';
+            if (!file_exists($filename)){
+                QRcode::png($valor, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+            }
+            return $valor.$name;
+        }
     }
     
     function master_id($id,$opc,$mysqli){

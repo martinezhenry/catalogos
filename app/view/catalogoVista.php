@@ -914,6 +914,7 @@
                     ,"articulos":articulos
                     ,"catalogo_sel_presentacion":catalogo_sel_presentacion
                 },function(data){
+                    alert(data);
                     if(data.mss === '1'){
                         alert(data.salida);
                     }else{ alert(data.mss); }

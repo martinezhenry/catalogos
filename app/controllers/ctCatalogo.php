@@ -488,6 +488,8 @@ left join
                                                 $valor = "'".$catalogo_id."','".$num_reng."','".$SkuNo."','".$precio."','0','".$oferta."','".$fecha_to_oferta."','".$fecha_from_oferta."','".$OnHand."','".$OnHand."','".$OnHand."','".$OnHand."','0', '','','','1',NOW(),'0',NOW(),'0',NOW(), '".$partNo."', '".$prodDesc."'";
                                                 $catalogo_reng_insert = $obj_bdmysql->insert("catalogo_reng", $campo, $valor, $mysqli);
                                                 $num_reng = $num_reng + 1;
+                                                $linkArtQR = "http://textronic.us/showitem.aspx?id=" . $SkuNo;
+                                                $obj_function->codeQR($linkArtQR, $SkuNo, TRUE);
                                                 if($catalogo_reng_insert != '1'){ $error_reng = $error_reng.'. '.$catalogo_reng[0].': '.$catalogo_reng_insert; }
                                             }
 
@@ -643,6 +645,8 @@ left join
                                                         $valor = "'".$catalogo_id."','".$num_reng."','".$SkuNo."','".$precio."','0','".$oferta."','".$fecha_to_oferta."','".$fecha_from_oferta."','".$OnHand."','".$OnHand."','".$OnHand."','".$OnHand."','0','','".$PartNo."','".$ProdDesc."','1',CURRENT_TIME,'0',CURRENT_TIME,'0',CURRENT_TIME, '', ''";
                                                         $catalogo_reng_insert = $obj_bdmysql->insert("catalogo_reng", $campo, $valor, $mysqli, false);
                                                         $num_reng = $num_reng + 1; 
+                                                        $linkArtQR = "http://textronic.us/showitem.aspx?id=" . $SkuNo;
+                                                        $obj_function->codeQR($linkArtQR, $SkuNo, TRUE);
                                                         if($catalogo_reng_insert != '1'){ $error_reng = $error_reng.'. '.$catalogo_reng[0].': '.$catalogo_reng_insert; }
                                                     }
 
