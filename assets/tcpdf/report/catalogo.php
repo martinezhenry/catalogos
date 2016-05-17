@@ -297,7 +297,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
                     $MfgCode = $r_art2['MfgCode'];
                     //DEFINE IMAGEN
                     $image_art= "../../img/art/".$SkuNo.".jpg";
-                    $image_art_qr= "../../img/art_qr/".$SkuNo.".jpg";
+                    $image_art_qr= "../../img/art_qr/".$SkuNo.".png";
                     if(!file_exists($image_art)){ /*$image_art= "../../img/art/def.jpg";*/ $image_art='../../img/art/def2.png'; }
                     if(!file_exists($image_art_qr)){ $image_art_qr= $codigo_qr; }
                     //DEFINE FLAG
