@@ -148,7 +148,7 @@ switch ($opc){
             $n_pag++;
             $limit = '';          
             //$campos = '*';
-            $campos = '
+            $campos = ' distinct
             `g_inventory`.* ,
         (select 
                 `codes cat`.`CatDesc`
@@ -216,7 +216,7 @@ left join
             ";
 
            // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
-            $resul = $obj_bdmysql->select($myTable, $campos, $where, "SkuNo", $limit,$mysqli,false);
+            $resul = $obj_bdmysql->select($myTable, $campos, $where, "PartNo", $limit,$mysqli,false);
             //$mss = $resul;
             //var_dump($resul);
 
@@ -320,7 +320,7 @@ left join
                     $where.=" OR SkuNo = '".$arr_art."'";
                 }
                 $campos = "*,'00/00/0000' as fe_oferta_dmy,(SELECT CatDesc FROM `codes cat` WHERE `codes cat`.CatCode = g_inventory.CatCode) as CatDesc, (SELECT PrdDesc FROM `codes catsub` WHERE `codes catsub`.PrdCode = g_inventory.PrdCode) as PrdDesc";
-                $resul = $obj_bdmysql->select("g_inventory", $campos, $where, "ProdDesc", "",$mysqli);
+                $resul = $obj_bdmysql->select("g_inventory", $campos, $where, "PartNo", "",$mysqli);
                 if(!is_array($resul)){ $mss = 'NO SE ENCONTRO ARTICULO PARA EL CODIGO '.$cod_articulo; 
                 }else{
 

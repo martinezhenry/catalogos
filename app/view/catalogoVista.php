@@ -125,7 +125,8 @@
                 }else{
                     foreach ($resul_order as $r_order){
 //                        echo $resul['order_id'].', '.$catalogo_order_id.' == '.$r_order['id'].'<br>';
-                        if($catalogo_order_id == $r_order['id']){
+                        //if($catalogo_order_id == $r_order['id']){
+                        if(3 == $r_order['id']){
                             $catalogo_order_columna = $r_order['columna_tabla'];
                             $catalogo_order_orden = $r_order['reverse'];
                             $catalogo_order_tipo = $r_order['tipo_tabla'];
@@ -460,6 +461,16 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
+                                                        <div class="col-lg-3">
+                                                            <div class="input-group">
+                                                            <span class="input-group-addon" id="basic-addon1">Ordenar Por:</span>
+                                                            <div class="input-group-btn">
+                                                                <select id="catalogo_orden_list2" class="btn btn-default dropdown-toggle" onchange="ordenar_catalogo(this.value)">
+                                                                    <?php echo $catalogo_order;?>
+                                                                </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="col-sm-12">
                                                             <h4><i class="fa fa-angle-right"></i> Resultado de Busqueda. <b id="catalogo_articulo_list_total_busqeuda"></b></h4>
                                                             <div class="form-control" style="height:310px;position:relative;">
