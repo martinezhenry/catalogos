@@ -65,6 +65,8 @@ if (!$mysqli->connect_error) {
             $filasXcolumnas = $resul[0]['presentacion'];
             //CODIGO QR
             $codigo_qr = '../../../common/codeqr/'.$id_catalogo.'.png';
+            // PRECIO PDF
+            $precio_pdf = $resul[0]['precio_pdf'];
             //PORTADA
             if(trim($resul[0]['portada']) != ''){ $portada = '../../bootstrap-fileinput-master/portadas/'.$resul[0]['portada']; 
             }else{ $portada = "../../bootstrap-fileinput-master/portadas/def.jpg"; }
@@ -412,7 +414,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         //IIIIIIIIIIIIIII IMAGEN ARTICULO
         $pdf->Image($image_art, $xart, $yart, 23, 23, '', '', '', false, 300);
         //IIIIIIIIIIIIIII PRECIO
-        /*if($r_art['precio_pdf'] == 1){
+        if($precio_pdf == 1){
             if($r_art['precio'] > 0){
             //IIIIIIIIIIIIIII IMAGEN
             //$pdf->Image($image_label, $xlabel, $ylabel, 17, 17, '', '', '', false, 300);
@@ -424,7 +426,9 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
             //$pdf->Text($xtexprice,$ytexprice, '$'.number_format($r_art['precio'],2,".",","));
             $pdf->writeHTMLCell('45','14',$xcod,$ytexprice,'$'.number_format($r_art['precio'],2,".",","),0,0,false,true,'R',true);
             }
-        }*/
+        }
+
+
         $pdf->SetTextColor(0,0,0);
         //IIIIIIIIIIIIIII CODIGO DE PRODUCTO
         $pdf->SetFont('helvetica', 'B', 10);
