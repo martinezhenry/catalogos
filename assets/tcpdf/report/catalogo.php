@@ -109,10 +109,10 @@ class MYPDF extends TCPDF {
     public function Header() {
         global $fecha_reg,$fondo,$desc_catalogo,$ind_pag;
         $ind_pag = $ind_pag + 1;
-        $this->Image($fondo, 0, 0, 210, 300, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
+        $this->Image($fondo, 0, 0, 230, 300, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
 
         $image_file2 = "../../../assets/img/catalogo/header1.jpg";
-        $this->Image($image_file2, 0, 0, 210, 14, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
+        $this->Image($image_file2, 0, 0, 230, 14, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
 
         $image_file3 = '../../../assets/img/logo.png';
         $this->Image($image_file3, 13, 0, 56, 14, '', '', '', false, 300);
@@ -125,7 +125,8 @@ class MYPDF extends TCPDF {
     // Page footer
     public function Footer() {
         global $top_art_pag,$ind_pag;
-        $ind_pag = $ind_pag + 1;
+        //$ind_pag = $ind_pag + 1;
+        $ind_pag = $ind_pag ;
         // Position at 15 mm from bottom
         $this->SetY(-15);
         // Set font
@@ -135,11 +136,11 @@ class MYPDF extends TCPDF {
         // Page number
     //        if(trim($this->getAliasNumPage()) != '1'){
         $image_file = "../../../assets/img/catalogo/footer1.jpg";
-        $this->Image($image_file, 0, 285, 210, 13, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
+        $this->Image($image_file, 0, 268, 230, 13, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
         $n_pagina = $top_art_pag + floatval($this->getAliasNumPage());
         //$this->writeHTMLCell('0','14','30','286',$top_art_pag.' + '.floatval($this->getAliasNumPage()).', '.$n_pagina.' '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0,0,false,true,'C',true);
-        $this->writeHTMLCell('0','14','30','286',$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0,0,false,true,'C',true);
-        $this->writeHTMLCell('0','14','10','291','Textronic Inc 4079 NW 79th Ave Doral FL 33166 * Phone: (305) 597-5740 Fax: (305) 597-5741. P'.$ind_pag,0,0,false,true,'C',true);
+        $this->writeHTMLCell('0','14','30','268',$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0,0,false,true,'C',true);
+        $this->writeHTMLCell('0','14','10','273','Textronic Inc 4079 NW 79th Ave Doral FL 33166 * Phone: (305) 597-5740 Fax: (305) 597-5741. P'.$ind_pag,0,0,false,true,'C',true);
     //        }
     //        $this->Cell(0, 10, 'Pag '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 1, '', 1, false, 'T', 'M');
     //        $this->Cell(0, 10, 'Pag '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
@@ -147,7 +148,8 @@ class MYPDF extends TCPDF {
 }
 
 // create new PDF document
-$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+//$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, 'LETTER', true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
@@ -198,10 +200,10 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
     //IIIIIIIIIIIIIIIIIIIIIIIII  PORTADA
         $pdf->AddPage();
         //IMAGEN DE PORTADA
-        $pdf->Image($portada, 0, 0, 210, 300, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
+        $pdf->Image($portada, 0, 0, 230, 300, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
         $pdf->Image('../../../assets/img/logo.png', 10, 240, 120, 28, '', '', '', false, 300);
         $pdf->writeHTMLCell(0,14,10,$titulo_ver,$desc_catalogo,0,0,false,true,$titulo_hor,true);
-        $pdf->Image($codigo_qr, 160, 200, 40, 40, '', '', '', false, 300);
+      //  $pdf->Image($codigo_qr, 160, 200, 40, 40, '', '', '', false, 300);
     }
     
     //IIIIIIIIIIIIIIIIIIIIIIIII  ARTICULOS
@@ -221,11 +223,11 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
     //SEPARACION
     $colS = explode('x', $filasXcolumnas)[1];
     $filS = explode('x', $filasXcolumnas)[0];
-    $marginx = 3;
+    $marginx = 2.5;
     $marginy = 14;
     //ANCHO Y ALTO DE ITEM
     $wpanel = 52; 
-    $hpanel = 52;
+    $hpanel = 49;
 
     //$colS = 4;
    // $filS = 5;
@@ -238,7 +240,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
     // XY QR
     $xyQR = 10;
     // plus Y QR
-    $plusYQR = 41;
+    $plusYQR = 40;
     // plus X Desc
     $plusXDesc = 3;
 
@@ -263,12 +265,12 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $plusXDesc = 5;
     } else if($colS == 3){
         $multiplicadorX = 18;
-        $marginx = 12;
+        $marginx = 10.5;
     } else {
         $multiplicadorX = 1;
     }
     $paddinx = 0.5 * $multiplicadorX;
-    $paddiny = 4 * $multiplicadorY;
+    $paddiny = 1.8 * $multiplicadorY;
     //FILAS Y COLUMNAS
     $col = $colS;
     $fil = $filS;
@@ -401,7 +403,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $xf = $marginx+(($wpanel+$paddinx)*$nc); $yf = $marginy+($hpanel+$paddiny)*$nf;
     //    $xpanel = 14;$ypanel = 50;    
         $xpanel = $xf;$ypanel = $yf;
-        $xart = $xpanel+$plusArt; $yart = $ypanel+6.5;
+        $xart = $xpanel+$plusArt; $yart = $ypanel+5.5;
         $xcod = $xpanel; $ycod = $ypanel+0.5;
         $xdes = $xpanel+$plusXDesc; $ydes = $ypanel+30.5;
         $xlabel = $xpanel+35; $ylabel = $ypanel+38;
@@ -412,7 +414,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         //IIIIIIIIIIIIIII IMAGEN PANEL
         $pdf->Image($image_panel, $xpanel, $ypanel, $wpanel, $hpanel, '', '', '', false, 300);
         //IIIIIIIIIIIIIII IMAGEN ARTICULO
-        $pdf->Image($image_art, $xart, $yart, 23, 23, '', '', '', false, 300);
+        $pdf->Image($image_art, $xart, $yart, 20, 20, '', '', '', false, 300);
         //IIIIIIIIIIIIIII PRECIO
         if($precio_pdf == 1){
             if($r_art['precio'] > 0){
@@ -433,15 +435,15 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         //IIIIIIIIIIIIIII CODIGO DE PRODUCTO
         $pdf->SetFont('helvetica', 'B', 10);
         $pdf->writeHTMLCell('50','14',$xcod,$ycod,$PartNo,0,0,false,true,'C',true);
-        $pdf->SetFont('helvetica', '', 8);
+        $pdf->SetFont('helvetica', '', 7);
         //IIIIIIIIIIIIIII DESCRIPCION PRODUCTO
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes,$ProdDesc,0,0,false,true,'C',true);
         //IIIIIIIIIIIIIII DESCRIPCION XREF
-        $pdf->SetFont('helvetica', '', 7);
+        $pdf->SetFont('helvetica', '', 6);
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+6,"Ref: " . $univXref,0,0,false,true,'C',true);
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+9,"" . $xref,0,0,false,true,'C',true);
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+12,"Alt Ref: " . $altXref,0,0,false,true,'C',true);
-        $pdf->SetFont('helvetica', '', 8);
+        $pdf->SetFont('helvetica', '', 7);
         //IIIIIIIIIIIIIII CODIGO QR DE ARTICULO
 //        $pdf->Image($image_panel_qr, $xartqr_panel, $yartqr_panel, 30, 15, '', '', '', false, 300);
         $pdf->Image($image_art_qr, $xartqr, $yartqr, $xyQR, $xyQR, '', '', '', false, 300);
