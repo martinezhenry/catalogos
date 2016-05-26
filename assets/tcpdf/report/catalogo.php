@@ -112,7 +112,7 @@ class MYPDF extends TCPDF {
         $this->Image($fondo, 0, 0, 230, 300, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
 
         $image_file2 = "../../../assets/img/catalogo/header1.jpg";
-        $this->Image($image_file2, 0, 0, 230, 14, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
+        $this->Image($image_file2, 0, 0, 220, 14, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
 
         $image_file3 = '../../../assets/img/logo.png';
         $this->Image($image_file3, 13, 0, 56, 14, '', '', '', false, 300);
@@ -136,7 +136,7 @@ class MYPDF extends TCPDF {
         // Page number
     //        if(trim($this->getAliasNumPage()) != '1'){
         $image_file = "../../../assets/img/catalogo/footer1.jpg";
-        $this->Image($image_file, 0, 268, 230, 13, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
+        $this->Image($image_file, 0, 268, 220, 13, 'JPG', '', 'T', false, 300, '', false, false, 10, false, false, false);
         $n_pagina = $top_art_pag + floatval($this->getAliasNumPage());
         //$this->writeHTMLCell('0','14','30','286',$top_art_pag.' + '.floatval($this->getAliasNumPage()).', '.$n_pagina.' '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0,0,false,true,'C',true);
         $this->writeHTMLCell('0','14','30','268',$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0,0,false,true,'C',true);
@@ -344,7 +344,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
                     //DEFINE XREF
                     $where = "SkuNo = '".$SkuNo."' and MfgCode = '$MfgCode'";
                     //echo $where;
-                    $resul_xref = $obj_bdmysql->select("`inventory items xref` a", "a.PartNo, a.Desc", $where, "a.PartNo", "",$mysqli2);
+                    $resul_xref = $obj_bdmysql->select("`inventory items xref` a", "a.PartNo, a.Desc, a.MfgCode", $where, "a.PartNo", "",$mysqli2);
                     if(!is_array($resul_xref)){ $xref = ''; $univXref = ''; $altXref = '';
                     }else{    
                         //DIAS DE DIFERENCIA FECHA FIN OFERTA Y FECHA ACTUAL
@@ -367,17 +367,24 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
                                $altXref = $value['PartNo'];
                             } else {
                                $xrefCant++;
-                               if ($xrefCant <= 4) {
-                                 $xref .= $value['PartNo'] . "; ";
-                               //echo $xref;
-                               } else {
-                                 //echo "no hayyy"  ;
+                               if (strpos(strtoupper($value['MfgCode']), 'OEM') !== false) {
+                                    if ($xrefCant <= 3) {
+                                      $xref .= $value['PartNo'] . "; ";
+                                    //echo $xref;
+                                    } else {
+                                      //echo "no hayyy"  ;
+                                    }
                                }
                             }
                             
                         }
                         $xref = substr($xref, 0, -2);
-                        
+                        if (strlen (trim($univXref)) > 0){
+                            $univXref = "Ref: " . $univXref;
+                        }
+                        if (strlen (trim($altXref)) > 0){
+                            $altXref = "Alt Ref: " . $altXref;
+                        }
                      //   echo $xref;
 //                        }
                     }       
@@ -405,7 +412,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $xpanel = $xf;$ypanel = $yf;
         $xart = $xpanel+$plusArt; $yart = $ypanel+5.5;
         $xcod = $xpanel; $ycod = $ypanel+0.5;
-        $xdes = $xpanel+$plusXDesc; $ydes = $ypanel+30.5;
+        $xdes = $xpanel+$plusXDesc; $ydes = $ypanel+27;
         $xlabel = $xpanel+35; $ylabel = $ypanel+38;
         $xtexprice = $xlabel+2; $ytexprice = $ylabel+6;
         $xsale = $xpanel-2; $ysale = $ypanel-1;
@@ -440,9 +447,9 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes,$ProdDesc,0,0,false,true,'C',true);
         //IIIIIIIIIIIIIII DESCRIPCION XREF
         $pdf->SetFont('helvetica', '', 6);
-        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+6,"Ref: " . $univXref,0,0,false,true,'C',true);
-        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+9,"" . $xref,0,0,false,true,'C',true);
-        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+12,"Alt Ref: " . $altXref,0,0,false,true,'C',true);
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+5, $univXref,0,0,false,true,'C',true);
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+12,"" . $xref,0,0,false,true,'C',true);
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+15,$altXref,0,0,false,true,'C',true);
         $pdf->SetFont('helvetica', '', 7);
         //IIIIIIIIIIIIIII CODIGO QR DE ARTICULO
 //        $pdf->Image($image_panel_qr, $xartqr_panel, $yartqr_panel, 30, 15, '', '', '', false, 300);

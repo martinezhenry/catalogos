@@ -216,8 +216,8 @@ left join
             ";
 
            // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
-            $resul = $obj_bdmysql->select($myTable, $campos, $where, "PartNo", $limit,$mysqli,false);
-            //$mss = $resul;
+            $resul = $obj_bdmysql->select($myTable, $campos, $where, "PartNo", $limit,$mysqli,true);
+            $mss = $resul;
             //var_dump($resul);
 
             $resul_n = 1;
