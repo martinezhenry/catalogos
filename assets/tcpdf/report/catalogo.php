@@ -342,7 +342,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
                     } 
                     
                     //DEFINE XREF
-                    $where = "SkuNo = '".$SkuNo."' and MfgCode = '$MfgCode'";
+                    $where = "SkuNo = '".$SkuNo."' ";
                     //echo $where;
                     $resul_xref = $obj_bdmysql->select("`inventory items xref` a", "a.PartNo, a.Desc, a.MfgCode", $where, "a.PartNo", "",$mysqli2);
                     if(!is_array($resul_xref)){ $xref = ''; $univXref = ''; $altXref = '';
@@ -412,7 +412,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $xpanel = $xf;$ypanel = $yf;
         $xart = $xpanel+$plusArt; $yart = $ypanel+5.5;
         $xcod = $xpanel; $ycod = $ypanel+0.5;
-        $xdes = $xpanel+$plusXDesc; $ydes = $ypanel+27;
+        $xdes = $xpanel+$plusXDesc; $ydes = $ypanel+25.5;
         $xlabel = $xpanel+35; $ylabel = $ypanel+38;
         $xtexprice = $xlabel+2; $ytexprice = $ylabel+6;
         $xsale = $xpanel-2; $ysale = $ypanel-1;
@@ -447,9 +447,9 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes,$ProdDesc,0,0,false,true,'C',true);
         //IIIIIIIIIIIIIII DESCRIPCION XREF
         $pdf->SetFont('helvetica', '', 6);
-        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+5, $univXref,0,0,false,true,'C',true);
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+9, $univXref,0,0,false,true,'C',true);
         $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+12,"" . $xref,0,0,false,true,'C',true);
-        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+15,$altXref,0,0,false,true,'C',true);
+        $pdf->writeHTMLCell($widthDesc,'14',$xdes,$ydes+17,$altXref,0,0,false,true,'C',true);
         $pdf->SetFont('helvetica', '', 7);
         //IIIIIIIIIIIIIII CODIGO QR DE ARTICULO
 //        $pdf->Image($image_panel_qr, $xartqr_panel, $yartqr_panel, 30, 15, '', '', '', false, 300);
