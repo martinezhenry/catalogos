@@ -597,13 +597,13 @@
                 catalogo_subcategoria_desc='';
 				$('#catalogo_subcategoria').children('input').each(function(){
 					if(this.checked == true){
-						if(catalogo_subcategoria_desc != ''){
-							catalogo_subcategoria_desc += ",";
-							catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
+						if(catalogo_subcategoria != ''){
+							//catalogo_subcategoria_desc += ",";
+							//catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
 							catalogo_subcategoria += ",";
 							catalogo_subcategoria += this.value;
 						}else{
-							catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
+							//catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
 							catalogo_subcategoria += this.value;
 						}
 					}					
@@ -656,7 +656,7 @@
                         desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
                     }else{ 
                         alert(data.mss);
-                        console.log(data);
+                        console.error(data);
                         modal_busqueda_sal = 'Realice una busqueda para mostrar articulos. '+data.mss;
 //                        $('#modal_busqueda').html(modal_busqueda_sal);
                         $('#catalogo_articulo_list_busca').html();

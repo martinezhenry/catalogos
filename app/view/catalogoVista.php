@@ -774,13 +774,13 @@
 
 				$('#catalogo_subcategoria').children('input').each(function(){
 					if(this.checked == true){
-						if(catalogo_subcategoria_desc != ''){
-							catalogo_subcategoria_desc += ",";
-							catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
+						if(catalogo_subcategoria != ''){
+							//catalogo_subcategoria_desc += ",";
+							//catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
 							catalogo_subcategoria += ",";
 							catalogo_subcategoria += this.value;
 						}else{
-							catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
+							//catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
 							catalogo_subcategoria += this.value;
 						}
 					}					

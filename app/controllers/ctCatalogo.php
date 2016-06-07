@@ -29,7 +29,7 @@ switch ($opc){
 //        if($catalogo_categoria != ''){ $where.=" AND CatCode = '".$catalogo_categoria."'";}
 //        if($catalogo_subcategoria != ''){ $where.=" AND PrdCode = '".$catalogo_subcategoria."'"; }
 //        if($catalogo_stock != ''){ $where.=" AND OnHand = '".$catalogo_stock."'"; }
-        $resul = $obj_bdmysql->select("g_inventory","*,".$art_val." as xx",$where,"","0,10",$mysqli);
+        $resul = $obj_bdmysql->select("inventory","*,".$art_val." as xx",$where,"","0,10",$mysqli);
         if(!is_array($resul)){ $resul = array('mss' => 'NO SE ENCONTRO ARTICULOS'); }
         foreach ($resul as $r){ $rr = $r['SkuNo']; }
         echo json_encode($rr);
@@ -56,7 +56,7 @@ switch ($opc){
                 foreach ($arr_flag as $r_flag){ $where_flag.= " ( ".$r_flag." = '1' ) OR"; }
                 $where.= str_replace("ORX","",$where_flag."X")." )";
             }
-            $resul_n = $obj_bdmysql->num_row("g_inventory", $where ,$mysqli);
+            $resul_n = $obj_bdmysql->num_row("inventory", $where ,$mysqli);
             $mss = 1; $salida = 233;
         }
         $resp = array('mss' => utf8_encode($mss), 'salida' => utf8_encode($salida));
@@ -91,7 +91,7 @@ switch ($opc){
 
             
             if($catalogo_articulo != ''){
-             $where.= " AND ( ( g_inventory.PartNo like '%".$catalogo_articulo."%' ) OR ( g_inventory.SkuNo like '%".$catalogo_articulo."%' ) OR ( g_inventory.ProdDesc like '%".$catalogo_articulo."%' ) )";
+             $where.= " AND ( ( inventory.PartNo like '%".$catalogo_articulo."%' ) OR ( inventory.SkuNo like '%".$catalogo_articulo."%' ) OR ( inventory.ProdDesc like '%".$catalogo_articulo."%' ) )";
               }
 
             if($catalogo_categoria != ''){
@@ -108,7 +108,7 @@ switch ($opc){
         //        $where.= " AND ( OnHand + qty_dts ".$catalogo_stock_cond." '".$catalogo_stock."' ) ";
           //  }
 
-             if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode IN (".$catalogo_subcategoria_desc.") ) "; }
+             if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode IN (".$catalogo_subcategoria.") ) "; }
 
             if ($catalogo_tipo_inventario == '1'){
                 $tipoInv = ' ifnull(OnHand,0) ';
@@ -149,16 +149,17 @@ switch ($opc){
             $limit = '';          
             //$campos = '*';
             $campos = ' distinct
-            `g_inventory`.* ,
+            `inventory`.* ,
         (select 
                 `codes cat`.`CatDesc`
             from
                 `codes cat`
             where
-                (`codes cat`.`CatCode` = `g_inventory`.`CatCode`)) AS `CatDesc`,
-        `g_inventory`.`PrdCode` AS `PrdDesc`,
+                (`codes cat`.`CatCode` = `inventory`.`CatCode`)) AS `CatDesc`,
+        `inventory`.`PrdCode` AS `PrdCode`,
+        (select PrdDesc from `codes catsub` where PrdCode = `inventory`.`PrdCode` LIMIT 1) AS `PrdDesc`,
         IFNULL(invdts.qty,0) as qty_dts,
-(IFNULL(invdts.qty,0) +  g_inventory.OnHand) as totalcant,
+(IFNULL(invdts.qty,0) +  inventory.OnHand) as totalcant,
             ifnull(z.Precio,0) as Precio,
             ifnull(z.Date_To_dma,\'00/00/0000\') as Date_To_dma,
             ifnull(z.Date_From_dma,\'00/00/0000\') as Date_From_dma,
@@ -172,7 +173,7 @@ switch ($opc){
 
 
             $myTable = "
-                   g_inventory 
+                   inventory 
                     left join (
                     select  det.SkuNo, det.precio,
                     DATE_FORMAT(max(ofer.Date_To),'%d/%m/%Y') AS Date_To_dma,
@@ -186,7 +187,7 @@ switch ($opc){
                     order by ofer.date_to desc
                     limit 1
                     ) z
-                    on (z.SkuNo = g_inventory.SkuNo)
+                    on (z.SkuNo = inventory.SkuNo)
 left join
 (
                             select 
@@ -199,9 +200,9 @@ left join
                              (aa.`SkuNo` <> 0) and
                              qty = (select max(qty) from `inventory dts`  where SkuNo = aa.SkuNo)
                              ) as invdts
-                            on (invdts.SkuNo = g_inventory.SkuNo)
+                            on (invdts.SkuNo = inventory.SkuNo)
                             left join `inventory pricing` invpri
-                            on (invpri.SkuNo = g_inventory.SkuNo and invpri.PriceColumn = 4)
+                            on (invpri.SkuNo = inventory.SkuNo and invpri.PriceColumn = 4)
                         left join (
                             
                             select max(ord.invDate) as dateord, orddet.skuno from `orders detail` orddet
@@ -211,13 +212,13 @@ left join
                             group by orddet.skuno
 
                         ) y
-                        on (y.skuno = g_inventory.SkuNo)
+                        on (y.skuno = inventory.SkuNo)
                             
             ";
 
            // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
             $resul = $obj_bdmysql->select($myTable, $campos, $where, "PartNo", $limit,$mysqli,false);
-            //$mss = $resul;
+           // $mss = $resul;
             //var_dump($resul);
 
             $resul_n = 1;
@@ -319,8 +320,8 @@ left join
                 foreach ($art as $arr_art){
                     $where.=" OR SkuNo = '".$arr_art."'";
                 }
-                $campos = "*,'00/00/0000' as fe_oferta_dmy,(SELECT CatDesc FROM `codes cat` WHERE `codes cat`.CatCode = g_inventory.CatCode) as CatDesc, (SELECT PrdDesc FROM `codes catsub` WHERE `codes catsub`.PrdCode = g_inventory.PrdCode) as PrdDesc";
-                $resul = $obj_bdmysql->select("g_inventory", $campos, $where, "PartNo", "",$mysqli);
+                $campos = "*,'00/00/0000' as fe_oferta_dmy,(SELECT CatDesc FROM `codes cat` WHERE `codes cat`.CatCode = inventory.CatCode) as CatDesc, (SELECT PrdDesc FROM `codes catsub` WHERE `codes catsub`.PrdCode = inventory.PrdCode) as PrdDesc";
+                $resul = $obj_bdmysql->select("inventory", $campos, $where, "PartNo", "",$mysqli);
                 if(!is_array($resul)){ $mss = 'NO SE ENCONTRO ARTICULO PARA EL CODIGO '.$cod_articulo; 
                 }else{
 
@@ -392,7 +393,7 @@ left join
         $mysqli = new mysqli(DBHOST2, DBUSER2, DBPASS2, DBNOM2);
         if (!$mysqli->connect_error) {
 //            $resul = $obj_bdmysql->select("art", "*,DATE_FORMAT(fe_oferta,'%d/%m/%Y') as fe_oferta_dmy", "codigo = '".$cod_articulo."'", "", "",$mysqli);
-            $resul = $obj_bdmysql->select("g_inventory", "*,'00/00/0000' as fe_oferta_dmy", "SkuNo = '".$cod_articulo."'", "", "",$mysqli);
+            $resul = $obj_bdmysql->select("inventory", "*,'00/00/0000' as fe_oferta_dmy", "SkuNo = '".$cod_articulo."'", "", "",$mysqli);
             if(!is_array($resul)){ $mss = 'NO SE ENCONTRO ARTICULO PARA EL CODIGO '.$cod_articulo; 
             }else{
                 $mss = '1';
@@ -441,7 +442,7 @@ left join
                         }
                         //VALIDA SI EL ARTICULO EXISTE
 //                        SkuNo = '".$arr_art."'"
-                        if($obj_bdmysql->num_row("g_inventory", "SkuNo = '".$eval_ca_array_."'", $mysqli2) == 0){
+                        if($obj_bdmysql->num_row("inventory", "SkuNo = '".$eval_ca_array_."'", $mysqli2) == 0){
                             $art_no_existe = $art_no_existe.', '.$eval_ca_array_;
                         }
                     }
@@ -571,7 +572,7 @@ left join
                                 $art_repetido.= $eval_ca_array_.' == '.$eval_ca_array_c_.', ';
                             }
                         }
-                        if($obj_bdmysql->num_row("g_inventory", "SkuNo = '".$eval_ca_array_."'", $mysqli2) == 0){
+                        if($obj_bdmysql->num_row("inventory", "SkuNo = '".$eval_ca_array_."'", $mysqli2) == 0){
                             $art_no_existe = $art_no_existe.', '.$eval_ca_array_;
                         }
                     }
