@@ -5,7 +5,9 @@
     $obj_bdmysql = new coBdmysql();
     $controller = 'ctCatalogo.php';
     $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
-    
+    $mss = 'No Existen Registros';    
+    $resul = NULL;
+    $r[] = NULL;
 ?>
 
 
@@ -56,16 +58,14 @@
                                                     <tr>
                                                         <th class="text-center"><i class="fa fa-barcode"></i> Codigo</th>
                                                         <th class="text-center"><i class="fa fa-file-text"></i> Titulo</th>
-                                                        <th class="text-center"><i class="fa fa-file-pdf-o"></i> PDF</th>
-                                                        <th class="text-center"><i class="fa fa-desktop"></i> Virtual</th>
-                                                        <th class="text-center"><i class="fa fa-calendar"></i> Fecha</th>
-                                                        <th class="text-center"><i class=" fa fa-qrcode"></i> QR</th>
-                                                        <th class="text-center"><i class="fa fa-cog"></i> Accion</th>
+                                                        <th class="text-center"><i class="fa fa-image"></i> Fondo</th>
+                                                        <th class="text-center"><i class="fa fa-calendar"></i> Creado</th>
+                                                        <th class="text-center"><i class="fa fa-calendar"></i> Modificado</th>
                                                     </tr>
                                                     </thead>
                                         <?php 
                                             if($mss != ''){
-                                                echo '<tr><td colspan="7">'.$mss.'</td></tr>';
+                                                echo '<tr><td colspan="5">'.$mss.'</td></tr>';
                                             }else{
                                                 foreach ($resul as $r){
                                                 //ID CATALOGO

@@ -2,16 +2,18 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-
 -- -----------------------------------------------------
 -- Table `flayer`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `flayer` ;
+
 CREATE  TABLE IF NOT EXISTS `flayer` (
   `idflayer` INT NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR(100) NULL ,
   `created` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,
   `modificated` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,
   `background_img` BLOB NULL ,
+  `description` VARCHAR(100) NULL ,
   PRIMARY KEY (`idflayer`) )
 ENGINE = InnoDB;
 
@@ -19,6 +21,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `productFlayer`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `productFlayer` ;
+
 CREATE  TABLE IF NOT EXISTS `productFlayer` (
   `idproductFlayer` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(100) NULL ,

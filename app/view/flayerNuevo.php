@@ -43,7 +43,7 @@
                     <div class="row mt">
                         <div class="col-lg-12">
                             <div class="form-panel">
-                                <h4 class="mb"><i class="fa fa-angle-right"></i> Datos del Catalogo</h4>
+                                <h4 class="mb"><i class="fa fa-angle-right"></i> Datos del Flayer</h4>
                                 <form class="form-horizontal style-form" method="get" id="catalogo_form">
                                     <!--ACORDION-->
                                     <div class="panel-group" id="accordion">
@@ -58,7 +58,7 @@
                                                 <div class="panel-body">
                                                     <div class="form-group">
                                                         <div class="col-sm-6">
-                                                            <label class="control-label">Codigo</label>
+                                                            <label class="control-label">Title</label>
                                                             <input type="text" id="catalogo_codigo" class="form-control">
                                                         </div>
                                                         <div class="col-sm-6">
@@ -68,84 +68,18 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
-                                                            <label class="control-label">Titulo</label>
-                                                            <input type="text" id="catalogo_titulo" class="form-control">
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                        <div class="col-sm-3">
-                                                            <label class="control-label">Fuente</label>
-                                                            <select id="catalogo_titulo_fuente" class="form-control">
-                                                                <option value="courier">Courier</option>
-                                                                <option value="times">Times</option>
-                                                                <option value="helvetica">Helvetica</option>
-                                                                <option value="symbol">Symbol</option>
-                                                                <option value="zapfdingbats">Zapf Dingbats</option>
-                                                            </select>
-                                                    </div>
-                                                        <div class="col-sm-3">
-                                                            <label class="control-label">Tamano</label>
-                                                            <input type="text" id="catalogo_titulo_tamano" class="form-control" value="<?php echo $titulo_tamano;?>" onkeyup="mascara(this,'',patron7,true);">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label class="control-label">Color</label>
-                                                            <input type="text" id="catalogo_titulo_color" class="form-control" value="<?php echo $titulo_color;?>">
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label class="control-label">Estilo</label>
-                                                            <select id="catalogo_titulo_estilo" class="form-control">
-                                                                <option value="">Regular</option>
-                                                                <option value="B">Bold</option>
-                                                                <option value="BI">Bold Italic</option>
-                                                                <option value="I">Italic</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                        <div class="col-sm-3">
-                                                            <label class="control-label">Alineacion Horizontal</label>
-                                                            <select id="catalogo_titulo_ali_hor" class="form-control">
-                                                                <option value="C">Centro</option>
-                                                                <option value="L">Izquierda</option>
-                                                                <option value="R">Derecha</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label class="control-label">Alineacion Vertical</label>
-                                                            <select id="catalogo_titulo_ali_ver" class="form-control">
-                                                                <option value="C">Centro</option>
-                                                                <option value="T">Arriba</option>
-                                                                <option value="B">Abajo</option>
-                                                            </select>
-                                                        </div>
-
-
-                                                        <label class="input-group control-label">Pantilla</label>
-                                                            <div class="col-sm-3">
-                                                            <select class="form-control" id="catalogo_sel_presentacion">
-                                                                <option value="5x4">5x4</option>
-                                                                <option value="4x4">4x4</option>
-                                                                <option value="5x3">5x3</option>
-                                                            </select>
-                                                            <br>
-                                                            </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12">
                                                         <label class="control-label">Descripcion</label>
                                                             <input type="text" id="catalogo_descripcion" class="form-control">
                                                         </div>
                                                     </div>
+                                                    <div class="panel-body">
                                                     <div class="form-group">
-                                                        <div class="col-sm-12">
-                                                        <br>
-                                                        <label class="control-label">Mostrar Precio en PDF</label>
-                                                        <br>
-                                                        <div class="switch switch-square"
-                                                            data-on-label="<i class=' fa fa-check'></i>"
-                                                            data-off-label="<i class='fa fa-times'></i>">
-                                                           <input type="checkbox" id="catalogo_sel_precio_pdf"/>
-                                                        </div>
+                                                        <div class="col-sm-12" id="catalogo_img_fondo">
+                                                        <label class="control-label">Fondo</label>
+                                                            <input type="file" id="catalogo_fondo" name="catalogo_fondo" multiple=true class="file-loading">
                                                         </div>
                                                     </div>
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,24 +89,83 @@
                                         <div class="panel panel-default">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
                                             <div class="panel-heading" style="background:#F5F5F5;">
-                                                <h4 class="panel-title"><i class="fa fa-picture-o"></i> IMAGENES</h4>
+                                                <h4 class="panel-title"><i class="fa fa-picture-o"></i> Producto</h4>
                                             </div>
                                             </a>
                                             <div id="collapse2" class="panel-collapse collapse">
-                                                <div class="panel-body">
+                                                <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">Nombre</label>
+                                                            <input type="text" id="catalogo_codigo" class="form-control">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">Part No.</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group">
-                                                        <div class="col-sm-12" id="catalogo_img_portada">
-                                                        <label class="control-label">Portada</label>
-                                                            <input type="file" id="catalogo_portada" name="catalogo_portada" multiple=true class="file-loading">
+
+                                                        <div class="col-sm-6">
+                                                            <label class=" control-label">Alias</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">XRef.</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">SMP</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">TOMCO</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">OEM</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">Price Name One</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">Price One</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">Price Name Two</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">Price Two</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">Price Name Three</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-6">
+                                                            <label class="control-label">Price Three</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="col-sm-12" id="catalogo_img_fondo">
-                                                        <label class="control-label">Fondo</label>
+                                                        <label class="control-label">Imagen</label>
                                                             <input type="file" id="catalogo_fondo" name="catalogo_fondo" multiple=true class="file-loading">
                                                         </div>
                                                     </div>
-                                                </div>
                                             </div>
                                         </div>                                                
                                         <!--FIN ACORDION 2-->
