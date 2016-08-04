@@ -72,15 +72,15 @@
                                                             <input type="text" id="catalogo_descripcion" class="form-control">
                                                         </div>
                                                     </div>
-                                                    <div class="panel-body">
+                                                    
                                                     <div class="form-group">
                                                         <div class="col-sm-12" id="catalogo_img_fondo">
                                                         <label class="control-label">Fondo</label>
-                                                            <input type="file" id="catalogo_fondo" name="catalogo_fondo" multiple=true class="file-loading">
+                                                            <input type="file" id="catalogo_fondo1" name="catalogo_fondo1" multiple=false class="file-loading">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                </div>
+                                            
                                             </div>
                                         </div>
                                         <!--FIN ACORDION 1-->
@@ -93,79 +93,83 @@
                                             </div>
                                             </a>
                                             <div id="collapse2" class="panel-collapse collapse">
-                                                <div class="form-group">
-                                                        <div class="col-sm-6">
+                                                <div class="panel-body">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-4">
                                                             <label class="control-label">Nombre</label>
                                                             <input type="text" id="catalogo_codigo" class="form-control">
                                                         </div>
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-4">
                                                             <label class="control-label">Part No.</label>
+                                                            <input type="text" id="catalogo_fecha" class="form-control" >
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label class=" control-label">Alias</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
 
-                                                        <div class="col-sm-6">
-                                                            <label class=" control-label">Alias</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                        <div class="col-sm-6">
+                                                        
+                                                        <div class="col-sm-4">
                                                             <label class="control-label">XRef.</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
-                                                        </div>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-4">
                                                             <label class="control-label">SMP</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-4">
                                                             <label class="control-label">TOMCO</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
-                                                        </div>
+                                                    </div>
+                                      
                                                     <div class="form-group">
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-12">
                                                             <label class="control-label">OEM</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
-                                                        <div class="col-sm-6">
+                                                        
+                                                       
+                                                    </div>
+                                                    <div class="form-group">
+                                                         <div class="col-sm-6">
                                                             <label class="control-label">Price Name One</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
-                                                        </div>
-                                                    <div class="form-group">
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Price One</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Price Name Two</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
-                                                        </div>
-                                                    <div class="form-group">
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Price Two</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
+                                                        </div>
+                                                    <div class="form-group">
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Price Name Three</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
-                                                        </div>
-                                                    <div class="form-group">
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Price Three</label>
                                                             <input type="text" id="catalogo_fecha" class="form-control" >
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <div class="col-sm-12" id="catalogo_img_fondo">
-                                                        <label class="control-label">Imagen</label>
-                                                            <input type="file" id="catalogo_fondo" name="catalogo_fondo" multiple=true class="file-loading">
+                                                        <div class="col-sm-12" id="catalogo_img_portada">
+                                                            <label class="control-label">Imagen</label>
+                                                                <input type="file" id="catalogo_portada1" name="catalogo_portada1" multiple=false class="file-loading">
                                                         </div>
                                                     </div>
+                                                </div>
                                             </div>
                                         </div>                                                
                                         <!--FIN ACORDION 2-->
@@ -399,18 +403,14 @@
         
         <!--INICIALIZACION-->
         <script>
-            var order_id = '<?php echo $catalogo_order_id;?>';
-            var order_columna = <?php echo $catalogo_order_columna;?>;
-            var order_tipo = '<?php echo $catalogo_order_tipo;?>';
-            if('<?php echo $catalogo_order_orden;?>' === 'false'){ var order_orden = false; }else{ var order_orden = true;} 
-            
-            $("#catalogo_portada").fileinput({
+                     
+            $("#catalogo_portada1").fileinput({
                 uploadUrl: "../../assets/bootstrap-fileinput-master/upload.php",
                 uploadAsync: false,
                 maxFileCount: 1
             });
             
-            $("#catalogo_fondo").fileinput({
+            $("#catalogo_fondo1").fileinput({
                 uploadUrl: "../../assets/bootstrap-fileinput-master/upload_bg.php",
                 uploadAsync: false,
                 maxFileCount: 1
@@ -429,246 +429,17 @@
         <script>
             $(document).ready(function(){
 
-                //$('#cat_vendido_desde').datepicker();
-                //$('#cat_vendido_hasta').datepicker();
-
-                    $( "#cat_vendido_desde" ).datepicker({
-                      defaultDate: "+1w",
-                      changeMonth: true,
-                      dateFormat: 'yy-mm-dd',
-                      //numberOfMonths: 3,
-                      onClose: function( selectedDate ) {
-                        $( "#cat_vendido_hasta" ).datepicker( "option", "minDate", selectedDate );
-                      }
-                    });
-                    $( "#cat_vendido_hasta" ).datepicker({
-                      defaultDate: "+1w",
-                      changeMonth: true,
-                      dateFormat: 'yy-mm-dd',
-                      //numberOfMonths: 3,
-                      onClose: function( selectedDate ) {
-                        $( "#cat_vendido_desde" ).datepicker( "option", "maxDate", selectedDate );
-                      }
-                    });
-
-
-                    $("#cat_vendido_hasta, #cat_vendido_desde").keyup(function(e) {
-                        if(e.keyCode == 8 || e.keyCode == 46) {
-                            $.datepicker._clearDate(this);
-                        }
-                    });
-                
-
-                // Selecciona todoas las subcategorias
-                $('body').on('change', '#checkSubCategories', function(){
-                    
-                    $('#catalogo_subcategoria input[type=checkbox]').prop('checked', $(this).prop('checked'));
-                });
-
-
-
-                //CARGA SELECT SUBCATEGORIA DE A PARTIR DE LA CATEGORIA
-                $("#catalogo_categoria").change(function() {
-                    cat_val = this.value;
-                    if(cat_val !== ''){
-                        activa_preloader();
-                        opc = "carga_subcategoria";
-                        sub_cat_id = "catalogo_subcategoria";
-                        $.post("../controllers/<?php echo $controller;?>",{
-                             "opc":opc
-                            ,"cat_val":cat_val
-                        },function(data){
-                            console.log(data);
-                            if(data.mss === '1'){
-                                $("#"+sub_cat_id).html(data.salida);
-                            }else{ 
-                                alert(data.mss);
-                            }
-                            desactiva_preloader();
-                        },"json");
-                    }else{
-                        $("#"+sub_cat_id).html('<?php echo $list_sub_categoria;?>');
-                    }
-                });
+         
                 
                 //MARCA O DESMARCA TODOS LOS CH DELARTICULO               
                 $("#catalogo_sel_all").change(function () {
                     sel_all($(this).is(':checked'));
                 });
-                                   
-                //VALORES SELECT
-                document.getElementById('catalogo_titulo_fuente').value = '<?php echo $titulo_fuente;?>';
-                document.getElementById('catalogo_titulo_estilo').value = '<?php echo $titulo_estilo;?>';
-                document.getElementById('catalogo_titulo_ali_hor').value = '<?php echo $titulo_hor;?>';
-                document.getElementById('catalogo_titulo_ali_ver').value = '<?php echo $titulo_ver;?>';
+                          
             });
+       
             
-            //BUSCA ARTICULO
-            var filtro = '';
-            var n_pag = 0;
-            var n_elem_pag = 10;
-            var catalogo_categoria = '';
-            var catalogo_subcategoria = '';
-            var catalogo_subcategoria_desc = '';
-            var catalogo_stock = '';
-            var catalogo_stock_cond = '';
-            var catalogo_flags = '';
-            function buscar_articulo(){
 
-                catalogo_subcategoria_desc='';
-				$('#catalogo_subcategoria').children('input').each(function(){
-					if(this.checked == true){
-						if(catalogo_subcategoria != ''){
-							//catalogo_subcategoria_desc += ",";
-							//catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
-							catalogo_subcategoria += ",";
-							catalogo_subcategoria += this.value;
-						}else{
-							//catalogo_subcategoria_desc += "'" + $(this).next('label').text() + "'";
-							catalogo_subcategoria += this.value;
-						}
-					}					
-				});
-				
-                filtro = '';
-                n_pag = 0;
-                n_pag = n_pag;
-                resul_n = 0;
-                opc = "catalogoArtBusca";
-                catalogo_categoria = forma_cad(document.getElementById('catalogo_categoria').value);
-                //catalogo_subcategoria = forma_cad(document.getElementById('catalogo_subcategoria').value);
-                //catalogo_subcategoria_desc = $("#catalogo_subcategoria option:selected").text();
-                catalogo_stock = forma_cad(document.getElementById('catalogo_stock').value);
-                catalogo_stock_cond = forma_cad(document.getElementById('catalogo_stock_cond').value);
-                catalogo_flags = captura_valor_ch('catalogo_flags');
-                catalogo_con_img = $('#catalogo_con_img').val();
-                catalogo_tipo_inventario = $('#catalogo_sel_tipo_inv').val();
-                catalogo_descontinuado = $('#catalogo_descontinuado').prop('checked');
-                catalogo_ventaFrom = $('#cat_vendido_desde').val();
-                catalogo_ventaTo = $('#cat_vendido_hasta').val();
-                catalogo_articulo = $('#catalogo_articulo').val();
-
-//                $('#modal_busqueda').html('Cargando...').fadeIn('fast');
-                activa_preloader();
-                $.post("../controllers/<?php echo $controller;?>",{
-                     "opc":opc
-                    ,"catalogo_categoria":catalogo_categoria
-                    ,"catalogo_subcategoria":catalogo_subcategoria
-                    ,"catalogo_subcategoria_desc":catalogo_subcategoria_desc
-                    ,"catalogo_stock":catalogo_stock
-                    ,"catalogo_stock_cond":catalogo_stock_cond
-                    ,"catalogo_flags":catalogo_flags
-                    ,"n_pag":n_pag
-                    , "catalogo_tipo_inventario":catalogo_tipo_inventario
-                    , "catalogo_descontinuado":catalogo_descontinuado
-                    , "catalogo_ventaFrom" : catalogo_ventaFrom
-                    , "catalogo_ventaTo" : catalogo_ventaTo
-                    , "catalogo_articulo" : catalogo_articulo
-                },function(data){
-                    if(data.mss === '1'){
-                        $('#catalogo_articulo_list_busca').html(contruirArticulos(data.salida));
-                        n_pag = 1;
-                        modal_busqueda_sal = '';
-                        //CUENTA ARTICULOS BUSQUEDA
-                        cantidad_articulos_catalogo_busqueda();
-                        //MARCA O DESMARCA
-                        sel_all($("#catalogo_sel_all").is(':checked'));
-                        //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
-                        desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
-                    }else{ 
-                        alert(data.mss);
-                        console.error(data);
-                        modal_busqueda_sal = 'Realice una busqueda para mostrar articulos. '+data.mss;
-//                        $('#modal_busqueda').html(modal_busqueda_sal);
-                        $('#catalogo_articulo_list_busca').html();
-                    }
-                    desactiva_preloader();
-                },"json");
-                
-            }
-            
-            //BUSCA ARTICULO PAGINADO
-            function pagina_articulo(){
-                opc = "catalogoArtBusca";
-                $('#modal_busqueda').html('Cargando...').fadeIn('fast');
-                $.post("../controllers/<?php echo $controller;?>",{
-                     "opc":opc
-                    ,"catalogo_categoria":catalogo_categoria
-                    ,"catalogo_subcategoria":catalogo_subcategoria
-                    ,"catalogo_subcategoria_desc":catalogo_subcategoria_desc
-                    ,"catalogo_stock":catalogo_stock
-                    ,"catalogo_stock_cond":catalogo_stock_cond
-                    ,"catalogo_flags":catalogo_flags
-                    ,"n_pag":n_pag
-                },function(data){
-                    if(data.mss === '1'){
-                        $('#catalogo_articulo_list_busca').append(data.salida);
-                        //MARCA O DESMARCA
-                        sel_all($("#catalogo_sel_all").is(':checked'));
-                        //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
-                        desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
-                        n_pag = n_pag+1;
-                    }else{ 
-                        alert(data.mss);
-                    }
-                    $('#modal_busqueda').html('').fadeOut('fast');
-                },"json");
-            }
-
-            //GUARDA_CATALOGO
-            function guardar_catalogo(){
-                opc = "catalogoGuardar";
-                catalogo_codigo = forma_cad(document.getElementById('catalogo_codigo').value);
-                catalogo_titulo = forma_cad(document.getElementById('catalogo_titulo').value);
-                catalogo_descripcion = forma_cad(document.getElementById('catalogo_descripcion').value);
-                catalogo_titulo_fuente = forma_cad(document.getElementById('catalogo_titulo_fuente').value);
-                catalogo_titulo_tamano = forma_cad(document.getElementById('catalogo_titulo_tamano').value);
-                catalogo_titulo_color = forma_cad(document.getElementById('catalogo_titulo_color').value);
-                catalogo_titulo_estilo = forma_cad(document.getElementById('catalogo_titulo_estilo').value);
-                catalogo_titulo_ali_hor = forma_cad(document.getElementById('catalogo_titulo_ali_hor').value);
-                catalogo_titulo_ali_ver = forma_cad(document.getElementById('catalogo_titulo_ali_ver').value);
-                catalogo_sel_presentacion = $('#catalogo_sel_presentacion').val();
-                if($("#catalogo_sel_precio_pdf").is(':checked')){ catalogo_sel_precio_pdf = 1;
-                }else{ catalogo_sel_precio_pdf = 0; }
-                articulos = captura_valor_class_hijos('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
-                activa_preloader();
-                $.post("../controllers/<?php echo $controller;?>",{
-                     "opc":opc
-                    ,"catalogo_codigo":catalogo_codigo
-                    ,"catalogo_titulo":catalogo_titulo
-                    ,"catalogo_descripcion":catalogo_descripcion
-                    ,"catalogo_sel_precio_pdf":catalogo_sel_precio_pdf
-                    ,"catalogo_order_id":order_id
-                    ,"catalogo_titulo_fuente":catalogo_titulo_fuente
-                    ,"catalogo_titulo_tamano":catalogo_titulo_tamano
-                    ,"catalogo_titulo_color":catalogo_titulo_color
-                    ,"catalogo_titulo_estilo":catalogo_titulo_estilo
-                    ,"catalogo_titulo_ali_hor":catalogo_titulo_ali_hor
-                    ,"catalogo_titulo_ali_ver":catalogo_titulo_ali_ver
-                    ,"articulos":articulos
-                    ,"catalogo_sel_presentacion":catalogo_sel_presentacion
-                },function(data){
-                    console.log(data);
-                    if(data.mss === '1'){
-                        alert(data.salida);
-                        ir_a('catalogoIndex.php','');
-                    }else{ alert(data.mss); }
-                    desactiva_preloader();
-                },"json").fail(function(error, errormsg){
-                    console.log("Error guardar_catalogo: " + errormsg);
-                    desactiva_preloader();
-
-                });
-
-            }
-            
-            var ajaxProcess = false;
-            function cancelar_ajax(){
-                if(ajaxProcess){
-                    ajaxProcess.abort();
-                    desactiva_preloader();
-                }
-            }
         </script>
         <!--END SCRIPT-->
     </body>
