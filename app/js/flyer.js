@@ -316,16 +316,15 @@ function ordenar_Flyer(id){
                     ,"flyer_created":flyer_created
                     ,"flyer_description":flyer_description
                     ,"products":products
-                    ,"catalogo_sel_presentacion":catalogo_sel_presentacion
                 },function(data){
-                    console.log(data);
+                    console.error(data);
                     if(data.mss === '1'){
                         alert(data.salida);
                         ir_a('flyer.php','');
                     }else{ alert(data.mss); }
                     desactiva_preloader();
                 },"json").fail(function(error, errormsg){
-                    console.log("Error guardar_catalogo: " + errormsg);
+                    console.error("Error guardar_catalogo: " + errormsg);
                     desactiva_preloader();
 
                 });

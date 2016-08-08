@@ -2,6 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+
 -- -----------------------------------------------------
 -- Table `flyer`
 -- -----------------------------------------------------
@@ -9,7 +10,7 @@ DROP TABLE IF EXISTS `flyer` ;
 
 CREATE  TABLE IF NOT EXISTS `flyer` (
   `idflyer` INT NOT NULL AUTO_INCREMENT ,
-  `title` VARCHAR(100) NULL ,
+  `tittle` VARCHAR(100) NULL ,
   `created` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,
   `modificated` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,
   `background_img` BLOB NULL ,
@@ -39,15 +40,17 @@ CREATE  TABLE IF NOT EXISTS `productFlyer` (
   `price_two` FLOAT NULL ,
   `price_three` FLOAT NULL ,
   `image` BLOB NULL ,
-  `flyer_idflyer` INT NOT NULL ,
+  `flayer_idflyer` INT NOT NULL ,
   PRIMARY KEY (`idproductFlyer`) ,
-  INDEX `fk_productFlyer_flyer_idx` (`flyer_idflyer` ASC) ,
-  CONSTRAINT `fk_productFlyer_flyer`
-    FOREIGN KEY (`flyer_idflyer` )
+  INDEX `fk_productFlayer_flayer_idx` (`flayer_idflyer` ASC) ,
+  CONSTRAINT `fk_productFlayer_flayer`
+    FOREIGN KEY (`flayer_idflyer` )
     REFERENCES `flyer` (`idflyer` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+USE `mydb` ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -413,126 +413,28 @@ left join
         echo json_encode($resp);*/
     break;
     //GUARDA CATALOGO
-    case 'catalogoGuardar':
+    case 'flyerGuardar':
         
-        $mysqli2 = new mysqli(DBHOST2, DBUSER2, DBPASS2, DBNOM2);
-        if (!$mysqli2->connect_error){
-            $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
-            if (!$mysqli->connect_error){
-                $mss = '';
-                $salida = '';
-                if($articulos != ''){          
-                    $catalogo_articulo_array = explode('/*',str_replace('_/*','','_'.$articulos));
-                    $i_val = 0;
-                    foreach ($catalogo_articulo_array as $ca_array_val){
-                        $catalogo_reng_val = explode('|',str_replace('_|','','_'.$ca_array_val));
-                        $cod_articulo_val = trim($catalogo_reng_val[0]);
-                        $eval_ca_array[$i_val] = $cod_articulo_val;
-                        $eval_ca_array_c[$i_val] = $cod_articulo_val;
-                        $i_val = $i_val + 1;
-                    }
+        $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
+        $salida = "";
+        //$mss="tst";
+        
+        if (!$mysqli->connect_error){
+        	$campos = "tittle, description";
+        	$valores = "'" . $flyer_tittle . "', '" . $flyer_description . "'";
+        	$insert = $obj_bdmysql->insert("flyer", $campos, $valores, $mysqli);
+        	if ($insert == "1"){
+        		$salida = "Flyer Created";
+        		$mss = "1";
+        	} else {
+        		$mss = "Error inserting Flyer. " . $insert;
+        	}
+         } else {
+         	$mss = "Not Connected to DB";
 
-                    $art_no_existe = '';
-                    foreach ($eval_ca_array as $eval_ca_array_){
-                        $repetido = 0;
-                        foreach ($eval_ca_array_c as $eval_ca_array_c_){
-                            if($eval_ca_array_ == $eval_ca_array_c_){
-                                $repetido = $repetido + 1;
-                            }
-                        }
-                        //VALIDA SI EL ARTICULO EXISTE
-//                        SkuNo = '".$arr_art."'"
-                        if($obj_bdmysql->num_row("inventory", "SkuNo = '".$eval_ca_array_."'", $mysqli2) == 0){
-                            $art_no_existe = $art_no_existe.', '.$eval_ca_array_;
-                        }
-                    }
-
-                    if($repetido < 2){
-                        if($art_no_existe == ''){
-                            if($catalogo_titulo != ''){
-//                            if($catalogo_codigo != '' AND $catalogo_titulo != '' AND $catalogo_descripcion != ''){
-                            if(preg_match(EXP_REG_RGB, $catalogo_titulo_color)){
-                                $portada = $_SESSION['cod_img'];
-                                $nombre_archivo = '../../assets/bootstrap-fileinput-master/portadas_temp/'.$portada;
-                                $fondo = $_SESSION['cod_img_fd'];
-                                $nombre_archivo_fd = '../../assets/bootstrap-fileinput-master/fondo_temp/'.$fondo;
-                                if(file_exists($nombre_archivo) AND file_exists($nombre_archivo_fd)){
-                                    //GENERA CODIGO INTERNO DE CATALOGO
-                                    $catalogo_id = $obj_function->master_id('id_catalogo','ext',$mysqli);
-                                    if($catalogo_id != 0){                     
-                                        //INICIA TRANSACCION
-                                        $mysqli->autocommit(FALSE);
-                                        //INSERTA CATALOGO
-                                        $campo = "id_catalogo, codigo, titulo, descripcion, portada, fondo, precio_pdf, order_id, titulo_fuente, titulo_tamano, titulo_color, titulo_estilo, titulo_ali_hor, titulo_ali_ver, co_us_in, fe_us_in, co_us_mo, fe_us_mo, co_us_de, fe_us_de, presentacion";
-                                        $valor = "'".$catalogo_id."','".$catalogo_codigo."','".$catalogo_titulo."','".$catalogo_descripcion."','".$portada."','".$fondo."','".$catalogo_sel_precio_pdf."','".$catalogo_order_id."','".$catalogo_titulo_fuente."','".$catalogo_titulo_tamano."','".$catalogo_titulo_color."','".$catalogo_titulo_estilo."','".$catalogo_titulo_ali_hor."','".$catalogo_titulo_ali_ver."','".$cod_usuario."',NOW(),'0',NOW(),'0',NOW(), '".$catalogo_sel_presentacion."'";
-                                        $catalogo_insert = $obj_bdmysql->insert("catalogo", $campo, $valor, $mysqli);
-
-                                        if($catalogo_insert  == '1'){
-                                            //INSERTA RENGLONES DEL CATALOGO
-                                            $num_reng = 1;
-                                            $error_reng = '';
-    //                                        $campo = "id_catalogo, reng_num, cod_art, precio, precio_sugerido, oferta, fe_oferta, stock_ini, stock_act, stock_comp, stock_ped, co_us_in, fe_us_in, co_us_mo, fe_us_mo, co_us_de, fe_us_de";
-                                            $campo = "id_catalogo, reng_num, cod_art, precio, precio_sugerido, oferta, fe_oferta, fe_oferta_fin, stock_ini, stock_act, stock_comp, stock_ped, cat, cat_desc, detalles, subcat, co_us_in, fe_us_in, co_us_mo, fe_us_mo, co_us_de, fe_us_de, PartNo, ProdDesc";
-                                            foreach ($catalogo_articulo_array as $ca_array){
-                                                $catalogo_reng = explode('|',str_replace('_|','','_'.$ca_array));
-                                               // $error_reng = implode($catalogo_reng,';');
-                                                
-                                                $SkuNo = trim($catalogo_reng[0]);
-                                                //$precio = trim($catalogo_reng[1]);
-                                                $partNo = trim($catalogo_reng[1]);
-                                                $prodDesc = trim($catalogo_reng[2]);
-                                                $precio = trim($catalogo_reng[3]);
-                                                $OnHand = trim($catalogo_reng[4]);
-                                                $oferta = trim($catalogo_reng[5]);
-                                                $fecha_to_oferta = trim($catalogo_reng[6]);
-                                                $fecha_from_oferta = trim($catalogo_reng[7]);
-                                                $valor = "'".$catalogo_id."','".$num_reng."','".$SkuNo."','".$precio."','0','".$oferta."','".$fecha_to_oferta."','".$fecha_from_oferta."','".$OnHand."','".$OnHand."','".$OnHand."','".$OnHand."','0', '','','','1',NOW(),'0',NOW(),'0',NOW(), '".$partNo."', '".$prodDesc."'";
-                                                $catalogo_reng_insert = $obj_bdmysql->insert("catalogo_reng", $campo, $valor, $mysqli);
-                                                $num_reng = $num_reng + 1;
-                                                $linkArtQR = "http://textronic.us/showitem.aspx?id=" . $SkuNo;
-                                                $obj_function->codeQR($linkArtQR, $SkuNo, TRUE);
-                                                if($catalogo_reng_insert != '1'){ $error_reng = $error_reng.'. '.$catalogo_reng[0].': '.$catalogo_reng_insert; }
-                                            }
-
-                                            if($error_reng == ''){
-                                                //ACTUALIZA ID DEL
-                                                if($obj_function->master_id('id_catalogo','act',$mysqli) == '1'){
-                                                    //GENERA CODIGO QR
-                                                    //$id_catalogo_code = $obj_function->code_url($id_catalogo,'code');
-                                                    $id_catalogo_code = $obj_function->code_url($catalogo_id,'code');
-                                                    $link = 'http://textronic.info/cat/cv?cd='.$id_catalogo_code;
-                                                    $s = $obj_function->codeQR($link, $catalogo_id);
-                                                    //CARGA IMAGEN DE PORTADA
-                                                    if($portada != 'def.jpg'){
-                                                        $mv_portada = rename($nombre_archivo,'../../assets/bootstrap-fileinput-master/portadas/'.$portada);
-                                                    } else { $mv_portada = TRUE; }                                                    
-                                                    //CARGA IMAGEN DE FONDO
-                                                    if($fondo != 'def.jpg'){
-                                                        $mv_fondo = rename($nombre_archivo_fd,'../../assets/bootstrap-fileinput-master/fondo/'.$fondo);
-                                                    }  else { $mv_fondo = TRUE; }
-                                                    
-                                                    if ($mv_portada){
-                                                        if ($mv_fondo){
-                                                            $mss = '1'; $mysqli->commit();
-                                                            $salida = 'CATALOGO CREADO CORRECTAMENTE.';
-                                                            $_SESSION['cod_img'] = 'def.jpg';
-                                                            $_SESSION['cod_img_fd'] = 'def.jpg';
-                                                        }else{ $mss = 'ERROR AL CARGAR IMAGEN DE FONDO.'; }
-                                                    }else{ $mss = 'ERROR AL CARGAR IMAGEN DE PORTADA.'; }
-                                                }else{ $mss = 'ERROR AL GUARDAR CATALOGO, NO SE ACTUALIZO EL ID';}
-                                            }else{ $mss = 'ERROR AL GUARDAR ARTICULOS CON CODIGO: '.$error_reng;}
-                                        }else{ $mss = 'ERROR AL GUARDAR CATALOGO: '.$catalogo_insert;}
-                                    }else{ $mss = 'ERROR AL GENERAR ID DE CATALOGO.';}
-                                }else{ $mss = 'NO SE ENCONTRO LA IMAGEN DE PORTADA Y/O LA IMAGEN DE FONDO. POR FAVOR ELIMINELAS Y CARGUELAS NUEVAMENTE DE SER NECESARIO.'; }
-                            }else{ $mss = 'EL COLOR DEL TITULO NO PARECE SER VALIDO. '.$titulo_color;}
-//                            }else{ $mss = 'VERIFIQUE LOS CAMPOS OBLIGATORIOS.';}
-                            }else{ $mss = 'VERIFIQUE QUE EL CAMPO TITULO NO ESTE VACIO.';}
-                        }else{ $mss = 'LOS SIGUIENTES ARTICULOS NO FUERON ENCONTRADOS EN LA TABLA ARTICULOS: '.$art_no_existe; }
-                    }else{ $mss = 'NO SE PUEDEN CARGAR ARTICULOS REPETIDOS.';}
-                }else{ $mss = 'DEBE INDICAR AL MENOS UN ARTICULO.';}
-            }else{ $mss = 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error;}
-        }else{ $mss = 'ERROR EN CONEXION CON LA BD2: '.$mysqli2->connect_error;}
+         }
 //        $mss = 'ART: '.$articulos;
+
         $resp = array('mss' => utf8_encode($mss), 'salida' => utf8_encode($salida));
         echo json_encode($resp);
     break;
