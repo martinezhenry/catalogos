@@ -1,14 +1,5 @@
 <?php
-    include '../../common/general.php';
-    $obj_common = new common();
-    $obj_bdmysql = new coBdmysql();
-    $controller = 'ctCatalogo.php';
-    $_SESSION['cod_img'] = 'def.jpg';
-    $_SESSION['cod_img_fd'] = 'def.jpg';
-
-    //$link = 'http://textronic.info/cat/cv?cd='.$id_catalogo;
-    $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
-
+    include 'flyer/initNew.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +29,7 @@
                 <section class="wrapper">
                     
                     
-                    <h3><i class="fa fa-angle-right"></i> <a href="catalogoIndex.php">Catalogos</a> <i class="fa fa-angle-right"></i> Nuevo</h3>
+                    <h3><i class="fa fa-angle-right"></i> <a href="catalogoIndex.php">Flyers</a> <i class="fa fa-angle-right"></i> Nuevo</h3>
                     <!-- BASIC FORM ELELEMNTS -->
                     <div class="row mt">
                         <div class="col-lg-12">
@@ -59,24 +50,24 @@
                                                     <div class="form-group">
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Title</label>
-                                                            <input type="text" id="catalogo_codigo" class="form-control">
+                                                            <input type="text" id="flyer_tittle" class="form-control">
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <label class="col-sm-2 col-sm-2 control-label">Fecha</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" value="<?php echo date('d/m/Y');?>" placeholder="Example: 01/01/1960" onkeyup="mascara(this,'/',patron,true);" readonly>
+                                                            <input type="text" readonly id="flyer_created" class="form-control" value="<?php echo date('d/m/Y');?>" placeholder="Example: 01/01/1960" onkeyup="mascara(this,'/',patron,true);" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
                                                         <label class="control-label">Descripcion</label>
-                                                            <input type="text" id="catalogo_descripcion" class="form-control">
+                                                            <input type="text" id="flyer_description" class="form-control">
                                                         </div>
                                                     </div>
                                                     
                                                     <div class="form-group">
-                                                        <div class="col-sm-12" id="catalogo_img_fondo">
+                                                        <div class="col-sm-12" id="flyer_img_fondo">
                                                         <label class="control-label">Fondo</label>
-                                                            <input type="file" id="catalogo_fondo1" name="catalogo_fondo1" multiple=false class="file-loading">
+                                                            <input type="file" id="flyer_fondo" name="flyer_fondo" multiple=false class="file-loading">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -84,96 +75,8 @@
                                             </div>
                                         </div>
                                         <!--FIN ACORDION 1-->
-                                        
-                                        <!--ACORDION 2-->
-                                        <div class="panel panel-default">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                            <div class="panel-heading" style="background:#F5F5F5;">
-                                                <h4 class="panel-title"><i class="fa fa-picture-o"></i> Producto</h4>
-                                            </div>
-                                            </a>
-                                            <div id="collapse2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <div class="form-group">
-                                                        <div class="col-sm-4">
-                                                            <label class="control-label">Nombre</label>
-                                                            <input type="text" id="catalogo_codigo" class="form-control">
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label class="control-label">Part No.</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label class=" control-label">Alias</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-
-                                                        
-                                                        <div class="col-sm-4">
-                                                            <label class="control-label">XRef.</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label class="control-label">SMP</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <label class="control-label">TOMCO</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                    </div>
-                                      
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12">
-                                                            <label class="control-label">OEM</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                        
-                                                       
-                                                    </div>
-                                                    <div class="form-group">
-                                                         <div class="col-sm-6">
-                                                            <label class="control-label">Price Name One</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <label class="control-label">Price One</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-6">
-                                                            <label class="control-label">Price Name Two</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <label class="control-label">Price Two</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                        </div>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-6">
-                                                            <label class="control-label">Price Name Three</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <label class="control-label">Price Three</label>
-                                                            <input type="text" id="catalogo_fecha" class="form-control" >
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="col-sm-12" id="catalogo_img_portada">
-                                                            <label class="control-label">Imagen</label>
-                                                                <input type="file" id="catalogo_portada1" name="catalogo_portada1" multiple=false class="file-loading">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>                                                
-                                        <!--FIN ACORDION 2-->
-                                        
+                                                                                
+                                        <!--ACORDION 3-->
                                         <!--ACORDION 3-->
                                         <div class="panel panel-default">
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
@@ -187,10 +90,10 @@
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Categoria</label>
                                                             <select class="form-control" id="catalogo_categoria"><?php echo $list_categoria;?></select>
-															<div class="col-sm-6">
-																<label class=" control-label">Sub-Categoria</label>
-																<div id="catalogo_subcategoria" class="form-control" style="overflow:auto;height:150px;"><?php echo $list_sub_categoria;?></div>
-															</div>
+                                                            <div class="col-sm-6">
+                                                                <label class=" control-label">Sub-Categoria</label>
+                                                                <div id="catalogo_subcategoria" class="form-control" style="overflow:auto;height:150px;"><?php echo $list_sub_categoria;?></div>
+                                                            </div>
                                                             <!--<label class="control-label">Sub-Categoria</label>-->
                                                             <!--<select class="form-control" id="catalogo_subcategoria"><?php echo $list_sub_categoria;?></select>-->
 
@@ -313,29 +216,21 @@
                                                             <label style="font-size:20px;padding:4px;">MARCAR TODO</label>
                                                         </div>
 <!--                                                        <div class="col-sm-4 text-right"><br><h4>Total Articulos Busqueda: <b id="catalogo_articulo_list_total_busqeuda">0</b></h4></div>-->
-                                                        <div class="col-sm-4 text-right"><br><button type="button" class="btn btn-default" onclick="cargar_articulo();">Cargar</button></div>
+                                                        <div class="col-sm-4 text-right"><br><button type="button" class="btn btn-default" onclick="cargar_articuloFlyer();">Cargar</button></div>
                                                         <div id="resul"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!--ACORDION 3-->
+  
                                     </div>
                                     <!--FIN ACORDION-->
                                     <!--TABLA DE ARTICULOS CARGADOS-->
                                     <div class="form-group">
                                         <div class="col-lg-12">
                                             <div class="col-lg-9"><h4><i class="fa fa-angle-right"></i> Articulos cargados. <b id="catalogo_articulo_list_total_cargado"></b></h4></div>
-                                            <div class="col-lg-3">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon" id="basic-addon1">Ordenar Por:</span>
-                                                    <div class="input-group-btn">
-                                                        <select id="catalogo_stock_cond" class="btn btn-default dropdown-toggle" onchange="ordenar_catalogo(this.value)">
-                                                            <?php echo $catalogo_order;?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="form-control" style="height: 300px;overflow:auto;position:relative;">
                                                 <div class="modal-loading" id="modal_carga" style="display:none;">Cargue articulos.</div>
                                                 <section id="no-more-tables">
@@ -345,15 +240,10 @@
                                                             <th>Borrar</th>
                                                             <th width="10%">SkuNo</th>
                                                             <th width="10%">PartNo</th>
-                                                            <th>Articulo</th>
-                                                            <th>Cat.</th>
-                                                            <th>Sub Cat.</th>
+                                                            <th>Descripcion</th>
+                                                          
                                                             <th class="numeric">Precio</th>
-                                                            <th class="numeric">Stock</th>
-                                                            <th class="numeric">Oferta</th>
-                                                            <th>Ini. Oferta</th>
-                                                            <th>Fin. Oferta</th>
-                                                            <th>Flag</th>
+                                                          
                                                         </tr>
                                                         </thead>
                                                     </table>
@@ -373,7 +263,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-12" align="right">
                                             <button type="button" class="btn btn-default" onclick="ir_a('catalogoIndex.php','')">Cancelar</button>
-                                            <button type="button" class="btn btn-success" onclick="guardar_catalogo();">Guardar</button>
+                                            <button type="button" class="btn btn-success" onclick="guardar_flyer();">Guardar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -402,45 +292,8 @@
         <script src="../../assets/js/jquery-ui-1.9.2.custom.min.js"></script>
         
         <!--INICIALIZACION-->
-        <script>
-                     
-            $("#catalogo_portada1").fileinput({
-                uploadUrl: "../../assets/bootstrap-fileinput-master/upload.php",
-                uploadAsync: false,
-                maxFileCount: 1
-            });
-            
-            $("#catalogo_fondo1").fileinput({
-                uploadUrl: "../../assets/bootstrap-fileinput-master/upload_bg.php",
-                uploadAsync: false,
-                maxFileCount: 1
-            });
-            
-            $("input#catalogo_titulo_color").ColorPickerSliders({
-                size: 'sm',
-                placement: 'right',
-                swatches: false,
-                sliders: false,
-                hsvpanel: true
-            });
-        </script>
-        
-        <!--ACCIONES DEL FORMULARIO-->
-        <script>
-            $(document).ready(function(){
-
-         
-                
-                //MARCA O DESMARCA TODOS LOS CH DELARTICULO               
-                $("#catalogo_sel_all").change(function () {
-                    sel_all($(this).is(':checked'));
-                });
-                          
-            });
-       
-            
-
-        </script>
+        <script src="../js/flyer.js"></script>
+     
         <!--END SCRIPT-->
     </body>
 </html>
