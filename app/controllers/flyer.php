@@ -23,22 +23,9 @@
 		}else{
 			$aResult['error'] = "FLYER NO EXISTE";
 		}			
-	}else{ $aResult['error'] = "NO SE PUDO CONECTAR A LA BASE DE DATOS!"; }
+	}else{ $aResult['error'] = "NO SE PUDO CONECTAR A LA BASE DE DATOS!"; }	
 	
 	
-	/**
-        $prd = array(
-					"NAME"=> "Hola Mundo Como estas?", 
-					"PARTS"=> "123-45690", 
-					"WELLS"=> "789857,2548796", 
-					"SMP"=> "5897757,6698962", 
-					"TOMCO"=> "NDSP", 
-					"OEM"=> "889657,6548822,2123365,1266542",
-					"APLICACION"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-					"PRICE_NAME"=>array(100,101,102), 
-					"image"=> "images/asistchar.png"
-		);
-	*/
 	$cur = 0;
 	$max = 5; #max number of products for each page
 	$sen = True; #direction of the product inside of the flyer 

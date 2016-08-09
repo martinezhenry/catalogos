@@ -3,12 +3,12 @@
 
 	function add_MultiCell($pdf, $pos, $ali, $val, $siz, $fon, $bor){ 		
 		/**	$pdf=> Document PDF, 
-			$pos => Array Position X & Y, 
-			$ali => Alignment Center, Left, Right, Justified, 
-			$val => String with the cell title, 
-			$siz => Array of the size W & H, 
-			$fon => Array setting a Font for this element
-			$bor => Boolean (0,1) for the border on the element MultiCell
+		/**	$pos => Array Position X & Y, 
+		/**	$ali => Alignment Center, Left, Right, Justified, 
+		/**	$val => String with the cell title, 
+		/**	$siz => Array of the size W & H, 
+		/**	$fon => Array setting a Font for this element
+		/**	$bor => Boolean (0,1) for the border on the element MultiCell
 		*/		
 		$pdf->SetFont($fon[0],$fon[1],$fon[2]);
 		$pdf->SetXY($pos['X'],$pos['Y']);
@@ -19,10 +19,10 @@
 	
 	function add_product($pdf,$prd,$sen,$pos,$lin){
 		/**
-			$pdf=> PDF Document
-			$pro=> Product to add to the flyer
-			$sen=> Image Position on this Product 0= Right 1= Left
-			$pos=> Startup Position of this element 
+		/**	$pdf=> PDF Document
+		/**	$pro=> Product to add to the flyer
+		/**	$sen=> Image Position on this Product 0= Right 1= Left
+		/**	$pos=> Startup Position of this element 
 		*/	
 		$pdf->Line($pos['X'], $pos['Y'], 210, $pos['Y']);	
 		$pos = add_MultiCell($pdf,$pos,'C',$prd['name'],array(210,10),array('Arial','B',18),'0');		
