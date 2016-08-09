@@ -42,7 +42,7 @@
                                 <button type="button" class="btn btn-default">Enviar</button>
                             </div>
                             <div class="col-sm-7" align="right">
-                                <button type="button" class="btn btn-info btn-lg" onclick="ir_a('flayerNuevo.php','');">Crear Nuevo</button>
+                                <button type="button" class="btn btn-info btn-lg" onclick="ir_a('flyerNuevo.php','');">Crear Nuevo</button>
                             </div>
                         </div>
                     </div>

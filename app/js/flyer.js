@@ -308,7 +308,8 @@ function ordenar_Flyer(id){
                 catalogo_sel_presentacion = $('#catalogo_sel_presentacion').val();
                 
                 products = captura_valor_class_hijos('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
-
+                alert(products);
+                exit();
                 activa_preloader();
                 $.post("../controllers/ctFlyer.php",{
                      "opc":opc
