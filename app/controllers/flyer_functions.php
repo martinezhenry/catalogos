@@ -69,8 +69,8 @@
 		if(!$sen){$pos['X'] = 5;}else{$pos['X'] = 150;}
 		
 		$pos['Y'] -= $lin * 5;
-		file_put_contents('../assets/img/' + $prd['idproductFlayer'],$prd['image']);
-		$pdf->Image('../assets/img/' + $prd['idproductFlayer'],$pos['X'],$pos['Y'],60,35);		
+		file_put_contents('../assets/img/' + $prd['idproductFlayer'] + '.jpg',$prd['image']);
+		$pdf->Image('../assets/img/' + $prd['idproductFlayer'] + '.jpg',$pos['X'],$pos['Y'],60,35);		
 		$pos['Y'] += $lin * 7;
 		
 		add_MultiCell($pdf,$pos,'C',$prd['name'],array(60,$lin),array('Arial','',8),'0');
