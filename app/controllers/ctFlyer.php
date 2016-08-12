@@ -149,22 +149,19 @@ switch ($opc){
             $limit = '';          
             //$campos = '*';
             $campos = ' distinct
-            `inventory`.* ,
-        (select 
-                `codes cat`.`CatDesc`
-            from
-                `codes cat`
-            where
-                (`codes cat`.`CatCode` = `inventory`.`CatCode`)) AS `CatDesc`,
-        `inventory`.`PrdCode` AS `PrdCode`,
+            `inventory`.`Desc` ,
+            `inventory`.`SkuNo` ,
+            `inventory`.`PartNo` ,
+             ifnull(z.Precio,0) as Precio,
         (select PrdDesc from `codes catsub` where PrdCode = `inventory`.`PrdCode` LIMIT 1) AS `PrdDesc`,
-        IFNULL(invdts.qty,0) as qty_dts,
-(IFNULL(invdts.qty,0) +  inventory.OnHand) as totalcant,
-            ifnull(z.Precio,0) as Precio,
-            ifnull(z.Date_To_dma,\'00/00/0000\') as Date_To_dma,
-            ifnull(z.Date_From_dma,\'00/00/0000\') as Date_From_dma,
-            ifnull(invpri.CurPrice, \'0.0000\') as precio2,
-            ifnull(y.dateord, \'00/00/0000\') as dateord
+		ifnull((select iix.partno from `Inventory Items Xref` iix where 
+			iix.mfgcode = \'TEX\' and iix.`desc` = \'WELLS\' and iix.skuno = inventory.skuno limit 1),\'\') as wells,
+		ifnull((select iix.partno from `Inventory Items Xref` iix where 
+			iix.mfgcode = \'TEX\' and iix.`desc` in (\'SMP\',\'Standard\') and iix.skuno = inventory.skuno limit 1),\'\') as smp,
+		ifnull((select iix.partno from `Inventory Items Xref` iix where 
+			iix.mfgcode = \'TEX\' and iix.`desc` in (\'TOMCO\',\'TOMCO MX\') and iix.skuno = inventory.skuno limit 1),\'\') as tomco,
+		ifnull((select iix.partno from `Inventory Items Xref` iix where 
+			iix.mfgcode = \'OEM\' and  iix.skuno = inventory.skuno  limit 1),\'\') as oem
 
 
 
@@ -213,6 +210,7 @@ left join
 
                         ) y
                         on (y.skuno = inventory.SkuNo)
+
                             
             ";
 
@@ -420,10 +418,84 @@ left join
         //$mss="tst";
         
         if (!$mysqli->connect_error){
-        	$campos = "tittle, description";
-        	$valores = "'" . $flyer_tittle . "', '" . $flyer_description . "'";
+        	$campos = "tittle, description, background_img, type";
+
+        	//este es el tipo de archivo
+			$imagen_temporal = "../../assets/img/fondoFlyer/";
+			$directorio = opendir("../../assets/img/fondoFlyer"); //ruta actual
+			while ($archivo = readdir($directorio)) //obtenemos un archivo y luego otro sucesivamente
+			{
+			    if (strpos($archivo, 'fondoTemp.') !== false){
+			    	$arr = explode('.', $archivo);
+			    	//echo "La extension es: " . $arr[1];
+			    	$archivoFinal = $archivo;
+			    	$tipoArchivo = $arr[1];
+			    	break;
+			    }
+			    
+			}
+
+			//leer el archivo temporal en binario
+            $fp     = fopen($imagen_temporal.$archivoFinal, 'r+b');
+            $data = fread($fp, filesize($imagen_temporal.$archivoFinal));
+            fclose($fp);
+
+                //escapar los caracteres
+            $data = $mysqli->real_escape_string($data);
+
+        	$valores = "'" . $flyer_tittle . "', '" . $flyer_description. "', '" . $data. "', '" . $tipoArchivo . "'";
         	$insert = $obj_bdmysql->insert("flyer", $campos, $valores, $mysqli);
         	if ($insert == "1"){
+        		$idFlyer = $obj_bdmysql->getUltID();
+        		$productsFinal = explode('/*', $products);
+
+        		foreach ($productsFinal as $key => $value) {
+        			if ($key != 0) {
+        			$campos = "name, no_part, alias, xref, smp, tomco, oem,
+        			price_name_one, price_name_two, price_name_three, price_one, price_two, 
+        			price_three, flayer_idflyer, image";
+        			//echo $value;
+        			$arrVal = explode('|',$value);
+        			//var_dump ( empty(trim($arrVal[11])));
+        			$skuno = $arrVal[1];
+        			$priceOne = ((trim($arrVal[11])) === '') ? "'0'":"'".$arrVal[11]."'";
+        			$priceTwo = ((trim($arrVal[12])) === '') ? "'0'":"'".$arrVal[12]."'";
+        			$priceThree = ((trim($arrVal[13])) === '') ? "'0'":"'".$arrVal[13]."'";
+        			$imagen_temporal = "../../assets/img/art/";
+        			if (file_exists("../../assets/img/art/" . trim($skuno) . ".jpg")) {
+							
+						$fp     = fopen("../../assets/img/art/" . trim($skuno) . ".jpg", 'r+b');
+		            	$data = fread($fp, filesize("../../assets/img/art/" . trim($skuno) . ".jpg"));
+		            	fclose($fp);
+
+		                //escapar los caracteres
+		            	$data = "'" . $mysqli->real_escape_string($data) . "'";//ruta actual
+					} else {
+						$data = "NULL";
+					}
+					
+        			 $valores = "'', " 
+        			 		  ."'" . $arrVal[2] . "', " 
+        			 		  . "'" . $arrVal[7] . "', " 
+        			 		  . "'', " 
+        			 		  . "'" . $arrVal[5] . "', " 
+        			 		  . "'" . $arrVal[4] . "', " 
+        			 		  . "'" . $arrVal[6] . "', " 
+        			 		  . "'" . $arrVal[8] . "', " 
+        			 		  . "'" . $arrVal[9] . "', " 
+        			 		  . "'" . $arrVal[10] . "', " 
+        			 		  . "" . $priceOne . ", " 
+        			 		  . "" . $priceTwo . ", " 
+        			 		  . "" . $priceThree . ", "
+        			 		  . "'" . $idFlyer . "', "
+        			 		  . "" . $data . " " ;
+        			$insert = $obj_bdmysql->insert("productflyer", $campos, $valores, $mysqli);
+        			//echo $insert;
+
+        		}
+
+        		}
+
         		$salida = "Flyer Created";
         		$mss = "1";
         	} else {

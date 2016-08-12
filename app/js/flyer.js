@@ -132,12 +132,18 @@ var salida = '';
                                 '<th>Sel</th>'+
                                 ''+
                                 '<th width="10%">PartNo</th>'+
-                                '<th>Descripcion</th>'+
-                                ''+
-                                ''+
-                                '<th class="numeric">Precio</th>'+
-                                ''+
-                                ''+
+                                '<th>Aplication</th>'+
+                                '<th>Tomco</th>'+
+                                '<th>SMP</th>'+
+                                '<th>OEM</th>'+
+                                '<th>WELLS</th>'+
+                                '<th class="numeric">Precio Name 1</th>'+
+                                '<th class="numeric">Precio Name 2</th>'+
+                                '<th class="numeric">Precio Name 3</th>'+
+
+                                '<th class="numeric">Precio 1</th>'+
+                                '<th class="numeric">Precio 2</th>'+
+                                '<th class="numeric">Precio 3</th>'+
                                 ''+
                                 ''+
                                 ''+
@@ -202,10 +208,19 @@ var salida = '';
                                     '<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
                                   //  '<td data-title="SKUNO" id="catalogo_articulo_list_cod">'+r.SkuNo+'</td>'+
                                     '<td data-title="PARTNO"><input id="flyer_partNo_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.PartNo+'" /></td>'+
-                                    '<td data-title="ArtICULO"><input id="flyer_prodDesc_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.ProdDesc+'" /></td>'+
-                                   // '<td data-title="CATEGORIA">'+r.CatDesc+'</td>'+
+                                    '<td data-title="prodDesc"><input id="flyer_prodDesc_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.Desc+'" /></td>'+
+                                    '<td data-title="TOMCO"><input id="flyer_tomco_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.tomco+'" /></td>'+
+                                    '<td data-title="SMP"><input id="flyer_smp_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.smp+'" /></td>'+
+                                    '<td data-title="OEM"><input id="flyer_oem_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.oem+'" /></td>'+
+                                    '<td data-title="WELLS"><input id="flyer_wells_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.wells+'" /></td>'+
+                                    '<td class="numeric" data-title="PRECIO"><input id="flyer_precioN_'+r.SkuNo+'" type="text" style="width: 100%;" value="" /></td>'+
+                                    '<td class="numeric" data-title="PRECION2"><input id="flyer_precioN2_'+r.SkuNo+'" type="text" style="width: 100%;" value="" /></td>'+
+                                    '<td class="numeric" data-title="PRECION3"><input id="flyer_precioN3_'+r.SkuNo+'" type="text" style="width: 100%;" value="" /></td>'+
+                                    '<td class="numeric" data-title="PRECIO"><input id="flyer_precio_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.Precio+'" /></td>'+
+                                    '<td class="numeric" data-title="PRECIO2"><input id="flyer_precio2_'+r.SkuNo+'" type="text" style="width: 100%;" value="" /></td>'+
+                                    '<td class="numeric" data-title="PRECIO3"><input id="flyer_precio3_'+r.SkuNo+'" type="text" style="width: 100%;" value="" /></td>'+
                                    // '<td data-title="SUB CATEGORIA">'+r.PrdDesc+'</td>'+
-                                    '<td class="numeric" data-title="PRECIO"><input id="flyer_precio_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+precio+'" /></td>'+
+                                    //'<td class="numeric" data-title="PRECIO"><input id="flyer_precio_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+precio+'" /></td>'+
                                    // '<td class="numeric" data-title="STOCK">'+r.OnHand+'</td> '+
                                     //'<td class="numeric" data-title="STOCK">'+r.qty_dts+'</td> '+
                                     //'<td class="numeric" data-title="OFERTA">'+oferta+'</td> '+
@@ -242,6 +257,16 @@ function cargar_articuloFlyer(){
             CatDesc = arr_art[3];
             PrdDesc = arr_art[4];
             precio = $('#flyer_precio_'+ value).val();
+            precio3 = $('#flyer_precio3_'+ value).val();
+            precio2 = $('#flyer_precio2_'+ value).val();
+            precioN = $('#flyer_precioN_'+ value).val();
+            precioN3 = $('#flyer_precioN3_'+ value).val();
+            precioN2 = $('#flyer_precioN2_'+ value).val();
+            tomco = $('#flyer_tomco_'+ value).val();
+            oem = $('#flyer_oem_'+ value).val();
+            smp = $('#flyer_smp_'+ value).val();
+
+            wells = $('#flyer_wells_'+ value).val();
             OnHand = arr_art[6];
             oferta = arr_art[7];
             fecha_to_oferta = arr_art[8];
@@ -255,9 +280,18 @@ function cargar_articuloFlyer(){
                     '    <td data-title="CODIGO" class="catalogo_articulo_list_cod" id="catalogo_articulo_list_cod"><input type="hidden" id="catalogo_articulo_list_price" class="catalogo_articulo_list_cod" value="'+SkuNo+'">'+SkuNo+'</td>'+
                     '    <td data-title="PARTNO" class="catalogo_articulo_list_partNo"><input type="hidden" id="catalogo_articulo_list_partno" value="'+PartNo+'">'+PartNo+'</td>'+
                     '    <td data-title="ARTICULO" class="catalogo_articulo_list_prodDesc"><input type="hidden" id="catalogo_articulo_list_proddesc" value="'+ProdDesc+'">'+ProdDesc+'</td>'+
+                    '    <td data-title="ARTICULO" class="catalogo_articulo_list_tomco"><input type="hidden" id="catalogo_articulo_list_tomco" value="'+tomco+'">'+tomco+'</td>'+
+                    '    <td data-title="ARTICULO" class="catalogo_articulo_list_smp"><input type="hidden" id="catalogo_articulo_list_smp" value="'+smp+'">'+smp+'</td>'+
+                    '    <td data-title="ARTICULO" class="catalogo_articulo_list_oem"><input type="hidden" id="catalogo_articulo_list_oem" value="'+oem+'">'+oem+'</td>'+
+                    '    <td data-title="ARTICULO" class="catalogo_articulo_list_wells"><input type="hidden" id="catalogo_articulo_list_wells" value="'+wells+'">'+wells+'</td>'+
                    // '    <td data-title="CATEGORIA">'+CatDesc+'</td>'+
                    // '    <td data-title="SUB CATEGORIA">'+PrdDesc+'</td>'+
+                   '    <td class="numeric" data-title="PRECION"><input type="hidden" id="catalogo_articulo_list_priceN" class="form-control" placeholder="Price Name" value="'+precioN+'">'+precioN+'</td>'+
+                    '    <td class="numeric" data-title="PRECION2"><input type="hidden" id="catalogo_articulo_list_priceN2" class="form-control" placeholder="Price Name 2" value="'+precioN2+'">'+precioN2+'</td>'+
+                    '    <td class="numeric" data-title="PRECION3"><input type="hidden" id="catalogo_articulo_list_priceN3" class="form-control" placeholder="Price Name 3" value="'+precioN3+'">'+precioN3+'</td>'+
                     '    <td class="numeric" data-title="PRECIO"><input type="hidden" id="catalogo_articulo_list_price" class="form-control" placeholder="Price" value="'+precio+'">'+precio+'</td>'+
+                    '    <td class="numeric" data-title="PRECIO2"><input type="hidden" id="catalogo_articulo_list_price2" class="form-control" placeholder="Price 2" value="'+precio2+'">'+precio2+'</td>'+
+                    '    <td class="numeric" data-title="PRECIO3"><input type="hidden" id="catalogo_articulo_list_price3" class="form-control" placeholder="Price 3" value="'+precio3+'">'+precio3+'</td>'+
                     //'    <td class="numeric" data-title="STOCK"><input type="text" id="catalogo_articulo_list_stock" class="form-control" placeholder="Stock" value="'+OnHand+'"></td>'+
                     //'    <td class="numeric" data-title="OFERTA"><input type="text" id="catalogo_articulo_list_sale" class="form-control" placeholder="Sale" value="'+oferta+'"></td> '+
                     //'    <td data-title="INI. OFERTA"><input id="catalogo_articulo_list_date_sale" class="form-control" type="text" placeholder="Date Sale" value="'+fecha_to_oferta+'" onkeyup="mascara(this,\'/\',patron,true);"></td>'+
@@ -308,8 +342,7 @@ function ordenar_Flyer(id){
                 catalogo_sel_presentacion = $('#catalogo_sel_presentacion').val();
                 
                 products = captura_valor_class_hijos('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
-                alert(products);
-                exit();
+                
                 activa_preloader();
                 $.post("../controllers/ctFlyer.php",{
                      "opc":opc
@@ -340,17 +373,17 @@ $(document).ready(function(){
 
 
             $("#flyer_fondo").fileinput({
-                uploadUrl: "../../assets/bootstrap-fileinput-master/upload.php",
+                uploadUrl: "../../assets/bootstrap-fileinput-master/flyerUpload.php",
                 uploadAsync: false,
                 maxFileCount: 1
             });
-            
+            /*
             $("#productFlyer_img").fileinput({
-                uploadUrl: "../../assets/bootstrap-fileinput-master/upload_bg.php",
+                uploadUrl: "../../assets/bootstrap-fileinput-master/flyerUpload.php",
                 uploadAsync: false,
                 maxFileCount: 1
             });
-            
+            */
             $("input#catalogo_titulo_color").ColorPickerSliders({
                 size: 'sm',
                 placement: 'right',

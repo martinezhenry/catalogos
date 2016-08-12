@@ -1,5 +1,25 @@
 <?php
     include 'flyer/initNew.php';
+
+    if (isset($_GET['r'])){
+        if(!$mysqli->connect_error){
+            $id = $_GET['r'];
+            $datosFlyer = $obj_bdmysql->select("`flyer`", "*", "idflyer=" . $id, "", "",$mysqli);
+
+            if (is_array($datosFlyer)){
+                $tittleFlyer = $datosFlyer[0]['tittle'];
+                $descFlyer = $datosFlyer[0]['description'];
+                $createdFlyer = $datosFlyer[0]['created'];
+                $modificatedFlyer = $datosFlyer[0]['modificated'];
+
+                $datosProductFlyer = $obj_bdmysql->select("`productflyer`", "*", "flayer_idflyer=" . $id, "", "",$mysqli,false);
+
+                //var_dump($datosProductFlyer);
+
+            }
+        }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,17 +70,17 @@
                                                     <div class="form-group">
                                                         <div class="col-sm-6">
                                                             <label class="control-label">Title</label>
-                                                            <input type="text" id="flyer_tittle" class="form-control">
+                                                            <input type="text" id="flyer_tittle" class="form-control" value="<?php echo (isset($tittleFlyer)) ? $tittleFlyer:''; ?>">
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <label class="col-sm-2 col-sm-2 control-label">Fecha</label>
-                                                            <input type="text" readonly id="flyer_created" class="form-control" value="<?php echo date('d/m/Y');?>" placeholder="Example: 01/01/1960" onkeyup="mascara(this,'/',patron,true);" readonly>
+                                                            <input type="text" readonly id="flyer_created" class="form-control" value="<?php echo (isset($createdFlyer)) ? $createdFlyer:date('d/m/Y');?>" placeholder="Example: 01/01/1960" onkeyup="mascara(this,'/',patron,true);" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
                                                         <label class="control-label">Descripcion</label>
-                                                            <input type="text" id="flyer_description" class="form-control">
+                                                            <input type="text" id="flyer_description" class="form-control" value="<?php echo (isset($descFlyer)) ? $descFlyer:''; ?>">
                                                         </div>
                                                     </div>
                                                     
@@ -254,6 +274,62 @@
                                                           
                                                         </tr>
                                                         </thead>
+
+                                                        <?php 
+
+                                                        if (isset($datosProductFlyer) && is_array($datosProductFlyer)){
+
+                                                            ?><?php
+                                                            $html = "";
+                                                            $count=0;
+                                                            foreach ($datosProductFlyer as $key => $value) {
+                                                                   $count=$count+1;
+                                                                   $SkuNo = $value['skuno'];
+                                                                   $PartNo = $value['no_part'];
+                                                                   $ProdDesc = $value['application'];
+                                                                   $tomco = $value['tomco'];
+                                                                   $smp = $value['smp'];
+                                                                   $oem = $value['oem'];
+                                                                   $wells = $value['alias'];
+                                                                   $precioN = $value['price_name_one'];
+                                                                   $precioN2 = $value['price_name_two'];
+                                                                   $precioN3 = $value['price_name_three'];
+                                                                   $precio = $value['price_one'];
+                                                                   $precio2 = $value['price_two'];
+                                                                   $precio3 = $value['price_three'];
+
+                                                                $html =  $html.
+                                                                        '<tr class="catalogo_articulo_fila_carga" id="catalogo_articulo_fila_carga_'.$SkuNo.'">'.
+                                                                        '    <td data-title="remove" id="catalogo_articulo_list_remove_'.$SkuNo.'" style="text-align:center;" onclick="remover_articulo(this.id);"><i class="fa fa-trash-o" style="font-size:18px; cursor: pointer;"></i></td>'.
+                                                                        '    <td data-title="CODIGO" class="catalogo_articulo_list_cod" id="catalogo_articulo_list_cod"><input type="hidden" id="catalogo_articulo_list_price" class="catalogo_articulo_list_cod" value="'.$SkuNo.'">'.$SkuNo.'</td>'.
+                                                                        '    <td data-title="PARTNO" class="catalogo_articulo_list_partNo"><input type="hidden" id="catalogo_articulo_list_partno" value="'.$PartNo.'">'.$PartNo.'</td>'.
+                                                                        '    <td data-title="ARTICULO" class="catalogo_articulo_list_prodDesc"><input type="hidden" id="catalogo_articulo_list_proddesc" value="'.$ProdDesc.'">'.$ProdDesc.'</td>'.
+                                                                        '    <td data-title="ARTICULO" class="catalogo_articulo_list_tomco"><input type="hidden" id="catalogo_articulo_list_tomco" value="'.$tomco.'">'.$tomco.'</td>'.
+                                                                        '    <td data-title="ARTICULO" class="catalogo_articulo_list_smp"><input type="hidden" id="catalogo_articulo_list_smp" value="'.$smp.'">'.$smp.'</td>'.
+                                                                        '    <td data-title="ARTICULO" class="catalogo_articulo_list_oem"><input type="hidden" id="catalogo_articulo_list_oem" value="'.$oem.'">'.$oem.'</td>'.
+                                                                        '    <td data-title="ARTICULO" class="catalogo_articulo_list_wells"><input type="hidden" id="catalogo_articulo_list_wells" value="'.$wells.'">'.$wells.'</td>'.
+                                                                       // '    <td data-title="CATEGORIA">'+CatDesc+'</td>'+
+                                                                       // '    <td data-title="SUB CATEGORIA">'+PrdDesc+'</td>'+
+                                                                       '    <td class="numeric" data-title="PRECION"><input type="hidden" id="catalogo_articulo_list_priceN" class="form-control" placeholder="Price Name" value="'.$precioN.'">'.$precioN.'</td>'.
+                                                                        '    <td class="numeric" data-title="PRECION2"><input type="hidden" id="catalogo_articulo_list_priceN2" class="form-control" placeholder="Price Name 2" value="'.$precioN2.'">'.$precioN2.'</td>'.
+                                                                        '    <td class="numeric" data-title="PRECION3"><input type="hidden" id="catalogo_articulo_list_priceN3" class="form-control" placeholder="Price Name 3" value="'.$precioN3.'">'.$precioN3.'</td>'.
+                                                                        '    <td class="numeric" data-title="PRECIO"><input type="hidden" id="catalogo_articulo_list_price" class="form-control" placeholder="Price" value="'.$precio.'">'.$precio.'</td>'.
+                                                                        '    <td class="numeric" data-title="PRECIO2"><input type="hidden" id="catalogo_articulo_list_price2" class="form-control" placeholder="Price 2" value="'.$precio2.'">'.$precio2.'</td>'.
+                                                                        '    <td class="numeric" data-title="PRECIO3"><input type="hidden" id="catalogo_articulo_list_price3" class="form-control" placeholder="Price 3" value="'.$precio3.'">'.$precio3.'</td>'.
+                                                                        //'    <td class="numeric" data-title="STOCK"><input type="text" id="catalogo_articulo_list_stock" class="form-control" placeholder="Stock" value="'+OnHand+'"></td>'+
+                                                                        //'    <td class="numeric" data-title="OFERTA"><input type="text" id="catalogo_articulo_list_sale" class="form-control" placeholder="Sale" value="'+oferta+'"></td> '+
+                                                                        //'    <td data-title="INI. OFERTA"><input id="catalogo_articulo_list_date_sale" class="form-control" type="text" placeholder="Date Sale" value="'+fecha_to_oferta+'" onkeyup="mascara(this,\'/\',patron,true);"></td>'+
+                                                                        //'    <td data-title="FIN OFERTA"><input id="catalogo_articulo_list_date_sale" class="form-control" type="text" placeholder="Date Sale" value="'+fecha_from_oferta+'" onkeyup="mascara(this,\'/\',patron,true);"></td>'+
+                                                                        //'    <td data-title="FLAG">'+flag+'</td>'+
+                                                                        //'    <td data-title="image"></td>'+
+                                                                        '</tr>';
+                                                            }
+                                                            echo $html;
+                                                            ?><?php
+                                                        }
+
+                                                        ?>
+
                                                     </table>
                                                 </section>
                                             </div><!-- /content-panel -->
@@ -271,7 +347,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-12" align="right">
                                             <button type="button" class="btn btn-default" onclick="ir_a('catalogoIndex.php','')">Cancelar</button>
-                                            <button type="button" class="btn btn-success" onclick="guardar_flyer();">Guardar</button>
+                                            <button type="button" class="btn btn-success" onclick="editar_flyer();">Guardar</button>
                                         </div>
                                     </div>
                                 </form>
