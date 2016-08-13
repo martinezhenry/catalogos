@@ -44,7 +44,7 @@
 		$pos = add_MultiCell($pdf,$pos,'L',$prd['price_three'] + ':',array(25,$lin),array('Arial','',10),'0');
 		
 		$pos['X'] -= 25;
-		$pos = add_MultiCell($pdf,$pos,'J',$prd['aplicacion'],array(60,$lin),array('Arial','',8),'0');	
+		$pos = add_MultiCell($pdf,$pos,'J',$prd['application'],array(60,$lin),array('Arial','',8),'0');	
 		
 		$pos['Y'] -= $lin * 5;
 		if(!$sen){$pos['X'] = 135;}else{$pos['X'] = 5;}	
@@ -69,8 +69,9 @@
 		if(!$sen){$pos['X'] = 5;}else{$pos['X'] = 150;}
 		
 		$pos['Y'] -= $lin * 5;
-		file_put_contents('../assets/img/' + $prd['idproductFlayer'],$prd['image']);
-		$pdf->Image('../assets/img/' + $prd['idproductFlayer'],$pos['X'],$pos['Y'],60,35);		
+		//file_put_contents('../assets/img/art' + $prd['skuno'].'.jpg',$prd['image']);
+
+		$pdf->Image('../../assets/img/art/' . $prd['skuno'].'.jpg',$pos['X'],$pos['Y'],60,35);		
 		$pos['Y'] += $lin * 7;
 		
 		add_MultiCell($pdf,$pos,'C',$prd['name'],array(60,$lin),array('Arial','',8),'0');

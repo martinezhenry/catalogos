@@ -1,4 +1,5 @@
 <?php	
+	error_reporting(E_ALL ^ E_DEPRECATED);
 	include 'flyer_functions.php';
 	include '../../common/general.php';
 	
@@ -10,14 +11,16 @@
 	
 	if (!$mysqli->connect_error){
 		$where = "idflyer= '" . $id_flyer . "'";
-		$SQL = "SELECT pf.idproductFlyer, pf.name, pf.no_part, pf.alias, pf.smp, pf.tomco, 
-					pf.price_name_one, pf.price_one, pf.price_name_two, pf.application,
+		$SQL = "SELECT pf.idproductFlyer, pf.name, pf.no_part as parts, pf.alias as wells, pf.smp, pf.tomco, 
+					pf.price_name_one, pf.price_one, pf.price_name_two, pf.application, pf.oem, pf.skuno,
 					pf.price_two, pf.price_two, pf.price_name_three, pf.price_three, pf.image  
 				FROM flyer f 
 					JOIN productFlyer pf ON f.idflyer = pf.flayer_idflyer
 				WHERE  " . $where;		
 		$resul = $mysqli->query($SQL)  or trigger_error($mysqli->error."[$SQL]");
-		$r = $resul->fetch_array(MYSQLI_ASSOC);
+		//$r = $resul->fetch_array(MYSQLI_ASSOC);
+		$r =  mysqli_fetch_all ($resul, MYSQLI_ASSOC);;
+		//var_dump($resul);
 		//var_dump($r);
 		if(is_array($r)){						
 			$pro = $r;
@@ -26,7 +29,11 @@
 		}			
 	}else{ $aResult['error'] = "NO SE PUDO CONECTAR A LA BASE DE DATOS!"; }
 	
-	file_put_contents('', $pro['image']);
+	/*if (!empty($pro['image'])) {
+		file_put_contents('', $pro['image']);
+	} else {
+
+	}*/
 	/*$prd = array(
 					"NAME"=> "Hola Mundo Como estas?", 
 					"PARTS"=> "123-45690", 
@@ -54,7 +61,7 @@
 	$pdf->SetLineWidth(0.3);	
 	
 	$pdf->Line(0, 5, 218, 5);
-	
+	//var_dump($pro);
 	foreach($pro as $prd){
 		if($cur == $max){
 			$pdf->AddPage();
@@ -62,6 +69,8 @@
 			$sen = True;
 			$pos = array('X' => 5, 'Y' => 5);			
 		}
+		//var_dump($prd);
+		
 		$pos = add_product($pdf,$prd, $sen,$pos,5);
 		$sen = !$sen;
 		$cur++;
