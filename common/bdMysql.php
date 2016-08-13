@@ -10,6 +10,8 @@
 //if ($mysqli->connect_error) { return 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error; }
 class coBdmysql{
     //SELECT A BD
+    private $ultID;
+
     function select($tabla,$campo,$where,$order,$limit,$mysqli,$print = FALSE){
     //        $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
             if($mysqli->connect_error) { return 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error; }
@@ -75,7 +77,9 @@ class coBdmysql{
             if ($mysqli->connect_error) { return 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error; }
 
             if($tabla != '' AND $valor !='' AND $campo != ''){
-                if ($mysqli->query("INSERT INTO ".$tabla." (".$campo.")  VALUES (".$valor.")")){ $resp = 1;
+                if ($mysqli->query("INSERT INTO ".$tabla." (".$campo.")  VALUES (".$valor.")")){ 
+                    $resp = 1;
+                    $this->ultID = $mysqli->insert_id;
                 }else{ $resp = 'ERROR EN INSERT: '.$mysqli->error;}
             }else{ $resp = 'INSERT: INDIQUE TABLA O VALORES'; }
         }
@@ -95,6 +99,10 @@ class coBdmysql{
             }else{ $resp = 'DELETE: INDIQUE TABLA'; }
         }
         return $resp;
+    }
+
+    function getUltID(){
+        return $this->ultID;
     }
     
 }

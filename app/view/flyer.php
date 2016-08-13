@@ -5,7 +5,23 @@
     $obj_bdmysql = new coBdmysql();
     $controller = 'ctCatalogo.php';
     $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
-    
+    $mss = 'No Existen Registros';    
+    $resul = NULL;
+    $r[] = NULL;
+
+    if (!$mysqli->connect_error) {
+
+        $mysqli->set_charset("utf8");
+
+        $resul = $obj_bdmysql->select("flyer", "*", "", "", "",$mysqli);
+
+        if (is_array($resul)){
+            $mss = "";
+        }
+
+    }
+
+
 ?>
 
 
@@ -40,7 +56,7 @@
                                 <button type="button" class="btn btn-default">Enviar</button>
                             </div>
                             <div class="col-sm-7" align="right">
-                                <button type="button" class="btn btn-info btn-lg" onclick="ir_a('flayerNuevo.php','');">Crear Nuevo</button>
+                                <button type="button" class="btn btn-info btn-lg" onclick="ir_a('flyerNuevo.php','');">Crear Nuevo</button>
                             </div>
                         </div>
                     </div>
@@ -56,45 +72,36 @@
                                                     <tr>
                                                         <th class="text-center"><i class="fa fa-barcode"></i> Codigo</th>
                                                         <th class="text-center"><i class="fa fa-file-text"></i> Titulo</th>
-                                                        <th class="text-center"><i class="fa fa-file-pdf-o"></i> PDF</th>
-                                                        <th class="text-center"><i class="fa fa-desktop"></i> Virtual</th>
-                                                        <th class="text-center"><i class="fa fa-calendar"></i> Fecha</th>
-                                                        <th class="text-center"><i class=" fa fa-qrcode"></i> QR</th>
-                                                        <th class="text-center"><i class="fa fa-cog"></i> Accion</th>
+                                                        <th class="text-center"><i class="fa fa-image"></i> Download</th>
+                                                        <th class="text-center"><i class="fa fa-calendar"></i> Creado</th>
+                                                        <th class="text-center"><i class="fa fa-calendar"></i> Modificado</th>
+                                                        <th class="text-center"><i class="fa fa-action"></i> Acciones</th>
                                                     </tr>
                                                     </thead>
                                         <?php 
                                             if($mss != ''){
-                                                echo '<tr><td colspan="7">'.$mss.'</td></tr>';
+                                                echo '<tr><td colspan="5">'.$mss.'</td></tr>';
                                             }else{
                                                 foreach ($resul as $r){
-                                                //ID CATALOGO
-                                                $id_catalogo = $r['id_catalogo'];
-                                                //VISTA DE CATALOGO
-                                                $vista = "catalogoVista.php?id=".$obj_function->code_url($id_catalogo,'code');
-                                                //CATALOGO PDF
-                                                $pdf = "../../assets/tcpdf/report/catalogo.php?id=".$obj_function->code_url($id_catalogo,'code');
-                                                //CATALOGO VIRTUAL
-                                                $link = 'http://textronic.info/cat/cv?cd='.$id_catalogo;
-                                                //CANTIDAD DE ARTICULOS.
-                                                $n_art = $obj_bdmysql->num_row("catalogo_reng", "id_catalogo = '".$id_catalogo."'", $mysqli);
-                                                //CODIGO QR
-                                                $codigo_qr = '../../common/codeqr/'.$id_catalogo.'.png';
-                                                if(file_exists($codigo_qr)){  $img_cod_qr = '<img src="'.$codigo_qr.'" alt="QR" style="width:80px;height:80px;">';
-                                                }else{ $img_cod_qr = 'QR NO ENCONTRADO.'; }
+
+                                                    $idFlyer = $r['idflyer'];
+                                                    $vista = 'flyerEditar.php?r=' . $idFlyer;
+                                                    $pdf = 'reporte.php?' . $idFlyer;
+
+
                                         ?>
                                                     <tbody>
                                                     <tr>
-                                                        <td class="text-center"><a href="<?php echo $vista;?>"><?php echo $r['codigo'];?></a></td>
-                                                        <td><a href="<?php echo $vista;?>"><?php echo $r['titulo'];?></a></td>
+                                                        <td class="text-center"><a href="<?php echo $vista;?>"><?php echo $idFlyer;?></a></td>
+                                                        <td><a href="<?php echo $vista;?>"><?php echo $r['tittle'];?></a></td>
                                                         <td class="text-center"><a href="<?php echo $pdf;?>" target="_blank">Download</a></td>
-                                                        <td><a href="<?php echo $link;?>" target="_blank"><?php echo $link;?></a></td>
-                                                        <td><a href="<?php echo $vista;?>"><?php echo $r['fe_us_in_dmy'];?></a></td>
-                                                        <td><?php echo $img_cod_qr;?></td>
+                                                        <td><a href="<?php echo $vista;?>" target="_blank"><?php echo $r['created'];?></a></td>
+                                                        <td><a href="<?php echo $vista;?>"><?php echo $r['modificated'];?></a></td>
+                                                        
                                                         <td class="text-center" width="100px">
                                                             <!--<button class="btn btn-success btn-xs" onclick="activa_beneficiario('<?php echo $r['id'];?>');" title="ACTIVA / INACTIVA NOTICIA"><i class="fa fa-refresh"></i></button>-->
                                                             <button class="btn btn-primary btn-xs" onclick="ir_a('<?php echo $vista;?>','')" title="EDITA"><i class="fa fa-pencil"></i></button>
-                                                            <button class="btn btn-danger btn-xs" onclick="elimina_catalogo('<?php echo $id_catalogo;?>');" title="ELIMINA"><i class="fa fa-trash-o"></i></button>
+                                                            <button class="btn btn-danger btn-xs" onclick="elimina_catalogo('<?php echo $idFlyer;?>');" title="ELIMINA"><i class="fa fa-trash-o"></i></button>
                                                         </td>
                                                     </tr>
                                                     </tbody>
