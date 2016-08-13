@@ -27,10 +27,10 @@ define('DBUSER', 'v1131055_cat_us');
 define('DBPASS', 'Clave123'); 
 define('DBNOM', 'v1131055_cat');*/
 
-define('DBHOST', 'localhost:3311'); 
+define('DBHOST', 'localhost'); 
 define('DBUSER', 'root'); 
-define('DBPASS', 'root'); 
-define('DBNOM', 'v1131055_cat');
+define('DBPASS', ''); 
+define('DBNOM', 'cat');
 
 //BD2
 define('DBHOST2', '50.196.74.121');

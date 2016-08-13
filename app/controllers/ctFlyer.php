@@ -545,7 +545,7 @@ left join
             $valores = "tittle='" . $flyer_tittle . "', description='" . $flyer_description. "', background_img='" . $data. "', type='" . $tipoArchivo . "'";
             //$insert = $obj_bdmysql->insert("flyer", $campos, $valores, $mysqli);
             $where = "idflyer = '".$flyer_id."'";
-            $update = $obj_bdmysql->update("flyer", $campo, $where, $mysqli);
+            $update = $obj_bdmysql->update("flyer", $valores, $where, $mysqli);
             if ($update == "1"){
                 $idFlyer = $obj_bdmysql->getUltID();
                 $productsFinal = explode('/*', $products);
@@ -553,9 +553,9 @@ left join
                 $delete = $obj_bdmysql->delete("productflyer", $where, $mysqli);
                 foreach ($productsFinal as $key => $value) {
                     if ($key != 0) {
-                    $campos = "name, no_part, alias, xref, smp, tomco, oem,
+                    $campos = "name, skuno, no_part, alias, xref, smp, tomco, oem,
                     price_name_one, price_name_two, price_name_three, price_one, price_two, 
-                    price_three, flayer_idflyer, image";
+                    price_three, flayer_idflyer, image, application";
                     //echo $value;
                     $arrVal = explode('|',$value);
                     //var_dump ( empty(trim($arrVal[11])));
@@ -577,6 +577,7 @@ left join
                     }
                     
                      $valores = "'', " 
+                              ."'" . $skuno . "', " 
                               ."'" . $arrVal[2] . "', " 
                               . "'" . $arrVal[7] . "', " 
                               . "'', " 
@@ -590,18 +591,25 @@ left join
                               . "" . $priceTwo . ", " 
                               . "" . $priceThree . ", "
                               . "'" . $flyer_id . "', "
-                              . "" . $data . " " ;
+                              . "" . $data . ", " 
+                              . "'" . $arrVal[3] . "'" 
+                               ;
                     $insert = $obj_bdmysql->insert("productflyer", $campos, $valores, $mysqli);
                     //echo $insert;
+                    if ($insert == '1'){
+                    $salida = "Flyer Updated";
+                    $mss = "1";
+                    } else{
+                        $mss = "Error updating Flyer. " . $insert;
+                    }
 
                 }
 
                 }
 
-                $salida = "Flyer Updated";
-                $mss = "1";
+                
             } else {
-                $mss = "Error updating Flyer. " . $insert;
+                $mss = "Error updating Flyer. " . $update;
             }
          } else {
             $mss = "Not Connected to DB";

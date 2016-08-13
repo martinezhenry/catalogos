@@ -381,7 +381,8 @@ function ordenar_Flyer(id){
                 flyer_created = forma_cad(document.getElementById('flyer_created').value);
                 flyer_description = forma_cad(document.getElementById('flyer_description').value);
                 products = captura_valor_class_hijos('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
-
+                alert(products);
+                //exit;
                 activa_preloader();
                 $.post("../controllers/ctFlyer.php",{
                      "opc":opc
@@ -417,6 +418,8 @@ $(document).ready(function(){
                 uploadUrl: "../../assets/bootstrap-fileinput-master/flyerUpload.php",
                 uploadAsync: false,
                 maxFileCount: 1
+                
+                 
             });
             /*
             $("#productFlyer_img").fileinput({

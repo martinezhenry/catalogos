@@ -11,10 +11,19 @@
                 $descFlyer = $datosFlyer[0]['description'];
                 $createdFlyer = $datosFlyer[0]['created'];
                 $modificatedFlyer = $datosFlyer[0]['modificated'];
+                $backgroundFlyer = $datosFlyer[0]['background_img'];
+                $typeFlyer = $datosFlyer[0]['type'];
 
                 $datosProductFlyer = $obj_bdmysql->select("`productflyer`", "*", "flayer_idflyer=" . $id, "", "",$mysqli,false);
 
                 //var_dump($datosProductFlyer);
+                if ($backgroundFlyer !== ''){
+                    $data = $backgroundFlyer;
+                    $type = $typeFlyer;
+                    require_once 'flyer/createImg.php';
+                    $portada = 'flyer/finalPortada.' . $type;
+                }
+
 
             }
         }
@@ -88,7 +97,7 @@
                                                     <div class="form-group">
                                                         <div class="col-sm-12" id="flyer_img_fondo">
                                                         <label class="control-label">Fondo</label>
-                                                            <input type="file" id="flyer_fondo" name="flyer_fondo" multiple=false class="file-loading">
+                                                            <input type="file" id="flyer_fondoEdit" name="flyer_fondo" multiple=false class="file-loading">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -274,7 +283,7 @@
                                                             <th class="numeric">Precio 3</th>
                                                           
                                                         </tr>
-                                                        </thead>
+                                                       
 
                                                         <?php 
 
@@ -330,7 +339,7 @@
                                                         }
 
                                                         ?>
-
+                                                         </thead>
                                                     </table>
                                                 </section>
                                             </div><!-- /content-panel -->
@@ -378,6 +387,25 @@
         
         <!--INICIALIZACION-->
         <script src="../js/flyer.js"></script>
+
+        <script>
+            $(document).ready(function(){
+
+
+            $("#flyer_fondoEdit").fileinput({
+                uploadUrl: "../../assets/bootstrap-fileinput-master/flyerUpload.php",
+                uploadAsync: false,
+                maxFileCount: 1,
+                
+                 <?php if(isset($portada)){?>
+                initialPreview: '<img src="<?php echo $portada;?>" class="file-preview-image" alt="Portada" title="Portada">'     
+                <?php } ?>
+            });
+
+
+            });
+
+        </script>
      
         <!--END SCRIPT-->
     </body>
