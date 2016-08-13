@@ -12,10 +12,11 @@ CREATE  TABLE IF NOT EXISTS `flyer` (
   `idflyer` INT NOT NULL AUTO_INCREMENT ,
   `tittle` VARCHAR(100) NULL ,
   `created` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,
-  `modificated` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ,
+  `modificated` TIMESTAMP NULL ,
   `background_img` BLOB NULL ,
   `description` VARCHAR(100) NULL ,
-  PRIMARY KEY (`idflyer`) )
+  `type` VARCHAR(100) NULL ,
+    PRIMARY KEY (`idflyer`) )
 ENGINE = InnoDB;
 
 
@@ -27,12 +28,14 @@ DROP TABLE IF EXISTS `productFlyer` ;
 CREATE  TABLE IF NOT EXISTS `productFlyer` (
   `idproductFlyer` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(100) NULL ,
+  `skuno` VARCHAR(100) NULL ,
   `no_part` VARCHAR(45) NULL ,
   `alias` VARCHAR(45) NULL ,
   `xref` VARCHAR(45) NULL ,
   `smp` VARCHAR(45) NULL ,
   `tomco` VARCHAR(45) NULL ,
   `oem` VARCHAR(45) NULL ,
+  `application` VARCHAR(45) NULL ,
   `price_name_one` VARCHAR(45) NULL ,
   `price_name_two` VARCHAR(45) NULL ,
   `price_name_three` VARCHAR(45) NULL ,
@@ -50,7 +53,7 @@ CREATE  TABLE IF NOT EXISTS `productFlyer` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-USE `mydb` ;
+USE `v1131055_cat` ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

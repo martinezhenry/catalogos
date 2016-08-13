@@ -60,6 +60,7 @@
                                     <div class="panel-group" id="accordion">
                                         <!--ACORDION 1-->
                                         <div class="panel panel-default">
+                                            <input type="hidden" id="flyer_id" value="<?php echo $id; ?>"/>
                                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
                                             <div class="panel-heading" style="background:#F5F5F5;">
                                               <h4 class="panel-title"><i class="fa fa-database"></i> DATOS</h4>

@@ -364,6 +364,47 @@ function ordenar_Flyer(id){
                 });
 
             }
+
+
+            //GUARDA_CATALOGO
+            function editar_flyer(){
+                
+                if ($("#catalogo_img_portada .file-preview-image").length > 0){ catalogo_img_portada_del = 1;
+                }else{ catalogo_img_portada_del = 0; }
+                if ($("#catalogo_img_fondo .file-preview-image").length > 0){ catalogo_img_fondo_del = 1;
+                }else{ catalogo_img_fondo_del = 0; }
+                
+                opc = "flyerEditar";
+                flyer_id = forma_cad(document.getElementById('flyer_id').value);
+                
+                flyer_tittle = forma_cad(document.getElementById('flyer_tittle').value);
+                flyer_created = forma_cad(document.getElementById('flyer_created').value);
+                flyer_description = forma_cad(document.getElementById('flyer_description').value);
+                products = captura_valor_class_hijos('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
+
+                activa_preloader();
+                $.post("../controllers/ctFlyer.php",{
+                     "opc":opc
+                    ,"flyer_id":flyer_id
+                    ,"flyer_tittle":flyer_tittle
+                    ,"flyer_created":flyer_created
+                    ,"flyer_description":flyer_description
+                    ,"products":products
+                },function(data){
+                    console.error(data);
+                    if(data.mss === '1'){
+                        alert(data.salida);
+                        ir_a('flyer.php','');
+                    }else{ alert(data.mss); }
+                    desactiva_preloader();
+                },"json").fail(function(error, errormsg){
+                    console.error("Error editar_flyer: " + errormsg);
+                    desactiva_preloader();
+
+                });
+
+            }
+
             
 
 $(document).ready(function(){
