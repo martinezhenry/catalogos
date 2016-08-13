@@ -1,5 +1,5 @@
 <?php
-	include '../assets/fpdf/class_fpdf.php';
+	include '../../assets/fpdf/class_fpdf.php';
 
 	function add_MultiCell($pdf, $pos, $ali, $val, $siz, $fon, $bor){ 		
 		/**	$pdf=> Document PDF, 

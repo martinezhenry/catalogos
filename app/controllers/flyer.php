@@ -1,23 +1,24 @@
 <?php	
 	include 'flyer_functions.php';
-	include '../common/general.php';
+	include '../../common/general.php';
 	
 	$id_flyer = $_SERVER['QUERY_STRING'];
 	
 	$obj_function = new coFunction();
 	$obj_bdmysql = new coBdmysql();	
-	$mysqli = new mysqli(DBHOST3, DBUSER3, DBPASS3, DBNOM3);
+	$mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
 	
 	if (!$mysqli->connect_error){
 		$where = "idflyer= '" . $id_flyer . "'";
-		$SQL = "SELECT pf.idproductFlayer, pf.name, pf.no_part, pf.wells, pf.smp, pf.tomco, 
-					pf.price_name_one, pf.price_one, pf.price_name_two, pf.aplicacion,
+		$SQL = "SELECT pf.idproductFlyer, pf.name, pf.no_part, pf.alias, pf.smp, pf.tomco, 
+					pf.price_name_one, pf.price_one, pf.price_name_two, pf.application,
 					pf.price_two, pf.price_two, pf.price_name_three, pf.price_three, pf.image  
-				FROM flayer f 
-					JOIN productFlayer pf ON f.idflayer = pf.flayer_idflayer
+				FROM flyer f 
+					JOIN productFlyer pf ON f.idflyer = pf.flayer_idflyer
 				WHERE  " . $where;		
-		$resul = $mysqli->query($SQL);
+		$resul = $mysqli->query($SQL)  or trigger_error($mysqli->error."[$SQL]");
 		$r = $resul->fetch_array(MYSQLI_ASSOC);
+		//var_dump($r);
 		if(is_array($r)){						
 			$pro = $r;
 		}else{
@@ -25,7 +26,7 @@
 		}			
 	}else{ $aResult['error'] = "NO SE PUDO CONECTAR A LA BASE DE DATOS!"; }
 	
-	file_put_contents('', $pdr['image']);
+	file_put_contents('', $pro['image']);
 	/*$prd = array(
 					"NAME"=> "Hola Mundo Como estas?", 
 					"PARTS"=> "123-45690", 
