@@ -86,7 +86,8 @@
 
                                                     $idFlyer = $r['idflyer'];
                                                     $vista = 'flyerEditar.php?r=' . $idFlyer;
-                                                    $pdf = 'reporte.php?' . $idFlyer;
+                                                    $pdf = '../controllers/testPDF.php?id=' . $idFlyer."&down=false";
+                                                    $img = '../controllers/testPDF.php?id=' . $idFlyer."&down=true";
 
 
                                         ?>
@@ -94,12 +95,12 @@
                                                     <tr>
                                                         <td class="text-center"><a href="<?php echo $vista;?>"><?php echo $idFlyer;?></a></td>
                                                         <td><a href="<?php echo $vista;?>"><?php echo $r['tittle'];?></a></td>
-                                                        <td class="text-center"><a href="<?php echo $pdf;?>" target="_blank">Download</a></td>
+                                                        <td class="text-center"><a href="<?php echo $pdf;?>" target="">PDF</a> / <a href="<?php echo $img;?>" target="">IMG</a></td>
                                                         <td><a href="<?php echo $vista;?>" target="_blank"><?php echo $r['created'];?></a></td>
                                                         <td><a href="<?php echo $vista;?>"><?php echo $r['modificated'];?></a></td>
                                                         
                                                         <td class="text-center" width="100px">
-                                                            <!--<button class="btn btn-success btn-xs" onclick="activa_beneficiario('<?php echo $r['id'];?>');" title="ACTIVA / INACTIVA NOTICIA"><i class="fa fa-refresh"></i></button>-->
+                                                            
                                                             <button class="btn btn-primary btn-xs" onclick="ir_a('<?php echo $vista;?>','')" title="EDITA"><i class="fa fa-pencil"></i></button>
                                                             <button class="btn btn-danger btn-xs" onclick="elimina_catalogo('<?php echo $idFlyer;?>');" title="ELIMINA"><i class="fa fa-trash-o"></i></button>
                                                         </td>
