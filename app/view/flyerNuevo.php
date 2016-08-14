@@ -241,6 +241,7 @@
                                                             <th width="10%">SkuNo</th>
                                                             <th width="10%">PartNo</th>
                                                             <th>Application</th>
+                                                            <th>Application Label</th>
                                                             <th>TOMCO</th>
                                                             <th>SMP</th>
                                                             <th>OEM</th>

@@ -18,7 +18,7 @@ require_once 'Pdf.php';
 					pf.price_name_one as price_name_1, pf.price_one as price_1, pf.price_name_two as price_name_2,
 					 pf.application, pf.oem, pf.skuno as nombre_imagen,
 					pf.price_two as price_2, pf.price_name_three as price_name_3, pf.price_three as price_3, pf.image ,
-					pf.application_label, pf.titulo_product_name
+					pf.applicationLabel, pf.titulo_product_name
 				FROM flyer f 
 					JOIN productFlyer pf ON f.idflyer = pf.flayer_idflyer
 				WHERE  " . $where;		

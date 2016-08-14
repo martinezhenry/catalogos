@@ -271,6 +271,7 @@
                                                             <th width="10%">SkuNo</th>
                                                             <th width="10%">PartNo</th>
                                                             <th>Application</th>
+                                                            <th>Application Label</th>
                                                             <th>TOMCO</th>
                                                             <th>SMP</th>
                                                             <th>OEM</th>
@@ -297,6 +298,7 @@
                                                                    $SkuNo = $value['skuno'];
                                                                    $PartNo = $value['no_part'];
                                                                    $ProdDesc = $value['application'];
+                                                                   $applicationLabel = $value['applicationLabel'];
                                                                    $tomco = $value['tomco'];
                                                                    $smp = $value['smp'];
                                                                    $oem = $value['oem'];
@@ -314,6 +316,7 @@
                                                                         '    <td data-title="CODIGO" class="catalogo_articulo_list_cod" id="catalogo_articulo_list_cod"><input type="hidden" id="catalogo_articulo_list_price" class="catalogo_articulo_list_cod" value="'.$SkuNo.'">'.$SkuNo.'</td>'.
                                                                         '    <td data-title="PARTNO" class="catalogo_articulo_list_partNo"><input type="hidden" id="catalogo_articulo_list_partno" value="'.$PartNo.'">'.$PartNo.'</td>'.
                                                                         '    <td data-title="ARTICULO" class="catalogo_articulo_list_prodDesc"><input type="hidden" id="catalogo_articulo_list_proddesc" value="'.$ProdDesc.'">'.$ProdDesc.'</td>'.
+                                                                        '    <td data-title="ARTICULO" class="catalogo_articulo_list_applicationLabel"><input type="hidden" id="catalogo_articulo_list_applicationLabel" value="'.$applicationLabel.'">'.$applicationLabel.'</td>'.
                                                                         '    <td data-title="ARTICULO" class="catalogo_articulo_list_tomco"><input type="hidden" id="catalogo_articulo_list_tomco" value="'.$tomco.'">'.$tomco.'</td>'.
                                                                         '    <td data-title="ARTICULO" class="catalogo_articulo_list_smp"><input type="hidden" id="catalogo_articulo_list_smp" value="'.$smp.'">'.$smp.'</td>'.
                                                                         '    <td data-title="ARTICULO" class="catalogo_articulo_list_oem"><input type="hidden" id="catalogo_articulo_list_oem" value="'.$oem.'">'.$oem.'</td>'.

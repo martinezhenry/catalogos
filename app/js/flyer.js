@@ -133,6 +133,7 @@ var salida = '';
                                 ''+
                                 '<th width="10%">PartNo</th>'+
                                 '<th>Aplication</th>'+
+                                '<th>Aplication Label</th>'+
                                 '<th>Tomco</th>'+
                                 '<th>SMP</th>'+
                                 '<th>OEM</th>'+
@@ -201,6 +202,7 @@ var salida = '';
                            fecha_to_oferta = r.Date_To_dma;
                             fecha_from_oferta = r.Date_From_dma;
                             precio = r.precio2;
+
                         
                         catalogo_articulo_arr = r.SkuNo + '/*'+ r.PartNo+'/*'+r.ProdDesc+'/*'+r.CatDesc+'/*'+r.PrdDesc+'/*'+precio+'/*'+r.OnHand+'/*'+oferta+'/*'+fecha_to_oferta+'/*'+fecha_to_oferta+'/*'+flag;
                         salida+= '<tr class="catalogo_articulo_fila" id="catalogo_articulo_fila_'+r.SkuNo+'" >'+
@@ -209,6 +211,7 @@ var salida = '';
                                   //  '<td data-title="SKUNO" id="catalogo_articulo_list_cod">'+r.SkuNo+'</td>'+
                                     '<td data-title="PARTNO"><input id="flyer_partNo_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.PartNo+'" /></td>'+
                                     '<td data-title="prodDesc"><input id="flyer_prodDesc_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.Desc+'" /></td>'+
+                                    '<td data-title="applicationLabel"><input id="flyer_applicationLabel_'+r.SkuNo+'" type="text" style="width: 100%;" value="" /></td>'+
                                     '<td data-title="TOMCO"><input id="flyer_tomco_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.tomco+'" /></td>'+
                                     '<td data-title="SMP"><input id="flyer_smp_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.smp+'" /></td>'+
                                     '<td data-title="OEM"><input id="flyer_oem_'+r.SkuNo+'" type="text" style="width: 100%;" value="'+r.oem+'" /></td>'+
@@ -272,6 +275,7 @@ function cargar_articuloFlyer(){
             fecha_to_oferta = arr_art[8];
             fecha_from_oferta = arr_art[9];
             flag = arr_art[10];
+            applicationLabel = $('#flyer_applicationLabel_'+ value).val();
             if(!document.getElementById('catalogo_articulo_fila_carga_'+SkuNo)){
                 count=count+1;
             html =  html+
@@ -280,6 +284,7 @@ function cargar_articuloFlyer(){
                     '    <td data-title="CODIGO" class="catalogo_articulo_list_cod" id="catalogo_articulo_list_cod"><input type="hidden" id="catalogo_articulo_list_price" class="catalogo_articulo_list_cod" value="'+SkuNo+'">'+SkuNo+'</td>'+
                     '    <td data-title="PARTNO" class="catalogo_articulo_list_partNo"><input type="hidden" id="catalogo_articulo_list_partno" value="'+PartNo+'">'+PartNo+'</td>'+
                     '    <td data-title="ARTICULO" class="catalogo_articulo_list_prodDesc"><input type="hidden" id="catalogo_articulo_list_proddesc" value="'+ProdDesc+'">'+ProdDesc+'</td>'+
+                    '    <td data-title="ARTICULO" class="catalogo_articulo_list_applicationLabel"><input type="hidden" id="catalogo_articulo_list_applicationLabel" value="'+applicationLabel+'">'+applicationLabel+'</td>'+
                     '    <td data-title="ARTICULO" class="catalogo_articulo_list_tomco"><input type="hidden" id="catalogo_articulo_list_tomco" value="'+tomco+'">'+tomco+'</td>'+
                     '    <td data-title="ARTICULO" class="catalogo_articulo_list_smp"><input type="hidden" id="catalogo_articulo_list_smp" value="'+smp+'">'+smp+'</td>'+
                     '    <td data-title="ARTICULO" class="catalogo_articulo_list_oem"><input type="hidden" id="catalogo_articulo_list_oem" value="'+oem+'">'+oem+'</td>'+

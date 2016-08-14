@@ -197,7 +197,7 @@ class Tabulador {
                 $application_label='';
             }else{
                 $application= $param["application"]  ;
-                $application_label= $param["application_label"].':'   ;
+                $application_label= $param["applicationLabel"].':'   ;
             }
 
             $html = '<!-- Producto Destacado  -->
@@ -321,7 +321,7 @@ class Tabulador {
                 $application_label='';
             }else{
                 $application= $param["application"]  ;
-                $application_label= $param["application_label"].':'   ;
+                $application_label= $param["applicationLabel"].':'   ;
             }
 
         $html = '<!-- Imagen Derecha  -->
@@ -435,7 +435,7 @@ class Tabulador {
                 $application_label='';
             }else{
                 $application= $param["application"]  ;
-                $application_label= $param["application_label"].':'  ;
+                $application_label= $param["applicationLabel"].':'  ;
             }
 
         $html = '

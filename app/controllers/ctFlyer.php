@@ -451,16 +451,16 @@ left join
 
         		foreach ($productsFinal as $key => $value) {
         			if ($key != 0) {
-        			$campos = "name, no_part, alias, xref, smp, tomco, oem,
+        			$campos = "name, no_part, alias, xref, smp, tomco, oem, 
         			price_name_one, price_name_two, price_name_three, price_one, price_two, 
-        			price_three, flayer_idflyer, image";
+        			price_three, flayer_idflyer, image, application, applicationLabel";
         			//echo $value;
         			$arrVal = explode('|',$value);
         			//var_dump ( empty(trim($arrVal[11])));
         			$skuno = $arrVal[1];
-        			$priceOne = ((trim($arrVal[11])) === '') ? "'0'":"'".$arrVal[11]."'";
-        			$priceTwo = ((trim($arrVal[12])) === '') ? "'0'":"'".$arrVal[12]."'";
-        			$priceThree = ((trim($arrVal[13])) === '') ? "'0'":"'".$arrVal[13]."'";
+        			$priceOne = ((trim($arrVal[12])) === '') ? "'0'":"'".$arrVal[12]."'";
+        			$priceTwo = ((trim($arrVal[13])) === '') ? "'0'":"'".$arrVal[13]."'";
+        			$priceThree = ((trim($arrVal[14])) === '') ? "'0'":"'".$arrVal[14]."'";
         			$imagen_temporal = "../../assets/img/art/";
         			if (file_exists("../../assets/img/art/" . trim($skuno) . ".jpg")) {
 							
@@ -476,19 +476,22 @@ left join
 					
         			 $valores = "'', " 
         			 		  ."'" . $arrVal[2] . "', " 
-        			 		  . "'" . $arrVal[7] . "', " 
-        			 		  . "'', " 
-        			 		  . "'" . $arrVal[5] . "', " 
-        			 		  . "'" . $arrVal[4] . "', " 
-        			 		  . "'" . $arrVal[6] . "', " 
         			 		  . "'" . $arrVal[8] . "', " 
+        			 		  . "'', " 
+        			 		  . "'" . $arrVal[6] . "', " 
+        			 		  . "'" . $arrVal[5] . "', " 
+        			 		  . "'" . $arrVal[7] . "', " 
         			 		  . "'" . $arrVal[9] . "', " 
         			 		  . "'" . $arrVal[10] . "', " 
+        			 		  . "'" . $arrVal[11] . "', " 
         			 		  . "" . $priceOne . ", " 
         			 		  . "" . $priceTwo . ", " 
         			 		  . "" . $priceThree . ", "
         			 		  . "'" . $idFlyer . "', "
-        			 		  . "" . $data . " " ;
+        			 		  . "" . $data . ", " 
+                              . "'" . $arrVal[3] . "', " 
+                              . "'" . $arrVal[4] . "' " 
+                              ;
         			$insert = $obj_bdmysql->insert("productflyer", $campos, $valores, $mysqli);
         			//echo $insert;
 
@@ -553,9 +556,9 @@ left join
                 $delete = $obj_bdmysql->delete("productflyer", $where, $mysqli);
                 foreach ($productsFinal as $key => $value) {
                     if ($key != 0) {
-                    $campos = "name, skuno, no_part, alias, xref, smp, tomco, oem,
+                    $campos = "name, no_part, alias, xref, smp, tomco, oem, 
                     price_name_one, price_name_two, price_name_three, price_one, price_two, 
-                    price_three, flayer_idflyer, image, application";
+                    price_three, flayer_idflyer, image, application, applicationLabel";
                     //echo $value;
                     $arrVal = explode('|',$value);
                     //var_dump ( empty(trim($arrVal[11])));
@@ -577,23 +580,23 @@ left join
                     }
                     
                      $valores = "'', " 
-                              ."'" . $skuno . "', " 
                               ."'" . $arrVal[2] . "', " 
-                              . "'" . $arrVal[7] . "', " 
-                              . "'', " 
-                              . "'" . $arrVal[5] . "', " 
-                              . "'" . $arrVal[4] . "', " 
-                              . "'" . $arrVal[6] . "', " 
                               . "'" . $arrVal[8] . "', " 
+                              . "'', " 
+                              . "'" . $arrVal[6] . "', " 
+                              . "'" . $arrVal[5] . "', " 
+                              . "'" . $arrVal[7] . "', " 
                               . "'" . $arrVal[9] . "', " 
                               . "'" . $arrVal[10] . "', " 
+                              . "'" . $arrVal[11] . "', " 
                               . "" . $priceOne . ", " 
                               . "" . $priceTwo . ", " 
                               . "" . $priceThree . ", "
                               . "'" . $flyer_id . "', "
                               . "" . $data . ", " 
-                              . "'" . $arrVal[3] . "'" 
-                               ;
+                              . "'" . $arrVal[3] . "', " 
+                              . "'" . $arrVal[4] . "' " 
+                              ;
                     $insert = $obj_bdmysql->insert("productflyer", $campos, $valores, $mysqli);
                     //echo $insert;
                     if ($insert == '1'){
