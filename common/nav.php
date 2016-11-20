@@ -3,6 +3,7 @@
 /* 
  * OPCIONES DEL MENU.
  */
+ 
 global $opc_nav;
 $opc_nav = array(
     'index' => array('Inicio','init.php','fa fa-home')
