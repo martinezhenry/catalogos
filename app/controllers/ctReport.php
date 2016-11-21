@@ -27,12 +27,12 @@ switch ($opc){
 //        $where = "1=1 AND Discontinued = 0 ";
         $where = "(SkuNo like '%".$art_val."%') or (Desc like '%".$art_val."%')";
 
-        if($reporte_inicial=='true')
+        if($inicial=='true')
             $where .= " AND Desc like '".$xref."%'";
-        else
+        if($contenga=='true')
             $where .= " AND Desc like '%".$xref."%'";
 
-        $resul = $obj_bdmysql->select("inventory items xref","*,".$art_val." as xx",$where,"","0,10",$mysqli);
+        $resul = $obj_bdmysql->select("inventory items xref","",$where,"","0,10",$mysqli);
         if(!is_array($resul)){ $resul = array('mss' => 'NO SE ENCONTRO ARTICULOS'); }
         foreach ($resul as $r){ $rr = $r['SkuNo']; }
         echo json_encode($rr);
