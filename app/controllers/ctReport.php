@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- 
+
 include '../../common/general.php';
 $obj_function = new coFunction();
 $obj_bdmysql = new coBdmysql();
@@ -25,12 +25,14 @@ switch ($opc){
         
         $mysqli = new mysqli(DBHOST2, DBUSER2, DBPASS2, DBNOM2);
 //        $where = "1=1 AND Discontinued = 0 ";
-        $where = "(SkuNo like '%".$art_val."%') or (ProdDesc like '%".$art_val."%')";
-//        $catalogo_categoria = '';$catalogo_subcategoria = ''; $catalogo_stock = '';
-//        if($catalogo_categoria != ''){ $where.=" AND CatCode = '".$catalogo_categoria."'";}
-//        if($catalogo_subcategoria != ''){ $where.=" AND PrdCode = '".$catalogo_subcategoria."'"; }
-//        if($catalogo_stock != ''){ $where.=" AND OnHand = '".$catalogo_stock."'"; }
-        $resul = $obj_bdmysql->select("inventory","*,".$art_val." as xx",$where,"","0,10",$mysqli);
+        $where = "(SkuNo like '%".$art_val."%') or (Desc like '%".$art_val."%')";
+
+        if($reporte_inicial=='true')
+            $where .= " AND Desc like '".$xref."%'";
+        else
+            $where .= " AND Desc like '%".$xref."%'";
+
+        $resul = $obj_bdmysql->select("inventory items xref","*,".$art_val." as xx",$where,"","0,10",$mysqli);
         if(!is_array($resul)){ $resul = array('mss' => 'NO SE ENCONTRO ARTICULOS'); }
         foreach ($resul as $r){ $rr = $r['SkuNo']; }
         echo json_encode($rr);
