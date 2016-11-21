@@ -17,7 +17,8 @@ if (!isset($_POST['lines']) || !is_array($_POST['lines'])){
 
 $lines = $_POST['lines'];
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/PHPExcel/Classes/PHPExcel.php';
+//require_once dirname(__FILE__) . '/PHPExcel/Classes/PHPExcel.php';
+require_once '../../assets/PHPExcel/Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
