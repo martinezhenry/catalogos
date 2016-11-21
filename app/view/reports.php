@@ -354,6 +354,7 @@
                                             </div>
                                             <label style="font-size:20px;padding:4px;">MARCAR TODO</label>
                                         </div>
+                                        <div class="col-sm-4 text-right"><br><button type="button" class="btn btn-default" onclick="Exportar_reporte();">Exportar Excel</button></div>
                                         <div class="col-sm-4 text-right"><br><button type="button" class="btn btn-default" onclick="cargar_articulo();">Cargar</button></div>
                                         <div id="resul"></div>
                                     </div>
@@ -599,6 +600,8 @@
                     
             }
 
+            
+
             function buscar_xref(){
                 // alert("Bus");
 
@@ -651,7 +654,7 @@
                 },function(data){
                    // alert(data);
                     if(data.mss === '1'){
-                        $('#catalogo_articulo_list_busca').html(contruirArticulos(data.salida));
+                        $('#catalogo_articulo_list_busca').html(contruirReporte(data.salida));
                         n_pag = 1;
                         modal_busqueda_sal = '';
                         //CUENTA ARTICULOS BUSQUEDA

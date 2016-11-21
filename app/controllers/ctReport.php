@@ -113,7 +113,7 @@ switch ($opc){
         //        $where.= " AND ( OnHand + qty_dts ".$catalogo_stock_cond." '".$catalogo_stock."' ) ";
           //  }
 
-             if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode IN (".$catalogo_subcategoria.") ) "; }
+            if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode IN (".$catalogo_subcategoria.") ) "; }
 
             if ($catalogo_tipo_inventario == '1'){
                 $tipoInv = ' ifnull(OnHand,0) ';
@@ -144,6 +144,8 @@ switch ($opc){
             if ($catalogo_ventaTo != ''){
                 $where .= " AND dateord <= '". $catalogo_ventaTo . "'";
             }
+
+            
 
 
 

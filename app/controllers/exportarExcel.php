@@ -55,33 +55,37 @@ $objPHPExcel->setActiveSheetIndex(0)
 	            ->setCellValue('L'.$i, 'binlocdts')
                     ->setCellValue('M'.$i, 'precio1')
 	            ->setCellValue('N'.$i, 'precio2');
+echo gettype($lines[0]);
+echo json_decode($lines[0]);
+foreach ($lines as $key) {
+// print_r($key);	# code...
+echo gettype($key);
+// $obj = json_decode("'".$value."'");
+// echo "asdfasd";
 
-foreach ($lines as $key => $value) {
-	# code...
+// $i++;
+// //var_dump(count($lines));
 
-$i++;
-//var_dump(count($lines));
-
-		//var_dump($value['SalesItemLineDetail']);
-		$objPHPExcel->setActiveSheetIndex(0)
-	            ->setCellValue('A'.$i, $value['skuno'])
-	           // ->setCellValue('B'.$i, $value['nroPart'])
-	             ->setCellValue('B'.$i, $value['partno'])
-	            ->setCellValue('C'.$i, $value['xref'])
-	            ->setCellValue('D'.$i, $value['xref-universal'])
+// 		//var_dump($value['SalesItemLineDetail']);
+// 		$objPHPExcel->setActiveSheetIndex(0)
+// 	            ->setCellValue('A'.$i, json_decode($value)->{'skuno'})
+// 	           // ->setCellValue('B'.$i, json_decode($value)->{'nroPart'})
+// 	             ->setCellValue('B'.$i, json_decode($value)->{'partno'})
+// 	            ->setCellValue('C'.$i, json_decode($value)->{'xref'})
+// 	            ->setCellValue('D'.$i, json_decode($value)->{'xref-universal'})
                 
-                ->setCellValue('E'.$i, $value['description'])
-	             ->setCellValue('F'.$i, $value['avi'])
-	            ->setCellValue('G'.$i, $value['avi-dts'])
-	            ->setCellValue('H'.$i, $value ['po'])
+//                 ->setCellValue('E'.$i, json_decode($value)->{'description'})
+// 	             ->setCellValue('F'.$i, json_decode($value)->{'avi'})
+// 	            ->setCellValue('G'.$i, json_decode($value)->{'avi-dts'})
+// 	            ->setCellValue('H'.$i, json_decode($value)->{'po'})
                         
-                ->setCellValue('I'.$i, $value['avgcost'])
-	             ->setCellValue('J'.$i, $value['preciodts'])
-	            ->setCellValue('K'.$i, $value['binloctex'])
-	            ->setCellValue('L'.$i, $value ['binlocdts'])
+//                 ->setCellValue('I'.$i, json_decode($value)->{'avgcost'})
+// 	             ->setCellValue('J'.$i, json_decode($value)->{'preciodts'})
+// 	            ->setCellValue('K'.$i, json_decode($value)->{'binloctex'})
+// 	            ->setCellValue('L'.$i, json_decode($value)->{'binlocdts'})
                         
-                ->setCellValue('M'.$i, $value['precio1'])
-	             ->setCellValue('N'.$i, $value['precio2']);
+//                 ->setCellValue('M'.$i, json_decode($value)->{'precio1'})
+// 	             ->setCellValue('N'.$i, json_decode($value)->{'precio2'});
 	
 }
 /*

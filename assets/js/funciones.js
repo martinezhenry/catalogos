@@ -214,6 +214,27 @@ function captura_valor_ch(idPadre){
     }
 }
 
+function captura_valor_ch3(idPadre){
+    padre = document.getElementById(idPadre);
+    if(padre){
+        var cadena = [];
+        var elemento = padre.getElementsByTagName('*');
+        var n = elemento.length;
+            var j=0;
+            for (var i=0; i<elemento.length; i++) {
+                if(elemento[i].type=='checkbox'){
+                    if(elemento[i].checked == true){
+                        cadena[i] = elemento[i];
+                    }
+                j++;
+                }
+            }
+        return cadena;
+    }
+}
+
+
+
 function captura_valor_ch2(idPadre){
     padre = document.getElementById(idPadre);
     if(padre){
