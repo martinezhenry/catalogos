@@ -557,6 +557,7 @@
               /// console.log("cargando articulos: <?php echo $controller;?>");
                 $.post("../controllers/<?php echo $controller;?>",{
                      "opc":opc
+                    ,"art_val":""
                     ,"catalogo_categoria":catalogo_categoria
                     ,"catalogo_subcategoria":catalogo_subcategoria
                     ,"catalogo_subcategoria_desc":catalogo_subcategoria_desc
@@ -611,6 +612,7 @@
                 $('#modal_busqueda').html('Cargando...').fadeIn('fast');
                 $.post("../controllers/<?php echo $controller;?>",{
                      "opc":opc
+                    ,"art_val":""
                     ,"catalogo_categoria":catalogo_categoria
                     ,"catalogo_subcategoria":catalogo_subcategoria
                     ,"catalogo_subcategoria_desc":catalogo_subcategoria_desc
