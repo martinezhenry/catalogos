@@ -305,7 +305,7 @@
                                                 <div class="switch switch-square"
                                                     data-on-label="<i class=' fa fa-check'></i>"
                                                     data-off-label="<i class='fa fa-times'></i>">
-                                                    <input type="checkbox" id="catalogo_inicio"/>
+                                                    <input type="checkbox" id="reporte_inicio"/>
                                                 </div>
                                                 <label style="font-size:20px;padding:4px;">inicio</label>
                                             </div>
@@ -314,7 +314,7 @@
                                                 <div class="switch switch-square"
                                                     data-on-label="<i class=' fa fa-check'></i>"
                                                     data-off-label="<i class='fa fa-times'></i>">
-                                                    <input type="checkbox" id="catalogo_contenga"/>
+                                                    <input type="checkbox" id="reporte_contenga"/>
                                                 </div>
                                                 <label style="font-size:20px;padding:4px;">contenga</label>
                                             </div>
@@ -599,9 +599,75 @@
             }
 
             function buscar_xref(){
-                var value = document.getElementById('busqueda_xref').value;
-                $.post("../controllers/<?php echo $controller;?>", {
+                // alert("Bus");
 
+                xref = $("#busqueda_xref").val();
+                valorInicial = $('#reporte_inicio').is(':checked');
+                valorContenido = $('#reporte_contenga').is(':checked');
+                filtro = '';
+                n_pag = 0;
+                n_pag = n_pag;
+                resul_n = 0;
+                opc = "busquedaXref";
+                catalogo_categoria = forma_cad(document.getElementById('catalogo_categoria').value);
+                //catalogo_subcategoria = forma_cad(document.getElementById('catalogo_subcategoria').value);
+                //catalogo_subcategoria_desc = $("#catalogo_subcategoria option:selected").text();
+                catalogo_stock = forma_cad(document.getElementById('catalogo_stock').value);
+                catalogo_stock_cond = forma_cad(document.getElementById('catalogo_stock_cond').value);
+//                catalogo_stock_dts = forma_cad(document.getElementById('catalogo_stock_dts').value);
+//                catalogo_stock_cond_dts = forma_cad(document.getElementById('catalogo_stock_cond_dts').value);
+                catalogo_flags = captura_valor_ch('catalogo_flags');
+                catalogo_con_img = $('#catalogo_con_img').val();
+                catalogo_tipo_inventario = $('#catalogo_sel_tipo_inv').val();
+                catalogo_descontinuado = $('#catalogo_descontinuado').prop('checked');
+                catalogo_ventaFrom = $('#cat_vendido_desde').val();
+                catalogo_ventaTo = $('#cat_vendido_hasta').val();
+                catalogo_articulo = $('#catalogo_articulo').val();
+           
+//                $('#modal_busqueda').html('Cargando...').fadeIn('fast');
+                activa_preloader();
+                console.log(catalogo_subcategoria_desc);
+
+                $.post("../controllers/<?php echo $controller;?>", {
+                    "xref":xref
+                    ,"inicial": valorInicial
+                    ,"contenga": valorContenido
+                    ,"opc":opc
+                    ,"catalogo_categoria":catalogo_categoria
+                    ,"catalogo_subcategoria":catalogo_subcategoria
+                    ,"catalogo_subcategoria_desc":catalogo_subcategoria_desc
+                    ,"catalogo_stock":catalogo_stock
+                    ,"catalogo_stock_cond":catalogo_stock_cond
+                    ,"catalogo_flags":catalogo_flags
+                    ,"n_pag":n_pag
+                    , "catalogo_tipo_inventario":catalogo_tipo_inventario
+                    , "catalogo_descontinuado":catalogo_descontinuado
+                    , "catalogo_ventaFrom" : catalogo_ventaFrom
+                    , "catalogo_ventaTo" : catalogo_ventaTo
+                    , "catalogo_articulo" : catalogo_articulo
+                },function(data){
+                   // alert(data);
+                    if(data.mss === '1'){
+                        $('#catalogo_articulo_list_busca').html(contruirArticulos(data.salida));
+                        n_pag = 1;
+                        modal_busqueda_sal = '';
+                        //CUENTA ARTICULOS BUSQUEDA
+                        cantidad_articulos_catalogo_busqueda();
+                        //MARCA O DESMARCA
+                        sel_all($("#catalogo_sel_all").is(':checked'));
+                        //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
+                        desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
+                    }else{ 
+                        alert(data.mss);
+                        console.log(data.mss);
+                        modal_busqueda_sal = 'Realice una busqueda para mostrar articulos. ';
+//                        $('#modal_busqueda').html(modal_busqueda_sal);
+                        $('#catalogo_articulo_list_busca').html();
+                    }
+                    desactiva_preloader();
+                },"json").fail(function(error, errorText){
+                  
+                    console.log('ERROR: ' + errorText);
                 });
             }
             
