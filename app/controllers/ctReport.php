@@ -25,17 +25,19 @@ switch ($opc){
         
         $mysqli = new mysqli(DBHOST2, DBUSER2, DBPASS2, DBNOM2);
 //        $where = "1=1 AND Discontinued = 0 ";
-        $where = "(SkuNo like '%".$art_val."%') or (Desc like '%".$art_val."%')";
+        $where = "SkuNo like '%".$art_val."%'";
 
         if($inicial=='true')
-            $where .= " AND Desc like '".$xref."%'";
+            $where .= " AND `Desc` like '".$xref."%'";
         if($contenga=='true')
-            $where .= " AND Desc like '%".$xref."%'";
+            $where .= " AND `Desc` like '%".$xref."%'";
 
-        $resul = $obj_bdmysql->select("inventory items xref","",$where,"","0,10",$mysqli);
+        $resul = $obj_bdmysql->select("`inventory items xref`","*",$where,"","0,10",$mysqli);
+        
         if(!is_array($resul)){ $resul = array('mss' => 'NO SE ENCONTRO ARTICULOS'); }
-        foreach ($resul as $r){ $rr = $r['SkuNo']; }
-        echo json_encode($rr);
+        foreach ($resul as $r){ $rr = $r; }
+        $resp = array('mss' => utf8_encode(1), 'salida' => ($rr));
+        echo json_encode($resp);
 //        echo json_encode($resul);
     break;
     //EVALUA ARTICULOS

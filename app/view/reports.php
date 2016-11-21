@@ -610,6 +610,7 @@
                 n_pag = n_pag;
                 resul_n = 0;
                 opc = "busquedaXref";
+                
                 catalogo_categoria = forma_cad(document.getElementById('catalogo_categoria').value);
                 //catalogo_subcategoria = forma_cad(document.getElementById('catalogo_subcategoria').value);
                 //catalogo_subcategoria_desc = $("#catalogo_subcategoria option:selected").text();
@@ -634,6 +635,7 @@
                     ,"inicial": valorInicial
                     ,"contenga": valorContenido
                     ,"opc":opc
+                    ,"art_val":""
                     ,"catalogo_categoria":catalogo_categoria
                     ,"catalogo_subcategoria":catalogo_subcategoria
                     ,"catalogo_subcategoria_desc":catalogo_subcategoria_desc
