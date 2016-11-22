@@ -67,11 +67,12 @@ function cargar_articulo(){
 
 // Generar reporte
 function Exportar_reporte(){
+
     ch_art = captura_valor_ch('catalogo_articulo_list_busca');
      n = 1;
     html = '';
     count = 0;
-    allDataExcel = [];
+    allDataExcel = '';
     if(ch_art !== ''){
         ch_art = '_'+ch_art;
         ch_art = ch_art.replace('_/*','');
@@ -98,40 +99,16 @@ function Exportar_reporte(){
             dataExcel["p1"] = arr_art[14];
             dataExcel["p0"] = arr_art[15];
 
-            allDataExcel.push(JSON.stringify(dataExcel));
+            allDataExcel += allDataExcel + JSON.stringify(dataExcel)+'//';
 
 
 
             
         });
-    
-        // $.post("../controllers/exportarExcel.php",{lines:allDataExcel},function(data){
-        //    alert(data);
-        // },"json").fail(function(error, errorText){
-          
-        //     console.log('ERROR: ' + errorText);
-        // });
-        // alert('SE GENERO DOCUMENTO EXCEL.');
-        // console.log(allDataExcel);
 
-        $.ajax({
-            url: '../controllers/exportarExcel.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {lines:allDataExcel},
-        })
-        .done(function(data) {
-            alert(data);
-            console.log("success");
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
-        });
-        
-
+        $("#exportExcelData").val(allDataExcel);
+        $("#exportExcel").attr('action', '../controllers/exportarExcel.php');
+        $("#exportExcel").submit();
 
     }
 

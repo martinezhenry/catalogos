@@ -354,7 +354,13 @@
                                             </div>
                                             <label style="font-size:20px;padding:4px;">MARCAR TODO</label>
                                         </div>
-                                        <div class="col-sm-4 text-right"><br><button type="button" class="btn btn-default" onclick="Exportar_reporte();">Exportar Excel</button></div>
+                                        <div class="col-sm-4 text-right"><br>
+
+                                       
+                                            <button type="button" class="btn btn-default" onclick="Exportar_reporte();">Exportar Excel</button>
+                                       
+
+                                        </div>
                                         <div class="col-sm-4 text-right"><br><button type="button" class="btn btn-default" onclick="cargar_articulo();">Cargar</button></div>
                                         <div id="resul"></div>
                                     </div>
@@ -367,6 +373,10 @@
                                         <button type="button" class="btn btn-warning" onclick="editar_catalogo();">Guardar</button>
                                     </div>
                                 </div>
+                            </form>
+                            <form id="exportExcel" action="../controllers/exportarExcel.php"  method="post" target="_blank" >
+                                <input type="hidden" id="exportExcelData" name="lines" value="">
+                                
                             </form>
                         </div>
                     </div><!-- col-lg-12-->      	
@@ -600,7 +610,7 @@
                     
             }
 
-            
+
 
             function buscar_xref(){
                 // alert("Bus");

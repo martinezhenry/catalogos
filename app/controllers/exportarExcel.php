@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 /** Error reporting */
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
@@ -10,12 +13,11 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
 
 
-if (!isset($_POST['lines']) || !is_array($_POST['lines'])){
-	header('location: ./?pag=accepted');
 
-} else {
 
-$lines = $_POST['lines'];
+$lines = explode("//", $_POST['lines']);
+
+
 /** Include PHPExcel */
 //require_once dirname(__FILE__) . '/PHPExcel/Classes/PHPExcel.php';
 require_once '../../assets/PHPExcel/Classes/PHPExcel.php';
@@ -42,24 +44,26 @@ $i = 1;
 
 $objPHPExcel->setActiveSheetIndex(0)
 	            ->setCellValue('A'.$i, 'skuno')
-	            ->setCellValue('B'.$i, 'partno')
-	            ->setCellValue('C'.$i, 'xref')
-	            ->setCellValue('D'.$i, 'xref-universal')
-                    ->setCellValue('E'.$i, 'descripcion')
-	            ->setCellValue('F'.$i, 'avi')
-	            ->setCellValue('G'.$i, 'avi-dts')
-	            ->setCellValue('H'.$i, 'PO')
-                    ->setCellValue('I'.$i, 'avgCost')
-	            ->setCellValue('J'.$i, 'precio dts')
-	            ->setCellValue('K'.$i, 'binloctex')
-	            ->setCellValue('L'.$i, 'binlocdts')
-                    ->setCellValue('M'.$i, 'precio1')
-	            ->setCellValue('N'.$i, 'precio2');
-echo gettype($lines[0]);
-echo json_decode($lines[0]);
+	            ->setCellValue('B'.$i, 'partno');
+	            // ->setCellValue('C'.$i, 'xref')
+	            // ->setCellValue('D'.$i, 'xref-universal')
+             //        ->setCellValue('E'.$i, 'descripcion')
+	            // ->setCellValue('F'.$i, 'avi')
+	            // ->setCellValue('G'.$i, 'avi-dts')
+	            // ->setCellValue('H'.$i, 'PO')
+             //        ->setCellValue('I'.$i, 'avgCost')
+	            // ->setCellValue('J'.$i, 'precio dts')
+	            // ->setCellValue('K'.$i, 'binloctex')
+	            // ->setCellValue('L'.$i, 'binlocdts')
+             //        ->setCellValue('M'.$i, 'precio1')
+	            // ->setCellValue('N'.$i, 'precio2');
+
+
 foreach ($lines as $key) {
 // print_r($key);	# code...
-echo gettype($key);
+
+$ddata = json_decode($key, true);
+
 // $obj = json_decode("'".$value."'");
 // echo "asdfasd";
 
@@ -67,25 +71,25 @@ echo gettype($key);
 // //var_dump(count($lines));
 
 // 		//var_dump($value['SalesItemLineDetail']);
-// 		$objPHPExcel->setActiveSheetIndex(0)
-// 	            ->setCellValue('A'.$i, json_decode($value)->{'skuno'})
-// 	           // ->setCellValue('B'.$i, json_decode($value)->{'nroPart'})
-// 	             ->setCellValue('B'.$i, json_decode($value)->{'partno'})
-// 	            ->setCellValue('C'.$i, json_decode($value)->{'xref'})
-// 	            ->setCellValue('D'.$i, json_decode($value)->{'xref-universal'})
+		$objPHPExcel->setActiveSheetIndex(0)
+	            ->setCellValue('A'.$i, $ddata['Skuno'])
+	           // ->setCellValue('B'.$i, $ddata['nroPart'])
+	             ->setCellValue('B'.$i, $ddata['Partno']);
+	            // ->setCellValue('C'.$i, $ddata['xref'])
+	            // ->setCellValue('D'.$i, $ddata['xref-universal'])
                 
-//                 ->setCellValue('E'.$i, json_decode($value)->{'description'})
-// 	             ->setCellValue('F'.$i, json_decode($value)->{'avi'})
-// 	            ->setCellValue('G'.$i, json_decode($value)->{'avi-dts'})
-// 	            ->setCellValue('H'.$i, json_decode($value)->{'po'})
+             //    ->setCellValue('E'.$i, $ddata['description'])
+	            //  ->setCellValue('F'.$i, $ddata['avi'])
+	            // ->setCellValue('G'.$i, $ddata['avi-dts'])
+	            // ->setCellValue('H'.$i, $ddata['po'])
                         
-//                 ->setCellValue('I'.$i, json_decode($value)->{'avgcost'})
-// 	             ->setCellValue('J'.$i, json_decode($value)->{'preciodts'})
-// 	            ->setCellValue('K'.$i, json_decode($value)->{'binloctex'})
-// 	            ->setCellValue('L'.$i, json_decode($value)->{'binlocdts'})
+             //    ->setCellValue('I'.$i, $ddata['avgcost'])
+	            //  ->setCellValue('J'.$i, $ddata['preciodts'])
+	            // ->setCellValue('K'.$i, $ddata['binloctex'])
+	            // ->setCellValue('L'.$i, $ddata['binlocdts'])
                         
-//                 ->setCellValue('M'.$i, json_decode($value)->{'precio1'})
-// 	             ->setCellValue('N'.$i, json_decode($value)->{'precio2'});
+             //    ->setCellValue('M'.$i, $ddata['precio1'])
+	            //  ->setCellValue('N'.$i, $ddata['precio2']);
 	
 }
 /*
@@ -119,7 +123,7 @@ header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="productos.xls"');
 header('Cache-Control: max-age=0');
 $objWriter->save('php://output');
-//$objWriter->save('excel/prodcutos.xlsx');
+// $objWriter->save('excel/prodcutos.xlsx');
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
 
@@ -153,4 +157,3 @@ echo date('H:i:s') , " Peak memory usage: " , (memory_get_peak_usage(true) / 102
 echo date('H:i:s') , " Done writing files" , EOL;
 echo 'Files have been created in ' , getcwd() , EOL;
 */
-}
