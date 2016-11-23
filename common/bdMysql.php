@@ -21,7 +21,9 @@ class coBdmysql{
                 
                 if($print){
                     $resp = "SELECT ".$campo." FROM ".$tabla." ".$where." ".$order." ".$limit;
+                    
                 }else{
+
                     if ($resultado = $mysqli->query("SELECT ".$campo." FROM ".$tabla." ".$where." ".$order." ".$limit)) {
                             if($resultado->num_rows > 0){
                                 $i = 0; 

@@ -44,19 +44,19 @@ $i = 1;
 
 $objPHPExcel->setActiveSheetIndex(0)
 	            ->setCellValue('A'.$i, 'skuno')
-	            ->setCellValue('B'.$i, 'partno');
-	            // ->setCellValue('C'.$i, 'xref')
-	            // ->setCellValue('D'.$i, 'xref-universal')
-             //        ->setCellValue('E'.$i, 'descripcion')
-	            // ->setCellValue('F'.$i, 'avi')
-	            // ->setCellValue('G'.$i, 'avi-dts')
-	            // ->setCellValue('H'.$i, 'PO')
-             //        ->setCellValue('I'.$i, 'avgCost')
-	            // ->setCellValue('J'.$i, 'precio dts')
-	            // ->setCellValue('K'.$i, 'binloctex')
-	            // ->setCellValue('L'.$i, 'binlocdts')
-             //        ->setCellValue('M'.$i, 'precio1')
-	            // ->setCellValue('N'.$i, 'precio2');
+	            ->setCellValue('B'.$i, 'partno')
+	            ->setCellValue('C'.$i, 'xref')
+	            ->setCellValue('D'.$i, 'xref-universal')
+                    ->setCellValue('E'.$i, 'descripcion')
+	            ->setCellValue('F'.$i, 'avi')
+	            ->setCellValue('G'.$i, 'avi-dts')
+	            ->setCellValue('H'.$i, 'PO')
+                    ->setCellValue('I'.$i, 'avgCost')
+	            ->setCellValue('J'.$i, 'precio dts')
+	            ->setCellValue('K'.$i, 'binloctex')
+	            ->setCellValue('L'.$i, 'binlocdts')
+                    ->setCellValue('M'.$i, 'precio1')
+	            ->setCellValue('N'.$i, 'precio2');
 
 
 foreach ($lines as $key) {
@@ -73,23 +73,23 @@ $ddata = json_decode($key, true);
 // 		//var_dump($value['SalesItemLineDetail']);
 		$objPHPExcel->setActiveSheetIndex(0)
 	            ->setCellValue('A'.$i, $ddata['Skuno'])
-	           // ->setCellValue('B'.$i, $ddata['nroPart'])
-	             ->setCellValue('B'.$i, $ddata['Partno']);
-	            // ->setCellValue('C'.$i, $ddata['xref'])
-	            // ->setCellValue('D'.$i, $ddata['xref-universal'])
+	           // ->setCellValue('B'.$i, $ddata['Partno'])
+	             ->setCellValue('B'.$i, $ddata['Partno'])
+	            ->setCellValue('C'.$i, $ddata['xref'])
+	            ->setCellValue('D'.$i, $ddata['xrefuniversal'])
                 
-             //    ->setCellValue('E'.$i, $ddata['description'])
-	            //  ->setCellValue('F'.$i, $ddata['avi'])
-	            // ->setCellValue('G'.$i, $ddata['avi-dts'])
-	            // ->setCellValue('H'.$i, $ddata['po'])
+                ->setCellValue('E'.$i, $ddata['descripcion'])
+	             ->setCellValue('F'.$i, $ddata['onhandinpickav'])
+	            ->setCellValue('G'.$i, $ddata['avidst'])
+	            ->setCellValue('H'.$i, $ddata['PO'])
+                ->setCellValue('I'.$i, $ddata['avrcost'])
+	             ->setCellValue('J'.$i, $ddata['dts'])
+	            ->setCellValue('K'.$i, $ddata['binloctex'])
+	            ->setCellValue('L'.$i, $ddata['binlocdts'])
+                ->setCellValue('M'.$i, $ddata['precio1'])
+	             ->setCellValue('N'.$i, $ddata['precio2']);
                         
-             //    ->setCellValue('I'.$i, $ddata['avgcost'])
-	            //  ->setCellValue('J'.$i, $ddata['preciodts'])
-	            // ->setCellValue('K'.$i, $ddata['binloctex'])
-	            // ->setCellValue('L'.$i, $ddata['binlocdts'])
                         
-             //    ->setCellValue('M'.$i, $ddata['precio1'])
-	            //  ->setCellValue('N'.$i, $ddata['precio2']);
 	
 }
 /*
@@ -128,7 +128,7 @@ $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
 
 
-echo json_encode(TRUE);
+// echo json_encode(TRUE);
 //echo date('H:i:s') , " File written to " , str_replace('.php', '.xlsx', pathinfo(__FILE__, PATHINFO_BASENAME)) , EOL;
 //echo 'Call time to write Workbook was ' , sprintf('%.4f',$callTime) , " seconds" , EOL;
 // Echo memory usage

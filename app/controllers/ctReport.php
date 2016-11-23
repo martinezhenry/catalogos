@@ -90,6 +90,7 @@ switch ($opc){
                 $where.= " (Discontinued = 0)";
             }
 
+            
             //echo  $catalogo_descontinuado . " : " . $where;
             //exit;
 
@@ -145,8 +146,14 @@ switch ($opc){
                 $where .= " AND dateord <= '". $catalogo_ventaTo . "'";
             }
 
-            
+            if($inicial=='true')
+                $where .= " AND inventory.PartNo like '".$xref."%'";
+            if($contenga=='true')
+                $where .= " AND inventory.PartNo like '%".$xref."%'";
 
+            
+$where .= "AND dtst.SkuNo = inventory.SkuNo
+    AND invprec.SkuNo = inventory.SkuNo";
 
 
            
@@ -157,6 +164,15 @@ switch ($opc){
             //$campos = '*';
             $campos = ' distinct
             `inventory`.* ,
+            INVXREF.PartNo as xref,
+            INVXREF.PartNo as xref_universal,
+            posum.qtyOrdt as PO,
+
+            dtst.`Last Price` as LastPrice,
+    IF(invprec.CurPrice = 6,invprec.CurPrice,0) AS precio1,
+    IF(invprec.CurPrice = 5,invprec.CurPrice,0) AS precio22,
+
+
         (select 
                 `codes cat`.`CatDesc`
             from
@@ -172,56 +188,70 @@ switch ($opc){
             ifnull(z.Date_From_dma,\'00/00/0000\') as Date_From_dma,
             ifnull(invpri.CurPrice, \'0.0000\') as precio2,
             ifnull(y.dateord, \'00/00/0000\') as dateord
-
-
-
             ';
 
 
 
             $myTable = "
-                   inventory 
-                    left join (
-                    select  det.SkuNo, det.precio,
-                    DATE_FORMAT(max(ofer.Date_To),'%d/%m/%Y') AS Date_To_dma,
-                    DATE_FORMAT(max(ofer.Date_From),'%d/%m/%Y') AS Date_From_dma
-                    
-                     from  `ofertas detail` det
-                    left join `ofertas` ofer
-                    on (ofer.ofertaid = det.id )
-                    group by
-                    det.SkuNo, det.precio
-                    order by ofer.date_to desc
-                    limit 1
-                    ) z
-                    on (z.SkuNo = inventory.SkuNo)
-left join
-(
-                            select 
-                                aa.`SkuNo`,
-                                (aa.`Qty`) qty
-                            from
-                                `inventory dts` aa
-                            where
-                        
-                             (aa.`SkuNo` <> 0) and
-                             qty = (select max(qty) from `inventory dts`  where SkuNo = aa.SkuNo)
-                             ) as invdts
-                            on (invdts.SkuNo = inventory.SkuNo)
-                            left join `inventory pricing` invpri
-                            on (invpri.SkuNo = inventory.SkuNo and invpri.PriceColumn = 4)
-                        left join (
-                            
-                            select max(ord.invDate) as dateord, orddet.skuno from `orders detail` orddet
-                            left join
-                            orders ord
-                            on (ord.ordid = orddet.ordid)
-                            group by orddet.skuno
+            `inventory dts` dtst,
+    `inventory pricing` invprec,
+    inventory
+        LEFT JOIN
+    (SELECT 
+        det.SkuNo,
+            det.precio,
+            DATE_FORMAT(MAX(ofer.Date_To), '%d/%m/%Y') AS Date_To_dma,
+            DATE_FORMAT(MAX(ofer.Date_From), '%d/%m/%Y') AS Date_From_dma
+    FROM
+        `ofertas detail` det
+    LEFT JOIN `ofertas` ofer ON (ofer.ofertaid = det.id)
+    GROUP BY det.SkuNo , det.precio
+    ORDER BY ofer.date_to DESC
+    LIMIT 1) z ON (z.SkuNo = inventory.SkuNo)
+        LEFT JOIN
+    (SELECT 
+        aa.`SkuNo`, (aa.`Qty`) qty
+    FROM
+        `inventory dts` aa
+    WHERE
+        (aa.`SkuNo` <> 0)
+            AND qty = (SELECT 
+                MAX(qty)
+            FROM
+                `inventory dts`
+            WHERE
+                SkuNo = aa.SkuNo)) AS invdts ON (invdts.SkuNo = inventory.SkuNo)
+        LEFT JOIN
+    `inventory pricing` invpri ON (invpri.SkuNo = inventory.SkuNo
+        AND invpri.PriceColumn = 4)
+        LEFT JOIN
+    (SELECT 
+        MAX(ord.invDate) AS dateord, orddet.skuno
+    FROM
+        `orders detail` orddet
+    LEFT JOIN orders ord ON (ord.ordid = orddet.ordid)
+    GROUP BY orddet.skuno) y ON (y.skuno = inventory.SkuNo)
+        LEFT JOIN
+    `INVENTORY ITEMS XREF` INVXREF ON (INVENTORY.SKUNO = INVXREF.SKUNO)
+        LEFT JOIN
+    `po detail` podetail ON (inventory.SkuNo = podetail.skuno)
+        LEFT JOIN
+    `po` potable ON (podetail.PoID = potable.PoID),
+    (SELECT 
+        IF(SUM(podt.QtyOrd) IS NULL, 0, SUM(podt.QtyOrd)) AS qtyOrdt
+    FROM
+        `po detail` podt, `po` pp, inventory
+    WHERE ";
 
-                        ) y
-                        on (y.skuno = inventory.SkuNo)
-                            
-            ";
+     if($inicial=='true')
+        $myTable .= " inventory.PartNo like '".$xref."%'";
+    if($contenga=='true')
+        $myTable .= " inventory.PartNo like '%".$xref."%'";
+
+        $myTable .= "
+            AND podt.SkuNo = inventory.SkuNo
+            AND pp.PoID = podt.PoID
+            AND pp.StatusCode = 2) AS posum";
 
            // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
             $resul = $obj_bdmysql->select($myTable, $campos, $where, "PartNo", $limit,$mysqli,false);

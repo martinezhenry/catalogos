@@ -92,12 +92,12 @@ function Exportar_reporte(){
             dataExcel["avidst"] = arr_art[7];
             dataExcel["avrcost"] = arr_art[8];
             dataExcel["precio1"] = arr_art[9];
-            dataExcel["dts"] = arr_art[10];
-            dataExcel["binloctex"] = arr_art[11];
-            dataExcel["binlocdts"] = arr_art[12];
-            dataExcel["p1"] = arr_art[13];
-            dataExcel["p1"] = arr_art[14];
-            dataExcel["p0"] = arr_art[15];
+            dataExcel["dts"] = arr_art[10] ;
+            dataExcel["binloctex"] = arr_art[11] || '0';
+            dataExcel["binlocdts"] = arr_art[12] || '0';
+            dataExcel["precio"] = arr_art[13]  || '0';
+            dataExcel["precio2"] = arr_art[14]  || '0';
+            dataExcel["PO"] = arr_art[15]  || '0';
 
             allDataExcel += allDataExcel + JSON.stringify(dataExcel)+'//';
 
@@ -212,25 +212,24 @@ var ini_pag;
 var n_pag=1; 
 var salida = '';
                     if(n_pag == 1){
-                    salida = '<tr><th>'+
+                    salida = '<tr><th></th><th></th>'+
                                 '<th>Skuno</th>'+
                                 '<th>Part-no</th>'+
                                 '<th width="10%">xref</th>'+
                                 '<th width="10%">xref-universal</th>'+
                                 '<th>descripcion</th>'+
-                                '<th>onhand- inpick = av</th>'+
-                                '<th class="numeric">avi-dst</th>'+
-                                '<th>avrcost</th>'+
-                                '<th>precio1</th>'+
-                                '<th class="numeric">dts</th>'+
+                                '<th>AVI</th>'+
+                                '<th class="numeric">avi-DST</th>'+
+                                '<th>PO</th>'+
+                                '<th>avgcost</th>'+
+                                '<th>precio DTS</th>'+
                                 '<th>binloctex</th>'+
                                 '<th>binlocdts</th>'+
-                                '<th>p1</th>'+
-                                '<th>p1</th>'+
-                                '<th>p0</th>'+
+                                '<th>precio1</th>'+
+                                '<th>precio2</th>'+
                                 '</tr>';
                     }
-                    salida += '<tr id="' + n_pag +'"><td colspan="12">PAGINA ' +n_pag+'</td></tr>';
+                    salida += '<tr id="' + n_pag +'"><td colspan="16">PAGINA ' +n_pag+'</td></tr>';
                     n = ini_pag+1;
                     $.each(resul, function(k,r){
                         //DEFINE PRECIO
@@ -270,22 +269,22 @@ var salida = '';
                         
                         catalogo_articulo_arr = r.SkuNo + '/*'+ r.PartNo+'/*'+r.ProdDesc+'/*'+r.CatDesc+'/*'+r.PrdDesc+'/*'+precio+'/*'+r.OnHand+'/*'+oferta+'/*'+fecha_to_oferta+'/*'+fecha_to_oferta+'/*'+flag;
                         salida+= '<tr class="catalogo_articulo_fila" id="catalogo_articulo_fila_'+r.SkuNo+'" >'+
-                                   '<td data-title="N" style="text-align:center;">'+(k+1)+'</td>'+
-                                    '<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
+                        '<td data-title="N" style="text-align:center;">'+(k+1)+'</td>'+
+                        '<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
                                     '<td data-title="SKUNO" id="catalogo_articulo_list_cod">'+r.SkuNo+'</td>'+
                                     '<td data-title="PARTNO">'+r.PartNo+'</td>'+
-                                    '<td data-title="ArtICULO">'+r.ProdDesc+'</td>'+
-                                    '<td data-title="CATEGORIA">'+r.CatDesc+'</td>'+
-                                    '<td data-title="SUB CATEGORIA">'+r.PrdDesc+'</td>'+
-                                    '<td class="numeric" data-title="PRECIO">'+precio+'</td>'+
-                                    '<td class="numeric" data-title="STOCK">'+r.OnHand+'</td> '+
+                                    '<td data-title="ArtICULO">'+r.xref+'</td>'+
+                                    '<td data-title="CATEGORIA">'+r.xref_universal+'</td>'+
+                                    '<td data-title="SUB CATEGORIA">'+r.Desc+'</td>'+
+                                    '<td class="numeric" data-title="STOCK">'+r.OnHand +' - '+r.InPick+'</td> '+
                                     '<td class="numeric" data-title="STOCK">'+r.qty_dts+'</td> '+
-                                    '<td class="numeric" data-title="OFERTA">'+oferta+'</td> '+
-                                    '<td data-title="INI+ OFERTA">'+fecha_to_oferta+'</td>'+
-                                    '<td data-title="FIN OFERTA">'+fecha_from_oferta+'</td>'+
-                                    '<td data-title="FLAG">'+flag+'</td>'+
-                                    '<td data-title="FLAG">'+flag+'</td>'+
-                                    '<td data-title="FLAG">'+flag+'</td>'+
+                                    '<td data-title="FLAG">'+r.PO+'</td>'+
+                                    '<td class="numeric" data-title="OFERTA">'+r.AvgCost+'</td> '+
+                                    '<td data-title="INI+ OFERTA">'+r.LastPrice+'</td>'+
+                                    '<td data-title="FIN OFERTA">'+r.BinLoc+'</td>'+
+                                    '<td data-title="FLAG">'+r.BinLoc+'</td>'+
+                                    '<td data-title="FLAG">'+r.precio1+'</td>'+
+                                    '<td data-title="FLAG">'+r.precio22+'</td>'+
                                     '<input type="hidden" id="catalogo_articulo_arr_'+r.SkuNo+'" value="'+catalogo_articulo_arr+'">'+
                                   '</tr>';
                         n = n +1;

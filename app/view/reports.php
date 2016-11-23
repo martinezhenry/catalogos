@@ -622,7 +622,7 @@
                 n_pag = 0;
                 n_pag = n_pag;
                 resul_n = 0;
-                opc = "busquedaXref";
+                opc = "catalogoArtBusca";
                 
                 catalogo_categoria = forma_cad(document.getElementById('catalogo_categoria').value);
                 //catalogo_subcategoria = forma_cad(document.getElementById('catalogo_subcategoria').value);
