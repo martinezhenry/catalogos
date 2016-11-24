@@ -175,6 +175,15 @@
     <link rel="stylesheet" type="text/css" href="../../assets/bootstrap-fileinput-master/css/fileinput.css" />
     <link type="text/css" rel="stylesheet" media="all" href="../../assets/bootstrap-colorpickersliders-master/bootstrap.colorpickersliders.css">
     <link type="text/css" rel="stylesheet" media="all" href="../../assets/css/jquery-ui-1.9.2.custom.min.css">
+    <head>
+        <style type="text/css" media="screen">
+            .resaltarTexto{
+                color: #000000;
+                background-color: #d5d5d5;
+                font-weight: 600;
+            }
+        </style>    
+    </head>
     <body>
         <div id="modal" style="width:100%; height:100%; position:fixed; top:0; left:0; right:0; bottom:0; margin:auto; padding:10px;background:rgba(0,0,0,0.6); z-index:9000; text-align:center;display:none;">&nbsp;</div>
         <div id="preloader" style="display:none;width:100%; height:100%; position:fixed; top:0; left:0; right:0; bottom:0; margin:auto; background: rgba(255,255,255,0.9); z-index:10000; text-align:center;">
@@ -390,6 +399,16 @@
             <?php $obj_common->footer();?>
         
         </section>
+
+
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+              ...
+            </div>
+          </div>
+        </div>
+        
         <!--JAVASCRIPT GENERAL-->
         <?php $obj_common->script();?>
         <!--JAVACRIPT LOCAL-->
@@ -404,6 +423,24 @@
         <!--<script src="../../assets/tablesorter/jquery.tablesorter.js"></script>-->
         <script src="../../assets/js/jquery-ui-1.9.2.custom.min.js"></script>
         <!--VARIABLES INICIALES-->
+
+
+        <!-- FUNCION PARA RESALTAR -->
+
+        <script type="text/javascript">
+        jQuery.fn.extend({
+            resaltar: function(busqueda, claseCSSbusqueda){
+                var regex = new RegExp("(<[^>]*>)|("+ busqueda.replace(/([-.*+?^${}()|[\]\/\\])/g,"\\$1") +')', 'ig');
+                var nuevoHtml=this.html(this.html().replace(regex, function(a, b, c){
+                    return (a.charAt(0) == "<") ? a : "<span class=\""+ claseCSSbusqueda +"\">" + c + "</span>";
+                }));
+                return nuevoHtml;
+            }
+        });
+
+        </script>
+
+
         <script>
             var order_id = '<?php echo $catalogo_order_id;?>';
             var order_columna = <?php echo $catalogo_order_columna;?>;
@@ -602,6 +639,10 @@
 //                        $('#modal_busqueda').html(modal_busqueda_sal);
                         $('#catalogo_articulo_list_busca').html();
                     }
+
+
+                    $('.resultInput').resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+
                     desactiva_preloader();
                 },"json").fail(function(error, errorText){
                   
@@ -622,7 +663,7 @@
                 n_pag = 0;
                 n_pag = n_pag;
                 resul_n = 0;
-                opc = "catalogoArtBusca";
+                opc = "busquedaXref";
                 
                 catalogo_categoria = forma_cad(document.getElementById('catalogo_categoria').value);
                 //catalogo_subcategoria = forma_cad(document.getElementById('catalogo_subcategoria').value);
@@ -680,6 +721,7 @@
 //                        $('#modal_busqueda').html(modal_busqueda_sal);
                         $('#catalogo_articulo_list_busca').html();
                     }
+                    $('.resultInput').resaltar($('#busqueda_xref').val(), 'resaltarTexto');
                     desactiva_preloader();
                 },"json").fail(function(error, errorText){
                   

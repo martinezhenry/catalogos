@@ -267,13 +267,13 @@ var salida = '';
                            fecha_to_oferta = r.Date_To_dma;
                             fecha_from_oferta = r.Date_From_dma;
                         
-                        catalogo_articulo_arr = r.SkuNo + '/*'+ r.PartNo+'/*'+r.ProdDesc+'/*'+r.CatDesc+'/*'+r.PrdDesc+'/*'+precio+'/*'+r.OnHand+'/*'+oferta+'/*'+fecha_to_oferta+'/*'+fecha_to_oferta+'/*'+flag;
+                        catalogo_articulo_arr = r.SkuNo + '/*'+ r.PartNo+'/*'+r.xref+'/*'+r.xref_universal+'/*'+r.Desc+'/*'+r.OnHand +' - '+r.InPick+'/*'+r.qty_dts+'/*'+r.PO+'/*'+r.AvgCost+'/*'+r.LastPrice+'/*'+r.BinLoc+'/*'+r.BinLoc+'/*'+r.precio1+'/*'+r.precio22;
                         salida+= '<tr class="catalogo_articulo_fila" id="catalogo_articulo_fila_'+r.SkuNo+'" >'+
                         '<td data-title="N" style="text-align:center;">'+(k+1)+'</td>'+
                         '<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
-                                    '<td data-title="SKUNO" id="catalogo_articulo_list_cod">'+r.SkuNo+'</td>'+
-                                    '<td data-title="PARTNO">'+r.PartNo+'</td>'+
-                                    '<td data-title="ArtICULO">'+r.xref+'</td>'+
+                                    '<td data-toggle="modal" data-target=".bs-example-modal-sm'+(k+1)+'" >'+r.SkuNo+'</td>'+
+                                    '<td class="resultInput" data-title="PARTNO">'+r.PartNo+'</td>'+
+                                    '<td class="resultInput" data-title="ArtICULO">'+r.xref+'</td>'+
                                     '<td data-title="CATEGORIA">'+r.xref_universal+'</td>'+
                                     '<td data-title="SUB CATEGORIA">'+r.Desc+'</td>'+
                                     '<td class="numeric" data-title="STOCK">'+r.OnHand +' - '+r.InPick+'</td> '+
@@ -286,6 +286,7 @@ var salida = '';
                                     '<td data-title="FLAG">'+r.precio1+'</td>'+
                                     '<td data-title="FLAG">'+r.precio22+'</td>'+
                                     '<input type="hidden" id="catalogo_articulo_arr_'+r.SkuNo+'" value="'+catalogo_articulo_arr+'">'+
+                                    '<div class="modal fade bs-example-modal-sm'+(k+1)+'" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"><div class="modal-dialog modal-sm" role="document"><div class="modal-content"><img src="../../assets/img/art/'+r.SkuNo+'.jpg" alt=""></div></div></div>'+
                                   '</tr>';
                         n = n +1;
                     });
@@ -379,8 +380,8 @@ var salida = '';
                                    '<td data-title="N" style="text-align:center;">'+(k+1)+'</td>'+
                                     '<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
                                     '<td data-title="SKUNO" id="catalogo_articulo_list_cod">'+r.SkuNo+'</td>'+
-                                    '<td data-title="PARTNO">'+r.PartNo+'</td>'+
-                                    '<td data-title="ArtICULO">'+r.ProdDesc+'</td>'+
+                                    '<td  data-title="PARTNO">'+r.PartNo+'</td>'+
+                                    '<td class="resultInput" data-title="ArtICULO">'+r.ProdDesc+'</td>'+
                                     '<td data-title="CATEGORIA">'+r.CatDesc+'</td>'+
                                     '<td data-title="SUB CATEGORIA">'+r.PrdDesc+'</td>'+
                                     '<td class="numeric" data-title="PRECIO">'+precio+'</td>'+

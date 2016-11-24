@@ -43,7 +43,7 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 $i = 1;
 
 $objPHPExcel->setActiveSheetIndex(0)
-	            ->setCellValue('A'.$i, 'skuno')
+	            ->setCellValue('A'.$i, 'SkuNo')
 	            ->setCellValue('B'.$i, 'partno')
 	            ->setCellValue('C'.$i, 'xref')
 	            ->setCellValue('D'.$i, 'xref-universal')
@@ -59,38 +59,44 @@ $objPHPExcel->setActiveSheetIndex(0)
 	            ->setCellValue('N'.$i, 'precio2');
 
 
+
+
 foreach ($lines as $key) {
-// print_r($key);	# code...
+	$i = $i + 1;
+	$ddata = json_decode($key, true);
 
-$ddata = json_decode($key, true);
+	// echo $i;
+	// echo $ddata['Skuno'];
+	// echo $ddata['Partno'];
+	// echo $ddata['xref'];
+	// echo $ddata['xrefuniversal'];
+	// echo $ddata['descripcion'];
+	// echo $ddata['onhandinpickav'];
+	// echo $ddata['avidst'];
+	// echo $ddata['PO'];
+	// echo "============================";
 
-// $obj = json_decode("'".$value."'");
-// echo "asdfasd";
-
-// $i++;
-// //var_dump(count($lines));
-
-// 		//var_dump($value['SalesItemLineDetail']);
+	// var_dump(count($lines));
+	// exit();
 		$objPHPExcel->setActiveSheetIndex(0)
-	            ->setCellValue('A'.$i, $ddata['Skuno'])
-	           // ->setCellValue('B'.$i, $ddata['Partno'])
-	             ->setCellValue('B'.$i, $ddata['Partno'])
-	            ->setCellValue('C'.$i, $ddata['xref'])
-	            ->setCellValue('D'.$i, $ddata['xrefuniversal'])
-                
-                ->setCellValue('E'.$i, $ddata['descripcion'])
-	             ->setCellValue('F'.$i, $ddata['onhandinpickav'])
-	            ->setCellValue('G'.$i, $ddata['avidst'])
-	            ->setCellValue('H'.$i, $ddata['PO'])
-                ->setCellValue('I'.$i, $ddata['avrcost'])
-	             ->setCellValue('J'.$i, $ddata['dts'])
-	            ->setCellValue('K'.$i, $ddata['binloctex'])
-	            ->setCellValue('L'.$i, $ddata['binlocdts'])
-                ->setCellValue('M'.$i, $ddata['precio1'])
-	             ->setCellValue('N'.$i, $ddata['precio2']);
-                        
-                        
-	
+        ->setCellValue('A'.$i, $ddata['Skuno'])
+         ->setCellValue('B'.$i, $ddata['Partno'])
+        ->setCellValue('C'.$i, $ddata['xref'])
+        ->setCellValue('D'.$i, $ddata['xrefuniversal'])
+        ->setCellValue('E'.$i, $ddata['descripcion'])
+         ->setCellValue('F'.$i, $ddata['onhandinpickav'])
+        ->setCellValue('G'.$i, $ddata['avidst'])
+        ->setCellValue('H'.$i, $ddata['PO'])
+        ->setCellValue('I'.$i, $ddata['avrcost'])
+         ->setCellValue('J'.$i, $ddata['dts'])
+        ->setCellValue('K'.$i, $ddata['binloctex'])
+        ->setCellValue('L'.$i, $ddata['binlocdts'])
+        ->setCellValue('M'.$i, $ddata['precio1'])
+         ->setCellValue('N'.$i, $ddata['precio2']);
+
+    if($i == (count($lines)/2))
+    	break;
+                       
 }
 /*
 // Miscellaneous glyphs, UTF-8
@@ -126,6 +132,7 @@ $objWriter->save('php://output');
 // $objWriter->save('excel/prodcutos.xlsx');
 $callEndTime = microtime(true);
 $callTime = $callEndTime - $callStartTime;
+exit();
 
 
 // echo json_encode(TRUE);

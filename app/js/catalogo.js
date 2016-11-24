@@ -67,7 +67,7 @@ var salida = '';
                                     '<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
                                     '<td data-title="SKUNO" id="catalogo_articulo_list_cod">'+r.SkuNo+'</td>'+
                                     '<td data-title="PARTNO">'+r.PartNo+'</td>'+
-                                    '<td data-title="ArtICULO">'+r.ProdDesc+'</td>'+
+                                    '<td class="resultInput" data-title="ArtICULO">'+r.ProdDesc+'</td>'+
                                     '<td data-title="CATEGORIA">'+r.CatDesc+'</td>'+
                                     '<td data-title="SUB CATEGORIA">'+r.PrdDesc+'</td>'+
                                     '<td class="numeric" data-title="PRECIO">'+precio+'</td>'+

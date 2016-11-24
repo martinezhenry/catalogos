@@ -18,58 +18,7 @@ foreach ($_POST as $i_dato => $dato_){
 switch ($opc){
     //LISTA ARTICULOS
     case 'busquedaXref':
-//        $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNOM);
-//        $resul = $obj_bdmysql->select("art","*","","","",$mysqli);
-//        if(!is_array($resul)){ $resul = array('mss' => 'NO SE ENCONTRO ARTICULOS'); }
-//        echo json_encode($resul);
-        
-        $mysqli = new mysqli(DBHOST2, DBUSER2, DBPASS2, DBNOM2);
-//        $where = "1=1 AND Discontinued = 0 ";
-        $where = "SkuNo like '%".$art_val."%'";
-
-        if($inicial=='true')
-            $where .= " AND `Desc` like '".$xref."%'";
-        if($contenga=='true')
-            $where .= " AND `Desc` like '%".$xref."%'";
-
-        $resul = $obj_bdmysql->select("`inventory items xref`","*",$where,"","0,10",$mysqli);
-        
-        if(!is_array($resul)){ $resul = array('mss' => 'NO SE ENCONTRO ARTICULOS'); }
-        foreach ($resul as $r){ $rr = $r; }
-        $resp = array('mss' => utf8_encode(1), 'salida' => ($rr));
-        echo json_encode($resp);
-//        echo json_encode($resul);
-    break;
-    //EVALUA ARTICULOS
-    case 'catalogoArtBuscaEval':
-        $mss = '';
-        $salida = '';
-        $limit_busqueda = 100;
-        $resul_n = 0;
-        $mysqli = new mysqli(DBHOST2, DBUSER2, DBPASS2, DBNOM2);
-        if (!$mysqli->connect_error) {
-            $where = " 1=1";
-            $where.= " AND (Discontinued = 0)";
-            if($catalogo_articulo != ''){ $where.= " AND ( ( PartNo like '%".$catalogo_articulo."%' ) OR ( SkuNo like '%".$catalogo_articulo."%' ) OR ( ProdDesc like '%".$catalogo_articulo."%' ) )"; }
-            if($catalogo_categoria != ''){ $where.= " AND ( CatCode = '".$catalogo_categoria."' ) "; }
-            //ACA DEBERIA FILTRAR POR EL NOMBRE DE LA SUB-CATEGORIA
-            if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode = '".$catalogo_subcategoria_desc."' ) "; }
-            if($catalogo_stock != ''){ $where.= " AND ( OnHand ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
-            if($catalogo_flags != ''){ 
-                $arr_flag = explode('/*',str_replace('_/*', '', '_'.$catalogo_flags));
-                $where_flag = " AND (";
-                foreach ($arr_flag as $r_flag){ $where_flag.= " ( ".$r_flag." = '1' ) OR"; }
-                $where.= str_replace("ORX","",$where_flag."X")." )";
-            }
-            $resul_n = $obj_bdmysql->num_row("inventory", $where ,$mysqli);
-            $mss = 1; $salida = 233;
-        }
-        $resp = array('mss' => utf8_encode($mss), 'salida' => utf8_encode($salida));
-        echo json_encode($resp);
-    break;
-    //BUSCA ARTICULOS
-    case 'catalogoArtBusca':
-        //$catalogo_articulo = explode(' ', $catalogo_articulo);
+          //$catalogo_articulo = explode(' ', $catalogo_articulo);
         //$cod_articulo = trim($catalogo_articulo[0]);
         $mss = '';
         $salida = '';
@@ -343,6 +292,280 @@ $where .= "AND dtst.SkuNo = inventory.SkuNo
         $resp = array('mss' => utf8_encode($mss), 'salida' => ($salida));
        // header('Content-type: application/json');
         echo (json_encode($resp));
+    break;
+    //EVALUA ARTICULOS
+    case 'catalogoArtBuscaEval':
+        $mss = '';
+        $salida = '';
+        $limit_busqueda = 100;
+        $resul_n = 0;
+        $mysqli = new mysqli(DBHOST2, DBUSER2, DBPASS2, DBNOM2);
+        if (!$mysqli->connect_error) {
+            $where = " 1=1";
+            $where.= " AND (Discontinued = 0)";
+            if($catalogo_articulo != ''){ $where.= " AND ( ( PartNo like '%".$catalogo_articulo."%' ) OR ( SkuNo like '%".$catalogo_articulo."%' ) OR ( ProdDesc like '%".$catalogo_articulo."%' ) )"; }
+            if($catalogo_categoria != ''){ $where.= " AND ( CatCode = '".$catalogo_categoria."' ) "; }
+            //ACA DEBERIA FILTRAR POR EL NOMBRE DE LA SUB-CATEGORIA
+            if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode = '".$catalogo_subcategoria_desc."' ) "; }
+            if($catalogo_stock != ''){ $where.= " AND ( OnHand ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
+            if($catalogo_flags != ''){ 
+                $arr_flag = explode('/*',str_replace('_/*', '', '_'.$catalogo_flags));
+                $where_flag = " AND (";
+                foreach ($arr_flag as $r_flag){ $where_flag.= " ( ".$r_flag." = '1' ) OR"; }
+                $where.= str_replace("ORX","",$where_flag."X")." )";
+            }
+            $resul_n = $obj_bdmysql->num_row("inventory", $where ,$mysqli);
+            $mss = 1; $salida = 233;
+        }
+        $resp = array('mss' => utf8_encode($mss), 'salida' => utf8_encode($salida));
+        echo json_encode($resp);
+    break;
+    //BUSCA ARTICULOS
+    case 'catalogoArtBusca':
+         //$catalogo_articulo = explode(' ', $catalogo_articulo);
+        //$cod_articulo = trim($catalogo_articulo[0]);
+        $mss = '';
+        $salida = '';
+        $limit_busqueda = 100;
+        $resul_n = 0;
+        //$mss = 'antes del mysqli';
+        $mysqli = new mysqli(DBHOST2, DBUSER2, DBPASS2, DBNOM2);
+        
+        if (!$mysqli->connect_error) {
+
+            $mysqli->set_charset("utf8");
+
+            $where = "";
+
+            if($catalogo_descontinuado == 'true'){
+                $where.= " (Discontinued = 1)";
+            } else {
+                $where.= " (Discontinued = 0)";
+            }
+
+            //echo  $catalogo_descontinuado . " : " . $where;
+            //exit;
+
+
+            
+            if($catalogo_articulo != ''){
+             $where.= " AND ( ( inventory.PartNo like '%".$catalogo_articulo."%' ) OR ( inventory.SkuNo like '%".$catalogo_articulo."%' ) OR ( inventory.ProdDesc like '%".$catalogo_articulo."%' ) )";
+              }
+
+            if($catalogo_categoria != ''){
+
+                 $where.= " AND ( CatCode = '".$catalogo_categoria."' ) "; 
+             }
+            //ACA DEBERIA FILTRAR POR EL NOMBRE DE LA SUB-CATEGORIA
+
+//            if($catalogo_subcategoria != ''){ 
+
+  //              $where.= " AND ( PrdCode = '".$catalogo_subcategoria_desc."' ) ";
+    //        }
+      //      if($catalogo_stock != ''){ 
+        //        $where.= " AND ( OnHand + qty_dts ".$catalogo_stock_cond." '".$catalogo_stock."' ) ";
+          //  }
+
+             if($catalogo_subcategoria != ''){ $where.= " AND ( PrdCode IN (".$catalogo_subcategoria.") ) "; }
+
+            if ($catalogo_tipo_inventario == '1'){
+                $tipoInv = ' ifnull(OnHand,0) ';
+            } else if ($catalogo_tipo_inventario == '2'){
+                $tipoInv = ' ifnull(invdts.qty,0) ';
+            } else {
+                $tipoInv = ' ifnull(OnHand,0) + ifnull(invdts.qty,0) ';
+            }
+
+            if($catalogo_stock != ''){ $where.= " AND ( ".$tipoInv." ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
+
+//            if($catalogo_stock != ''){ $where.= " AND ( OnHand ".$catalogo_stock_cond." '".$catalogo_stock."' ) "; }
+            if($catalogo_flags != ''){ 
+                $arr_flag = explode('/*',str_replace('_/*', '', '_'.$catalogo_flags));
+                $where_flag = " AND (";
+                foreach ($arr_flag as $r_flag)
+                { 
+                    $where_flag.= " ( ".$r_flag." = '1' ) OR"; 
+                }
+                $where.= str_replace("ORX","",$where_flag."X")." )";
+            }
+
+
+            if ($catalogo_ventaFrom != ''){
+                $where .= " AND dateord >= '". $catalogo_ventaFrom . "'";
+            }
+
+            if ($catalogo_ventaTo != ''){
+                $where .= " AND dateord <= '". $catalogo_ventaTo . "'";
+            }
+
+
+
+           
+           // $n_elem_pag = 50;
+          //  if($n_pag == ''){ $ini_pag = 0; }else{ $ini_pag = $n_pag*$n_elem_pag; }
+            $n_pag++;
+            $limit = '';          
+            //$campos = '*';
+            $campos = ' distinct
+            `inventory`.* ,
+        (select 
+                `codes cat`.`CatDesc`
+            from
+                `codes cat`
+            where
+                (`codes cat`.`CatCode` = `inventory`.`CatCode`)) AS `CatDesc`,
+        `inventory`.`PrdCode` AS `PrdCode`,
+        (select PrdDesc from `codes catsub` where PrdCode = `inventory`.`PrdCode` LIMIT 1) AS `PrdDesc`,
+        IFNULL(invdts.qty,0) as qty_dts,
+(IFNULL(invdts.qty,0) +  inventory.OnHand) as totalcant,
+            ifnull(z.Precio,0) as Precio,
+            ifnull(z.Date_To_dma,\'00/00/0000\') as Date_To_dma,
+            ifnull(z.Date_From_dma,\'00/00/0000\') as Date_From_dma,
+            ifnull(invpri.CurPrice, \'0.0000\') as precio2,
+            ifnull(y.dateord, \'00/00/0000\') as dateord
+
+
+
+            ';
+
+
+
+            $myTable = "
+                   inventory 
+                    left join (
+                    select  det.SkuNo, det.precio,
+                    DATE_FORMAT(max(ofer.Date_To),'%d/%m/%Y') AS Date_To_dma,
+                    DATE_FORMAT(max(ofer.Date_From),'%d/%m/%Y') AS Date_From_dma
+                    
+                     from  `ofertas detail` det
+                    left join `ofertas` ofer
+                    on (ofer.ofertaid = det.id )
+                    group by
+                    det.SkuNo, det.precio
+                    order by ofer.date_to desc
+                    limit 1
+                    ) z
+                    on (z.SkuNo = inventory.SkuNo)
+left join
+(
+                            select 
+                                aa.`SkuNo`,
+                                (aa.`Qty`) qty
+                            from
+                                `inventory dts` aa
+                            where
+                        
+                             (aa.`SkuNo` <> 0) and
+                             qty = (select max(qty) from `inventory dts`  where SkuNo = aa.SkuNo)
+                             ) as invdts
+                            on (invdts.SkuNo = inventory.SkuNo)
+                            left join `inventory pricing` invpri
+                            on (invpri.SkuNo = inventory.SkuNo and invpri.PriceColumn = 4)
+                        left join (
+                            
+                            select max(ord.invDate) as dateord, orddet.skuno from `orders detail` orddet
+                            left join
+                            orders ord
+                            on (ord.ordid = orddet.ordid)
+                            group by orddet.skuno
+
+                        ) y
+                        on (y.skuno = inventory.SkuNo)
+                            
+            ";
+
+           // $resul_n = $obj_bdmysql->num_row(myTable, $where ,$mysqli);
+            $resul = $obj_bdmysql->select($myTable, $campos, $where, "PartNo", $limit,$mysqli,false);
+           // $mss = $resul;
+            //var_dump($resul);
+
+            $resul_n = 1;
+            if(count($resul) == 0){ 
+                $mss = 'NO SE ENCONTRARON ARTICULOS. ';
+            }else{
+                if(!is_array($resul)){ 
+                    $mss = 'NO SE ENCONTRARON ARTICULOS. '.$resul;
+                }else{
+                    $mss = 1;
+                    $salida = $resul;
+                   /* if($n_pag == 1){
+
+                    $salida = '<tr>
+                                    <th>N</th>
+                                    <th>Sel</th>
+                                    <th width="10%">SkuNo</th>
+                                    <th width="10%">PartNo</th>
+                                    <th>Descripcion</th>
+                                    <th>Sub Cat.</th>
+                                    <th class="numeric">Precio</th>
+                                    <th>Cat Tex.</th>
+                                    <th>Cat DTS.</th>
+                                    <th class="numeric">Oferta</th>
+                                    <th>Ini. Oferta</th>
+                                    <th>Fin. Oferta</th>
+                                    <th>Flag</th>
+                                </tr>';
+                    }
+                    $salida.= '<tr id="'.$n_pag.'"><td colspan="12">PAGINA '.$n_pag.'</td></tr>';
+                    $n = $ini_pag+1;
+                    foreach ($resul as $r){
+                        //DEFINE PRECIO
+                        $precio = '0';
+                        //DEFINE FLAG
+                        $flag = '';
+                        if($r['Flag01'] == '1'){ $flag.= 'Flag01, '; }
+                        if($r['Flag02'] == '1'){ $flag.= 'Flag02, '; }
+                        if($r['Flag03'] == '1'){ $flag.= 'Flag03, '; }
+                        if($r['Flag04'] == '1'){ $flag.= 'Flag04, '; }
+                        if($r['Flag05'] == '1'){ $flag.= 'Flag05, '; }
+                        if($r['Flag06'] == '1'){ $flag.= 'Flag06, '; }
+                        if($r['Flag07'] == '1'){ $flag.= 'Flag07, '; }
+                        if($r['Flag08'] == '1'){ $flag.= 'Flag08, '; }
+                        if($r['Flag09'] == '1'){ $flag.= 'Flag09, '; }
+                        if($r['Flag10'] == '1'){ $flag.= 'Flag10, '; }
+                        if(trim($flag) != ''){ $flag = str_replace(', _', '', $flag.'_'); }else{ $flag = 'No Aplica'; }
+
+                        //DEFINE OFERTAS
+    //                    select *,b.nombre,b.Date_To,DATE_FORMAT(b.Date_To,'%d/%m/%Y') AS Date_To_dma,b.Date_From,DATE_FORMAT(b.Date_From,'%d/%m/%Y') AS Date_From_dma 
+    //FROM autodatasystem.`ofertas detail` as a LEFT JOIN autodatasystem.ofertas as b ON a.ID = b.OfertaId
+    //WHERE SkuNo = '113631' ORDER BY b.Date_To DESC LIMIT 1
+                        $resul_oferta = $obj_bdmysql->select("`ofertas detail` as a LEFT JOIN ofertas as b ON a.ID = b.OfertaId", "*,b.nombre,b.Date_To,DATE_FORMAT(b.Date_To,'%d/%m/%Y') AS Date_To_dma,b.Date_From,DATE_FORMAT(b.Date_From,'%d/%m/%Y') AS Date_From_dma", "SkuNo = '".$r['SkuNo']."'", "Date_To DESC", "1",$mysqli);
+                        if(!is_array($resul_oferta)){ $oferta = '0'; $fecha_to_oferta = '00/00/0000'; $fecha_from_oferta = '00/00/0000'; 
+                        }else{    $oferta = $resul_oferta[0]['Precio']; $fecha_to_oferta = $resul_oferta[0]['Date_To_dma']; $fecha_from_oferta = $resul_oferta[0]['Date_From_dma'];   }
+                        if($resul_n <= $limit_busqueda){ $mss = '1'; }else{ $mss = '2'; }
+//                        if($resul_n <= $limit_busqueda){ 
+                        $mss = '1';
+                        $catalogo_articulo_arr = $r['SkuNo'].'/*'.$r['PartNo'].'/*'.$r['ProdDesc'].'/*'.$r['CatDesc'].'/*'.$r['PrdDesc'].'/*'.$precio.'/*'.$r['OnHand'].'/*'.$oferta.'/*'.$fecha_to_oferta.'/*'.$fecha_to_oferta.'/*'.$flag;
+                        $salida.= '
+                                <tr class="catalogo_articulo_fila" id="catalogo_articulo_fila_'.$r['SkuNo'].'" >
+                                    <td data-title="N" style="text-align:center;">'.$n.'</td>
+                                    <td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'.$r['SkuNo'].'" value="'.$r['SkuNo'].'"></td>
+                                    <td data-title="SKUNO" id="catalogo_articulo_list_cod">'.$r['SkuNo'].'</td>
+                                    <td data-title="PARTNO">'.$r['PartNo'].'</td>
+                                    <td data-title="ArtICULO">'.$r['ProdDesc'].'</td>
+                                    <td data-title="CATEGORIA">'.$r['CatDesc'].'</td>
+                                    <td data-title="SUB CATEGORIA">'.$r['PrdDesc'].'</td>
+                                    <td class="numeric" data-title="PRECIO">'.$precio.'</td>
+                                    <td class="numeric" data-title="STOCK">'.$r['OnHand'].'</td> 
+                                    <td class="numeric" data-title="STOCK">'.$r['qty_dts'].'</td> 
+                                    <td class="numeric" data-title="OFERTA">'.$oferta.'</td> 
+                                    <td data-title="INI. OFERTA">'.$fecha_to_oferta.'</td>
+                                    <td data-title="FIN OFERTA">'.$fecha_from_oferta.'</td>
+                                    <td data-title="FLAG">'.$flag.'</td>
+                                    <input type="hidden" id="catalogo_articulo_arr_'.$r['SkuNo'].'" value="'.$catalogo_articulo_arr.'">
+                                </tr>';
+                        $n = $n +1;*/
+                  //  }
+                }
+            }
+            
+             
+        }else{ $mss = 'ERROR EN CONEXION CON LA BD: '.$mysqli->connect_error;}
+        $resp = array('mss' => utf8_encode($mss), 'salida' => ($salida));
+       // header('Content-type: application/json');
+        echo (json_encode($resp));
+    break;
+    //CARGA ARTICULOS AL CATALOGO
     break;
     //CARGA ARTICULOS AL CATALOGO
     case 'catalogoArtCarga':
