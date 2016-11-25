@@ -635,7 +635,7 @@
                         //MARCA O DESMARCA
                         sel_all($("#catalogo_sel_all").is(':checked'));
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
-                        desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
+                        //desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
                     }else{ 
                         alert(data.mss);
                         console.log(data.mss);
@@ -717,7 +717,7 @@
                         //MARCA O DESMARCA
                         sel_all($("#catalogo_sel_all").is(':checked'));
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
-                        desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
+                      //  desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
                     }else{ 
                         alert(data.mss);
                         console.log(data.mss);
@@ -753,7 +753,7 @@
                         //MARCA O DESMARCA
                         sel_all($("#catalogo_sel_all").is(':checked'));
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
-                        desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
+                       // desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
                         n_pag = n_pag+1;
                     }else{ 
                         alert(data.mss);
