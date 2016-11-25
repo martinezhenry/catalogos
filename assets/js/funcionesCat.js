@@ -202,6 +202,12 @@ function omitirAcentos(text) {
 }
 
 
+function mostrarModal(skuno){
+    $('.modal-content').html("<img src='../../assets/img/art/"+skuno+".jpg' alt='No Posee imagen'>");
+    $('#modalImg').modal("show");
+
+}
+
 
 function contruirReporte(resul){
 
@@ -271,7 +277,7 @@ var salida = '';
                         salida+= '<tr class="catalogo_articulo_fila" id="catalogo_articulo_fila_'+r.SkuNo+'" >'+
                         '<td data-title="N" style="text-align:center;">'+(k+1)+'</td>'+
                         '<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
-                                    '<td data-toggle="modal" data-target=".bs-example-modal-sm'+(k+1)+'" >'+r.SkuNo+'</td>'+
+                                    '<td data-toggle="modal" onclick="mostrarModal('+r.SkuNo+')" >'+r.SkuNo+'</td>'+
                                     '<td class="resultInput" data-title="PARTNO">'+r.PartNo+'</td>'+
                                     '<td class="resultInput" data-title="ArtICULO">'+r.xref+'</td>'+
                                     '<td data-title="CATEGORIA">'+r.xref_universal+'</td>'+
@@ -286,8 +292,9 @@ var salida = '';
                                     '<td data-title="FLAG">'+r.precio1+'</td>'+
                                     '<td data-title="FLAG">'+r.precio22+'</td>'+
                                     '<input type="hidden" id="catalogo_articulo_arr_'+r.SkuNo+'" value="'+catalogo_articulo_arr+'">'+
-                                    '<div class="modal fade bs-example-modal-sm'+(k+1)+'" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"><div class="modal-dialog modal-sm" role="document"><div class="modal-content"><img src="../../assets/img/art/'+r.SkuNo+'.jpg" alt=""></div></div></div>'+
-                                  '</tr>';
+                                    
+                                  '</tr>'+
+                                  '';
                         n = n +1;
                     });
 

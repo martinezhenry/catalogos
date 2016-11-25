@@ -10,7 +10,7 @@ global $usuario,$clave,$nom_bd,$link;
 //LOCAL
 $usuario = "root";
 $clave = "";
-$nom_bd = "v1131055_cat";
+$nom_bd = "catalogo";
 //$link=mysql_connect("localhost",$usuario,$clave) or die("No se pudo conectar con la base de datos en el servidor. ".mysql_error());
 //$bd = mysql_select_db($nom_bd,$link) or die("No se pudo abri la Base de Datos. ".mysql_error());
 $link=mysqli_connect("localhost",$usuario,$clave,$nom_bd) or die("No se pudo conectar con la base de datos. ".mysql_error());

@@ -30,7 +30,7 @@ define('DBNOM', 'v1131055_cat');*/
 define('DBHOST', 'localhost'); 
 define('DBUSER', 'root'); 
 define('DBPASS', ''); 
-define('DBNOM', 'v1131055_cat');
+define('DBNOM', 'catalogo');
 
 //BD2
 define('DBHOST2', '50.196.74.121');
