@@ -280,17 +280,17 @@ var salida = '';
                                     '<td data-toggle="modal" onclick="mostrarModal('+r.SkuNo+')" >'+r.SkuNo+'</td>'+
                                     '<td class="resultInput" data-title="PARTNO">'+r.PartNo+'</td>'+
                                     '<td class="resultInput" data-title="ArtICULO">'+r.xref+'</td>'+
-                                    '<td data-title="CATEGORIA">'+r.xref_universal+'</td>'+
-                                    '<td data-title="SUB CATEGORIA">'+r.Desc+'</td>'+
-                                    '<td class="numeric" data-title="STOCK">'+r.OnHand +' - '+r.InPick+'</td> '+
-                                    '<td class="numeric" data-title="STOCK">'+r.qty_dts+'</td> '+
-                                    '<td data-title="FLAG">'+r.PO+'</td>'+
-                                    '<td class="numeric" data-title="OFERTA">'+r.AvgCost+'</td> '+
-                                    '<td data-title="INI+ OFERTA">'+r.LastPrice+'</td>'+
-                                    '<td data-title="FIN OFERTA">'+r.BinLoc+'</td>'+
-                                    '<td data-title="FLAG">'+r.BinLoc+'</td>'+
-                                    '<td data-title="FLAG">'+r.precio1+'</td>'+
-                                    '<td data-title="FLAG">'+r.precio22+'</td>'+
+                                    '<td class="resultInput" data-title="CATEGORIA">'+r.xref_universal+'</td>'+
+                                    '<td class="resultInput" data-title="SUB CATEGORIA">'+r.Desc+'</td>'+
+                                    '<td class="numeric resultInput" data-title="STOCK">'+r.OnHand +' - '+r.InPick+'</td> '+
+                                    '<td class="numeric resultInput" data-title="STOCK">'+r.qty_dts+'</td> '+
+                                    '<td class="resultInput" data-title="FLAG">'+r.PO+'</td>'+
+                                    '<td class="numeric resultInput" data-title="OFERTA">'+r.AvgCost+'</td> '+
+                                    '<td class="resultInput" data-title="INI+ OFERTA">'+r.LastPrice+'</td>'+
+                                    '<td class="resultInput" data-title="FIN OFERTA">'+r.BinLoc+'</td>'+
+                                    '<td class="resultInput" data-title="FLAG">'+r.BinLoc+'</td>'+
+                                    '<td class="resultInput" data-title="FLAG">'+r.precio1+'</td>'+
+                                    '<td class="resultInput" data-title="FLAG">'+r.precio22+'</td>'+
                                     '<input type="hidden" id="catalogo_articulo_arr_'+r.SkuNo+'" value="'+catalogo_articulo_arr+'">'+
                                     
                                   '</tr>'+
@@ -386,15 +386,15 @@ var salida = '';
                         salida+= '<tr class="catalogo_articulo_fila" id="catalogo_articulo_fila_'+r.SkuNo+'" >'+
                                    '<td data-title="N" style="text-align:center;">'+(k+1)+'</td>'+
                                     '<td data-title="CH" style="text-align:center;"><input type="checkbox" id="catalogo_articulo_list_ch_'+r.SkuNo+'" value="'+r.SkuNo+'"></td>'+
-                                    '<td data-title="SKUNO" id="catalogo_articulo_list_cod">'+r.SkuNo+'</td>'+
-                                    '<td  data-title="PARTNO">'+r.PartNo+'</td>'+
+                                    '<td class="resultInput" data-title="SKUNO" id="catalogo_articulo_list_cod">'+r.SkuNo+'</td>'+
+                                    '<td class="resultInput"  data-title="PARTNO">'+r.PartNo+'</td>'+
                                     '<td class="resultInput" data-title="ArtICULO">'+r.ProdDesc+'</td>'+
-                                    '<td data-title="CATEGORIA">'+r.CatDesc+'</td>'+
-                                    '<td data-title="SUB CATEGORIA">'+r.PrdDesc+'</td>'+
-                                    '<td class="numeric" data-title="PRECIO">'+precio+'</td>'+
-                                    '<td class="numeric" data-title="STOCK">'+r.OnHand+'</td> '+
-                                    '<td class="numeric" data-title="STOCK">'+r.qty_dts+'</td> '+
-                                    '<td class="numeric" data-title="OFERTA">'+oferta+'</td> '+
+                                    '<td class="resultInput" data-title="CATEGORIA">'+r.CatDesc+'</td>'+
+                                    '<td class="resultInput" data-title="SUB CATEGORIA">'+r.PrdDesc+'</td>'+
+                                    '<td class="numeric resultInput" data-title="PRECIO">'+precio+'</td>'+
+                                    '<td class="numeric resultInput" data-title="STOCK">'+r.OnHand+'</td> '+
+                                    '<td class="numeric resultInput" data-title="STOCK">'+r.qty_dts+'</td> '+
+                                    '<td class="numeric resultInput" data-title="OFERTA">'+oferta+'</td> '+
                                     '<td data-title="INI+ OFERTA">'+fecha_to_oferta+'</td>'+
                                     '<td data-title="FIN OFERTA">'+fecha_from_oferta+'</td>'+
                                     '<td data-title="FLAG">'+flag+'</td>'+
