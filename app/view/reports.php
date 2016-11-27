@@ -434,6 +434,7 @@
         <script type="text/javascript">
         jQuery.fn.extend({
             resaltar: function(busqueda, claseCSSbusqueda){
+                console.log("resaltar");
                 var regex = new RegExp("(<[^>]*>)|("+ busqueda.replace(/([-.*+?^${}()|[\]\/\\])/g,"\\$1") +')', 'ig');
                 var nuevoHtml=this.html(this.html().replace(regex, function(a, b, c){
                     return (a.charAt(0) == "<") ? a : "<span class=\""+ claseCSSbusqueda +"\">" + c + "</span>";
@@ -451,31 +452,7 @@
             var order_tipo = '<?php echo $catalogo_order_tipo;?>';
             if('<?php echo $catalogo_order_orden;?>' === 'false'){ var order_orden = false; }else{ var order_orden = true;}
             
-            $("#catalogo_portada").fileinput({
-                uploadUrl: "../../assets/bootstrap-fileinput-master/upload.php",
-                uploadAsync: false,
-                maxFileCount: 1,
-                <?php if(file_exists($portada)){?>
-                initialPreview: '<img src="<?php echo $portada;?>" class="file-preview-image" alt="Portada" title="Portada">'     
-                <?php } ?>
-            });
             
-            $("#catalogo_fondo").fileinput({
-                uploadUrl: "../../assets/bootstrap-fileinput-master/upload_bg.php",
-                uploadAsync: false,
-                maxFileCount: 1,
-                <?php if(file_exists($fondo)){?>
-                initialPreview: '<img src="<?php echo $fondo;?>" class="file-preview-image" alt="Portada" title="Portada">'     
-                <?php } ?>
-            });
-            
-            $("input#catalogo_titulo_color").ColorPickerSliders({
-                size: 'sm',
-                placement: 'right',
-                swatches: false,
-                sliders: false,
-                hsvpanel: true
-            });
         </script>
                 
         <!--ACCIONES DEL FORMULARIO-->
@@ -548,10 +525,7 @@
                 cantidad_articulos_catalogo();
                 
                 //VALORES SELECT
-                document.getElementById('catalogo_titulo_fuente').value = '<?php echo $titulo_fuente;?>';
-                document.getElementById('catalogo_titulo_estilo').value = '<?php echo $titulo_estilo;?>';
-                document.getElementById('catalogo_titulo_ali_hor').value = '<?php echo $titulo_hor;?>';
-                document.getElementById('catalogo_titulo_ali_ver').value = '<?php echo $titulo_ver;?>';
+              
             });
             
             //BUSCA ARTICULO
@@ -636,6 +610,7 @@
                         sel_all($("#catalogo_sel_all").is(':checked'));
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
                         //desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
+                        $('.resultInput').resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
                     }else{ 
                         alert(data.mss);
                         console.log(data.mss);
@@ -645,7 +620,7 @@
                     }
 
 
-                    $('.resultInput').resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                    
 
                     desactiva_preloader();
                 },"json").fail(function(error, errorText){
