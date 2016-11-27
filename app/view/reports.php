@@ -601,6 +601,7 @@
                 },function(data){
                    // alert(data);
                     if(data.mss === '1'){
+                       
                         $('#catalogo_articulo_list_busca').html(contruirArticulos(data.salida));
                         n_pag = 1;
                         modal_busqueda_sal = '';
@@ -610,7 +611,7 @@
                         sel_all($("#catalogo_sel_all").is(':checked'));
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
                         //desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
-                        $('.resultInput').resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                         $('.resultInput').resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
                     }else{ 
                         alert(data.mss);
                         console.log(data.mss);
