@@ -11,11 +11,28 @@ date_default_timezone_set('America/Caracas');
 
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
+function getColumn($i){
+	$columns =  Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+
+	return $columns[$i];
+}
+
+function getHeaderArticulo($i){
+	$header =  Array('SkuNo','partno','descripcion','categoria','sub cat','precio','cat tex','cat DTS','Oferta','ini oferta','fin oferta','flag');
+	return $header[$i];
+}
+
+function getHeaderXref($i){
+	$header =  Array('SkuNo','partno','xref','xref-universal','descripcion','avi','avi-dts','PO','avgCost','precio dts','binloctex','binlocdts','precio1','precio2');
+	return $header[$i];
+}
+
+
+$lines = str_replace('_/*','',$_POST['lines']);
+$lines = explode("|", $lines);
 
 
 
-
-$lines = explode("//", $_POST['lines']);
 
 
 /** Include PHPExcel */
@@ -42,62 +59,44 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 //echo date('H:i:s') , " Add some data" , EOL;
 $i = 1;
 
-$objPHPExcel->setActiveSheetIndex(0)
-	            ->setCellValue('A'.$i, 'SkuNo')
-	            ->setCellValue('B'.$i, 'partno')
-	            ->setCellValue('C'.$i, 'xref')
-	            ->setCellValue('D'.$i, 'xref-universal')
-                    ->setCellValue('E'.$i, 'descripcion')
-	            ->setCellValue('F'.$i, 'avi')
-	            ->setCellValue('G'.$i, 'avi-dts')
-	            ->setCellValue('H'.$i, 'PO')
-                    ->setCellValue('I'.$i, 'avgCost')
-	            ->setCellValue('J'.$i, 'precio dts')
-	            ->setCellValue('K'.$i, 'binloctex')
-	            ->setCellValue('L'.$i, 'binlocdts')
-                    ->setCellValue('M'.$i, 'precio1')
-	            ->setCellValue('N'.$i, 'precio2');
+if($_POST['type']=='1'){
+$header =  Array('SkuNo','partno','descripcion','categoria','sub cat','precio','cat tex','cat DTS','Oferta','ini oferta','fin oferta','flag');
 
 
+}else{
 
-
-foreach ($lines as $key) {
-	$i = $i + 1;
-	$ddata = json_decode($key, true);
-
-	// echo $i;
-	// echo $ddata['Skuno'];
-	// echo $ddata['Partno'];
-	// echo $ddata['xref'];
-	// echo $ddata['xrefuniversal'];
-	// echo $ddata['descripcion'];
-	// echo $ddata['onhandinpickav'];
-	// echo $ddata['avidst'];
-	// echo $ddata['PO'];
-	// echo "============================";
-
-	// var_dump(count($lines));
-	// exit();
-		$objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('A'.$i, $ddata['Skuno'])
-         ->setCellValue('B'.$i, $ddata['Partno'])
-        ->setCellValue('C'.$i, $ddata['xref'])
-        ->setCellValue('D'.$i, $ddata['xrefuniversal'])
-        ->setCellValue('E'.$i, $ddata['descripcion'])
-         ->setCellValue('F'.$i, $ddata['onhandinpickav'])
-        ->setCellValue('G'.$i, $ddata['avidst'])
-        ->setCellValue('H'.$i, $ddata['PO'])
-        ->setCellValue('I'.$i, $ddata['avrcost'])
-         ->setCellValue('J'.$i, $ddata['dts'])
-        ->setCellValue('K'.$i, $ddata['binloctex'])
-        ->setCellValue('L'.$i, $ddata['binlocdts'])
-        ->setCellValue('M'.$i, $ddata['precio1'])
-         ->setCellValue('N'.$i, $ddata['precio2']);
-
-    if($i == (count($lines)/2))
-    	break;
-                       
+$header =  Array('SkuNo','partno','xref','xref-universal','descripcion','avi','avi-dts','PO','avgCost','precio dts','binloctex','binlocdts','precio1','precio2');
 }
+
+
+foreach($header as $key => $value){
+	$objPHPExcel->setActiveSheetIndex(0)
+	->setCellValue(getColumn($key).$i, $value);
+}
+
+
+
+
+
+
+
+// Genera los datos
+
+foreach($lines as $key => $value){
+	$data = explode("/*", $value);
+	$i = $i + 1;
+	foreach($data as $key => $value){
+		$objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue(getColumn($key).$i, $value);
+	}
+	if($i == (count($lines)/2))
+    	break;
+}
+
+
+
+
+
 /*
 // Miscellaneous glyphs, UTF-8
 $objPHPExcel->setActiveSheetIndex(0)

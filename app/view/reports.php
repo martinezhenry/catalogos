@@ -370,7 +370,7 @@
                                         <div class="col-sm-4 text-right"><br>
 
                                        
-                                            <button type="button" class="btn btn-default" onclick="Exportar_reporte();">Exportar Excel</button>
+                                            <button type="button" class="btn btn-default" onclick="Exportar_reporte(type);">Exportar Excel</button>
                                        
 
                                         </div>
@@ -389,6 +389,7 @@
                             </form>
                             <form id="exportExcel" action="../controllers/exportarExcel.php"  method="post" target="_blank" >
                                 <input type="hidden" id="exportExcelData" name="lines" value="">
+                                <input type="hidden" id="exportExcelDataType" name="type" value="">
                                 
                             </form>
                         </div>
@@ -432,6 +433,9 @@
         <!-- FUNCION PARA RESALTAR -->
 
         <script type="text/javascript">
+
+        var type = 1;
+
         jQuery.fn.extend({
             resaltar: function(busqueda, claseCSSbusqueda){
                 console.log("resaltar");
@@ -612,6 +616,7 @@
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
                         //desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
                          $('.resultInput').resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                         $('#exportExcelDataType').val(1);
                     }else{ 
                         alert(data.mss);
                         console.log(data.mss);
@@ -703,6 +708,7 @@
                         $('#catalogo_articulo_list_busca').html();
                     }
                     $('.resultInput').resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                   $('#exportExcelDataType').val(2);
                     desactiva_preloader();
                 },"json").fail(function(error, errorText){
                   

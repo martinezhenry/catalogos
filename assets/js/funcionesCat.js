@@ -73,40 +73,18 @@ function Exportar_reporte(){
     html = '';
     count = 0;
     allDataExcel = '';
+    catalogo_articulo_arr = '_/*';
     if(ch_art !== ''){
         ch_art = '_'+ch_art;
         ch_art = ch_art.replace('_/*','');
         arr_ch = ch_art.split('/*');
 
         arr_ch.forEach(function(value){
-            catalogo_articulo_arr = document.getElementById('catalogo_articulo_arr_'+value).value;
-            arr_art = catalogo_articulo_arr.split('/*');
+            catalogo_articulo_arr = catalogo_articulo_arr + '|' +document.getElementById('catalogo_articulo_arr_'+value).value;
 
-            dataExcel = {};
-            dataExcel["Skuno"] = arr_art[1];
-            dataExcel["Partno"] = arr_art[2];
-            dataExcel["xref"] = arr_art[3];
-            dataExcel["xrefuniversal"] = arr_art[4];
-            dataExcel["descripcion"] = arr_art[5];
-            dataExcel["onhandinpickav"] = arr_art[6];
-            dataExcel["avidst"] = arr_art[7];
-            dataExcel["avrcost"] = arr_art[8];
-            dataExcel["precio1"] = arr_art[9];
-            dataExcel["dts"] = arr_art[10] ;
-            dataExcel["binloctex"] = arr_art[11] || '0';
-            dataExcel["binlocdts"] = arr_art[12] || '0';
-            dataExcel["precio"] = arr_art[13]  || '0';
-            dataExcel["precio2"] = arr_art[14]  || '0';
-            dataExcel["PO"] = arr_art[15]  || '0';
-
-            allDataExcel += allDataExcel + JSON.stringify(dataExcel)+'//';
-
-
-
-            
         });
 
-        $("#exportExcelData").val(allDataExcel);
+        $("#exportExcelData").val(catalogo_articulo_arr);
         $("#exportExcel").attr('action', '../controllers/exportarExcel.php');
         $("#exportExcel").submit();
 
