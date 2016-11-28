@@ -374,7 +374,7 @@
                                        
 
                                         </div>
-                                        <div class="col-sm-4 text-right"><br><button type="button" class="btn btn-default" onclick="cargar_articulo();">Cargar</button></div>
+                                       <!-- <div class="col-sm-4 text-right"><br><button type="button" class="btn btn-default" onclick="cargar_articulo();">Cargar</button></div> -->
                                         <div id="resul"></div>
                                     </div>
                                 </div>
@@ -382,8 +382,8 @@
                                 <br>
                                 <div class="form-group">
                                     <div class="col-sm-12" align="right">
-                                        <button type="button" class="btn btn-default" onclick="ir_a('catalogoIndex.php','')">Cancelar</button>
-                                        <button type="button" class="btn btn-warning" onclick="editar_catalogo();">Guardar</button>
+                                      <!--  <button type="button" class="btn btn-default" onclick="ir_a('catalogoIndex.php','')">Cancelar</button>
+                                        <button type="button" class="btn btn-warning" onclick="editar_catalogo();">Guardar</button> -->
                                     </div>
                                 </div>
                             </form>
@@ -624,6 +624,7 @@
                     
 
                     desactiva_preloader();
+                    
                 },"json").fail(function(error, errorText){
                   
                     console.log('ERROR: ' + errorText);
