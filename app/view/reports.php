@@ -611,11 +611,28 @@
                         modal_busqueda_sal = '';
                         //CUENTA ARTICULOS BUSQUEDA
                         cantidad_articulos_catalogo_busqueda();
+
+
                         //MARCA O DESMARCA
                         sel_all($("#catalogo_sel_all").is(':checked'));
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
                         //desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
-                         $('.resultInput').resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                        var n = $(".catalogo_articulo_fila").length;
+                        for (var i = 1; i < n; i++) {
+                            $('.resultInput1'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput2'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput3'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput4'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput5'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput6'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput7'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput8'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput9'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput10'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput11'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                            $('.resultInput12'+i).resaltar($('#catalogo_articulo').val(), 'resaltarTexto');
+                        }
+                        
                          $('#exportExcelDataType').val(1);
                     }else{ 
                         alert(data.mss);
@@ -700,6 +717,28 @@
                         sel_all($("#catalogo_sel_all").is(':checked'));
                         //DASACTIVA LOS ARTICULOS QUE YA SE ENCUENTREN EN EL CATALOGO
                       //  desactiva_cargados('catalogo_articulo_list_carga','catalogo_articulo_fila_carga');
+                      //  
+                      //  
+                      var n = $(".catalogo_articulo_fila").length;
+                      for (var i = 1; i < n; i++) {
+                            $('.resultInput1'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput2'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput3'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput4'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput5'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput6'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput7'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput8'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput9'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput10'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput11'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput12'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput13'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                            $('.resultInput14'+i).resaltar($('#busqueda_xref').val(), 'resaltarTexto');
+                        }
+
+
+                    
                     }else{ 
                         alert(data.mss);
                         console.log(data.mss);
@@ -707,7 +746,6 @@
 //                        $('#modal_busqueda').html(modal_busqueda_sal);
                         $('#catalogo_articulo_list_busca').html();
                     }
-                    $('.resultInput').resaltar($('#busqueda_xref').val(), 'resaltarTexto');
                    $('#exportExcelDataType').val(2);
                     desactiva_preloader();
                 },"json").fail(function(error, errorText){
